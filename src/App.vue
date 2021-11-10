@@ -1,28 +1,35 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    
+    <NavDrawer v-if="userInfo" />
+    
+    <v-main :class="{'nav-size': userInfo}">
+      <router-view></router-view>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import NavDrawer from './components/NavDrawer.vue'
 export default {
   name: 'App',
+
   components: {
-    HelloWorld
+    NavDrawer
+  },
+
+  data: () => ({
+  }),
+  computed:{
+    userInfo(){
+      return this.$store.getters['auth/getUserInfo']
+    }
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.nav-size{
+  margin-left: 256px;
 }
 </style>
