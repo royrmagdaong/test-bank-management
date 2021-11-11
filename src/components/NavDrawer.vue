@@ -9,7 +9,7 @@
         <div class="mx-4 mt-2 mb-5" style="background: #111; height:2px;"></div>
 
         <div class="d-flex flex-column" v-for="item in navItems" :key="item.title">
-            <div class="text-uppercase subtitle-1 text-center mx-4 nav-item" @click="navItem(item.route)" :class="{'nav-item-active':item.route === $route.path?true:false}">{{ item.title }}</div>
+            <div class="text-uppercase subtitle-1 text-center mx-4 nav-item" @click="navItem(item.route)" :class="{'nav-item-active':$route.path.includes(item.route)?true:false}">{{ item.title }}</div>
         </div>
     </v-navigation-drawer>
   </div>
