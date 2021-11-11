@@ -18,7 +18,7 @@ import AdminRooms from './components/admin/rooms/Rooms'
 import AdminStudents from './components/admin/students/Students'
 import AdminIndex from './components/admin/students/student/Index'
 import AdminViewStudent from './components/admin/students/student/ViewStudent'
-import AdminEnrollStudent from './components/admin/students/student/EnrollStudent'
+import AdminEnrollStudent from './components/admin/students/student/enrollment-records/EnrollStudent'
 import AdminStudentEnrollmentRecords from './components/admin/students/student/StudentEnrollmentRecords'
 import AdminEnrollmentRecords from './components/admin/students/student/enrollment-records/Index'
 import AdminEnrolledSubjects from './components/admin/students/student/enrollment-records/EnrolledSubjects'
@@ -116,10 +116,6 @@ const router =  new Router({
               component: AdminViewStudent
             },
             {
-              path: "enroll-student",
-              component: AdminEnrollStudent
-            },
-            {
               path: "enrollment-records",
               component: AdminStudentEnrollmentRecords,
               children:[
@@ -130,7 +126,11 @@ const router =  new Router({
                 {
                   path: 'enrolled-subjects',
                   component: AdminEnrolledSubjects
-                }
+                },
+                {
+                  path: "enroll-student",
+                  component: AdminEnrollStudent
+                },
               ]
             },
             { path: "*", component: NotFound } // should be last

@@ -30,7 +30,7 @@
       <v-btn
           class="grey white--text text-capitalize caption"
           tile
-          @click="$router.push('students/enrollment-records')"
+          @click="$router.push('enrollment-records/enroll-student')"
       >New</v-btn>
       <v-btn
           class="grey white--text text-capitalize caption"
