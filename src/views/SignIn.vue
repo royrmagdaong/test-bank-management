@@ -41,9 +41,9 @@
                     <v-btn outlined block class="primary white--text" tile @click="login">Submit</v-btn>
                   </v-col>
                 </v-row>
-                <div class="mt-1">
+                <!-- <div class="mt-1">
                   <span class="caption">Click here to <a @click="routeTo('/register')">sign up</a></span>
-                </div>
+                </div> -->
               </v-form>
             </div>
           </v-card>
