@@ -1,5 +1,7 @@
 <template>
-  <div>Admin Rooms</div>
+  <v-container>
+    <div>Admin Rooms</div>
+  </v-container>
 </template>
 
 <script>

@@ -1,5 +1,7 @@
 <template>
+<v-container>
   <div>Admin Dashboard</div>
+</v-container>
 </template>
 
 <script>

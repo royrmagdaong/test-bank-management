@@ -1,5 +1,7 @@
 <template>
-  <div>Admin Class</div>
+  <v-container>
+    <div>Admin Class</div>
+  </v-container>
 </template>
 
 <script>

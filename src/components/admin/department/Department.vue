@@ -1,5 +1,7 @@
 <template>
-  <div>Admin Department</div>
+  <v-container>
+    <div>Admin Department</div>
+  </v-container>
 </template>
 
 <script>

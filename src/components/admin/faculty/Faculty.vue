@@ -1,5 +1,7 @@
 <template>
-  <div>Admin Faculty</div>
+  <v-container>
+    <div>Admin Faculty</div>
+  </v-container>
 </template>
 
 <script>

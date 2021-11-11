@@ -1,5 +1,7 @@
 <template>
-  <div>Admin Manage Users</div>
+  <v-container>
+    <div>Admin Manage Users</div>
+  </v-container>
 </template>
 
 <script>

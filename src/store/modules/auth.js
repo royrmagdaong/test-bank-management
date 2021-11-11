@@ -20,6 +20,9 @@ var store = {
     actions:{
         initStore(context){
             let user_info = JSON.parse(localStorage.getItem('user_info'))
+            if(user_info){
+                axios.defaults.headers.common['Authorization'] = `Bearer ${user_info.token}`;
+            }
             context.commit('SET_USER_INFO', user_info)
         },
         signIn(context, payload){
