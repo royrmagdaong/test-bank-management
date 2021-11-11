@@ -33,7 +33,11 @@
         :items-per-page="entryValue"
         class="elevation-0"
         search=""
+        item-key="student_id"
         hide-default-footer
+        v-model="selected"
+        show-select
+        :single-select="false"
     >
         <template v-slot:[`item.view`]="{ item }">
             <div class="view-student" @click="view(item)">
@@ -74,6 +78,7 @@
   export default {
     data () {
       return {
+        selected:[],
         page: 1,
         entryOptions:[5,10,20,50,100],
         entryValue: 10,
