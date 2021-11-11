@@ -34,7 +34,14 @@
         class="elevation-0"
         search=""
         hide-default-footer
-    ></v-data-table>
+    >
+        <template v-slot:[`item.view`]="{ item }">
+            <div class="view-student" @click="view(item)">
+                View
+            </div>
+        </template>
+    </v-data-table>
+
     <hr style="border:#222 solid 1px;">
     <div class="mt-4 d-flex justify-space-between align-center">
     <div class="font-weight-light grey--text text--darken-1 subtitle-2">
@@ -83,7 +90,7 @@
           { text: 'Age', value: 'protein', sortable: true },
           { text: 'Birth Date', value: 'birth_day', sortable: true },
           { text: 'Email Address', value: 'email', sortable: true },
-          { text: 'Options', value: 'iron', sortable: true },
+          { text: 'Options', value: 'view' },
         ],
       }
     },
@@ -94,10 +101,21 @@
     },
     mounted(){
       this.$store.dispatch('adminStudents/getStudents')
+    },
+    methods:{
+        view(student){
+            this.$store.dispatch('adminViewStudent/setStudent', student)
+            this.$router.push('students/view-student')
+        }
     }
   }
 </script>
 
-<style>
-
+<style scoped>
+.view-student{
+    color:rgb(245, 122, 122);
+}
+.view-student:hover{
+    cursor: pointer;
+}
 </style>
