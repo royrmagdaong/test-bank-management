@@ -60,7 +60,7 @@
         <v-btn
             class="grey white--text text-capitalize caption"
             tile
-            @click="$router.push('students/enroll-student')"
+            @click="$router.push('students/enrollment-records')"
         >New</v-btn>
         <v-btn
             class="grey white--text text-capitalize caption"
@@ -117,5 +117,6 @@
 }
 .view-student:hover{
     cursor: pointer;
+    text-decoration: underline;
 }
 </style>
