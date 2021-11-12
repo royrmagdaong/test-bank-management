@@ -51,10 +51,16 @@ const router =  new Router({
     {
       path: '/',
       component: Homepage,
+      meta:{
+        noLoggedInUser: true
+      }
     },
     {
       path: '/home',
       component: Homepage,
+      meta:{
+        noLoggedInUser: true
+      }
     },
     {
       path: '/register',
