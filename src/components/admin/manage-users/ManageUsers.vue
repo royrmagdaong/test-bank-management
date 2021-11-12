@@ -1,13 +1,21 @@
 <template>
   <v-container>
-    <div>Admin Manage Users</div>
+    <v-row>
+      <v-col cols="12">
+        <router-view></router-view>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
-export default {
-
-}
+  export default {
+    data () {
+      return {
+        
+      }
+    }
+  }
 </script>
 
 <style>
