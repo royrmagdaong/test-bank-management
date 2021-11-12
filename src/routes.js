@@ -18,6 +18,7 @@ import AdminGradeLevel from './components/admin/grade-level/GradeLevel' // GRADE
 import AdminGradeLevelIndex from './components/admin/grade-level/Index'
 import AdminManageUsers from './components/admin/manage-users/ManageUsers' // MANAGE USERS
 import AdminManageUsersIndex from './components/admin/manage-users/Index'
+import AdminManageUsersCreateUser from './components/admin/manage-users/CreateUser'
 import AdminRooms from './components/admin/rooms/Rooms'
 import AdminStudents from './components/admin/students/Students' // STUDENT
 import AdminIndex from './components/admin/students/student/Index'
@@ -125,6 +126,10 @@ const router =  new Router({
             {
               path: '/',
               component: AdminManageUsersIndex
+            },
+            {
+              path: 'create-user',
+              component: AdminManageUsersCreateUser
             }
           ]
         },
