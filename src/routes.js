@@ -11,7 +11,8 @@ import AdminBase from './views/admin/Base'
 import AdminClass from './components/admin/class/Class'
 import AdminDashboard from './components/admin/dashboard/Dashboard'
 import AdminDepartment from './components/admin/department/Department'
-import AdminFaculty from './components/admin/faculty/Faculty'
+import AdminFaculty from './components/admin/faculty/Faculty' // FACULTY
+import AdminFacultyIndex from './components/admin/faculty/Index'
 import AdminGradeLevel from './components/admin/grade-level/GradeLevel' // GRADE LEVEL
 import AdminGradeLevelIndex from './components/admin/grade-level/Index'
 import AdminManageUsers from './components/admin/manage-users/ManageUsers'
@@ -91,7 +92,13 @@ const router =  new Router({
         },
         { 
           path: "faculty",
-          component: AdminFaculty
+          component: AdminFaculty,
+          children: [
+            {
+              path: '/',
+              component: AdminFacultyIndex
+            }
+          ]
         },
         { 
           path: "grade-level",
