@@ -1,5 +1,6 @@
 <template>
-  <div>
+<v-col cols="8" offset="2">
+  <v-card class="pa-4" tile>
     <div class="d-flex">
       <v-icon color="" @click="back" class="mr-2">
           mdi-arrow-left
@@ -77,7 +78,8 @@
         </v-col>
       </v-row>
     </div>
-  </div>
+  </v-card>
+</v-col>
 </template>
 
 <script>

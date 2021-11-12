@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-card class="pa-4" tile>
     <div>
         <span class="headline">List of Student</span>
     </div>
@@ -53,7 +53,7 @@
     </div>
     <v-pagination
         v-model="page"
-        :length="4"
+        :length="Math.ceil(students.length/entryValue)"
         prev-icon="mdi-menu-left"
         next-icon="mdi-menu-right"
         class=""
@@ -71,7 +71,7 @@
             tile
         >Delete Selected</v-btn>
     </div>
-  </div>
+  </v-card>
 </template>
 
 <script>

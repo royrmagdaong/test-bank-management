@@ -1,4 +1,5 @@
 <template>
+<v-card class="pa-4" tile>
   <div>
     <div class="d-flex">
         <v-icon color="" @click="back" class="mr-2">
@@ -73,6 +74,7 @@
         </div>
     </div>
   </div>
+</v-card>
 </template>
 
 <script>

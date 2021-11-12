@@ -1,4 +1,5 @@
 <template>
+<v-card class="pa-4" tile>
   <v-row class="pa-2">
     <v-col cols="12" class="pa-2">
       <div class="d-flex align-center">
@@ -186,6 +187,7 @@
       </div>
     </v-col>
   </v-row>
+</v-card>
 </template>
 
 <script>

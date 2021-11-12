@@ -1,4 +1,5 @@
 <template>
+<v-card class="pa-4" tile>
   <div class="mx-6">
     <div class="mb-6">
         <v-icon color="" @click="back">
@@ -38,6 +39,7 @@
       >Delete Selected</v-btn>
     </div>
   </div>
+</v-card>
 </template>
 
 <script>
