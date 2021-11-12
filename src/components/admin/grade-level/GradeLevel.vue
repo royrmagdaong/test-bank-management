@@ -1,6 +1,12 @@
 <template>
   <v-container>
-    <div>Admin Grade Level</div>
+    <v-row>
+      <v-col cols="12">
+        <v-card class="pa-4" tile>
+          <router-view></router-view>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 

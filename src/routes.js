@@ -12,17 +12,18 @@ import AdminClass from './components/admin/class/Class'
 import AdminDashboard from './components/admin/dashboard/Dashboard'
 import AdminDepartment from './components/admin/department/Department'
 import AdminFaculty from './components/admin/faculty/Faculty'
-import AdminGradeLevel from './components/admin/grade-level/GradeLevel'
+import AdminGradeLevel from './components/admin/grade-level/GradeLevel' // GRADE LEVEL
+import AdminGradeLevelIndex from './components/admin/grade-level/Index'
 import AdminManageUsers from './components/admin/manage-users/ManageUsers'
 import AdminRooms from './components/admin/rooms/Rooms'
-import AdminStudents from './components/admin/students/Students'
+import AdminStudents from './components/admin/students/Students' // STUDENT
 import AdminIndex from './components/admin/students/student/Index'
 import AdminViewStudent from './components/admin/students/student/ViewStudent'
 import AdminEnrollStudent from './components/admin/students/student/enrollment-records/EnrollStudent'
 import AdminStudentEnrollmentRecords from './components/admin/students/student/StudentEnrollmentRecords'
 import AdminEnrollmentRecords from './components/admin/students/student/enrollment-records/Index'
 import AdminEnrolledSubjects from './components/admin/students/student/enrollment-records/EnrolledSubjects'
-import AdminSubjects from './components/admin/subjects/Subjects'
+import AdminSubjects from './components/admin/subjects/Subjects' // SUBJECT
 import AdminSubjectIndex from './components/admin/subjects/Index'
 
 // Professor
@@ -94,7 +95,13 @@ const router =  new Router({
         },
         { 
           path: "grade-level",
-          component: AdminGradeLevel
+          component: AdminGradeLevel,
+          children:[
+            {
+              path: '/',
+              component: AdminGradeLevelIndex
+            }
+          ]
         },
         { 
           path: "manage-users",
