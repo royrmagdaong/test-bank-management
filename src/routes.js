@@ -3,8 +3,8 @@ import Router from 'vue-router'
 
 // General User
 import NotFound from './views/NotFound'
-import SignIn from './views/SignIn'
 import SignUp from './views/SignUp'
+import Homepage from './views/Homepage'
 
 // Admin
 import AdminBase from './views/admin/Base'
@@ -50,21 +50,16 @@ const router =  new Router({
     },
     {
       path: '/',
-      component: SignIn,
-      redirect: "/login",
+      component: Homepage,
+    },
+    {
+      path: '/home',
+      component: Homepage,
     },
     {
       path: '/register',
       name: 'register',
       component: SignUp,
-      meta:{
-        noLoggedInUser: true
-      }
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: SignIn,
       meta:{
         noLoggedInUser: true
       }
