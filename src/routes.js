@@ -23,6 +23,7 @@ import AdminStudentEnrollmentRecords from './components/admin/students/student/S
 import AdminEnrollmentRecords from './components/admin/students/student/enrollment-records/Index'
 import AdminEnrolledSubjects from './components/admin/students/student/enrollment-records/EnrolledSubjects'
 import AdminSubjects from './components/admin/subjects/Subjects'
+import AdminSubjectIndex from './components/admin/subjects/Index'
 
 // Professor
 import ProfessorBase from './views/professor/Base'
@@ -138,7 +139,13 @@ const router =  new Router({
         },
         { 
           path: "subjects",
-          component: AdminSubjects
+          component: AdminSubjects,
+          children:[
+            {
+              path: "/",
+              component:AdminSubjectIndex
+            }
+          ]
         },
         { path: "*", component: NotFound } // should be last
       ]
