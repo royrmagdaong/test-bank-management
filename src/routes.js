@@ -232,7 +232,7 @@ router.beforeEach((to, from, next) => {
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if(!user_info){
-      next('/login')
+      next('/')
     }else if( to.matched.some(record => record.meta.isAdminOnly) && (userRole === 'student' || userRole === 'professor') ){
       if(userRole === 'student'){
         next('/student')
