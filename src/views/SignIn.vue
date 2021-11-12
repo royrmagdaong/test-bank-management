@@ -35,10 +35,10 @@
                 ></v-text-field>
                 <v-row no-gutters>
                   <v-col cols="6" class="pl-0 pr-1">
-                    <v-btn outlined block class="secondary white--text" tile @click="reset">Clear</v-btn>
+                    <v-btn outlined block class="secondary " tile @click="reset">Clear</v-btn>
                   </v-col>
                   <v-col cols="6" class="pl-1 pr-0">
-                    <v-btn outlined block class="primary white--text" tile @click="login">Submit</v-btn>
+                    <v-btn outlined block class="primary " tile @click="login">Submit</v-btn>
                   </v-col>
                 </v-row>
                 <!-- <div class="mt-1">
