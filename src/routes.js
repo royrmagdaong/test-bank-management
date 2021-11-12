@@ -8,7 +8,8 @@ import SignUp from './views/SignUp'
 
 // Admin
 import AdminBase from './views/admin/Base'
-import AdminClass from './components/admin/class/Class'
+import AdminClass from './components/admin/class/Class' // CLASS
+import AdminClassIndex from './components/admin/class/Index'
 import AdminDashboard from './components/admin/dashboard/Dashboard'
 import AdminDepartment from './components/admin/department/Department'
 import AdminFaculty from './components/admin/faculty/Faculty' // FACULTY
@@ -84,7 +85,13 @@ const router =  new Router({
         },
         { 
           path: "class",
-          component: AdminClass
+          component: AdminClass,
+          children: [
+            {
+              path: '/',
+              component: AdminClassIndex
+            }
+          ]
         },
         { 
           path: "department",
