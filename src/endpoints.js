@@ -6,5 +6,6 @@ export default {
     signIn: user + 'signin',
     
     // admin
-    getStudents: student
+    getUsers: user,
+    getStudents: student,
 }

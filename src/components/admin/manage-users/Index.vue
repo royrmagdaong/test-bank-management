@@ -23,6 +23,8 @@
             hide-details
             outlined
             color="grey lighten-1"
+            v-model="searchString"
+            @input="searchUsers"
             ></v-text-field>
         </div>
     </div>
@@ -33,7 +35,7 @@
         :items-per-page="entryValue"
         class="elevation-0"
         search=""
-        item-key="index"
+        item-key="_id"
         hide-default-footer
         v-model="selected"
         show-select
@@ -70,6 +72,7 @@
 </template>
 
 <script>
+import {debounce} from 'lodash'
   export default {
     data () {
       return {
@@ -78,61 +81,30 @@
         entryOptions:[5,10,20,50,100],
         entryValue: 10,
         headers: [
-          {
-            text: 'No.',
-            align: 'left',
-            sortable: true,
-            value: 'index',
-          },
-          { text: 'Account Name', value: 'account_nane', sortable: true },
+          { text: 'Account Name', value: 'account_name', sortable: true },
           { text: 'Username', value: 'email', sortable: true },
           { text: 'Type', value: 'role', sortable: true }
         ],
-        users: [
-            {
-                index: 1,
-                account_nane: 'Janno Palacios',
-                email: 'janobe@gmail.com',
-                role: 'Administrator'
-            },
-            {
-                index: 2,
-                account_nane: 'Joken Villanueva',
-                email: 'joken@gmail.com',
-                role: 'Administrator'
-            },
-            {
-                index: 3,
-                account_nane: 'Erick Jason Batuto',
-                email: 'batuto@gmail.com',
-                role: 'Administrator'
-            },
-            {
-                index: 4,
-                account_nane: 'Hatch Villanueva',
-                email: 'hatch@gmail.com',
-                role: 'Registrar'
-            },
-            {
-                index: 5,
-                account_nane: 'Allan',
-                email: 'allan@gmail.com',
-                role: 'Teacher'
-            },
-            {
-                index: 6,
-                account_nane: 'John',
-                email: 'john@gmail.com',
-                role: 'Student'
-            }
-        ]
+        searchString: '',
+        debounce_: debounce(()=>{
+            this.$store.dispatch('adminUsers/getUsers', { 
+                searchString: this.searchString, 
+                limit: this.entryValue 
+            })}, 300)
       }
     },
     computed:{
+        users(){
+            return this.$store.getters['adminUsers/getUsers']
+        }
     },
     mounted(){
+        this.searchUsers()
     },
     methods:{
+        searchUsers(){
+            this.debounce_()
+        }
     }
   }
 </script>

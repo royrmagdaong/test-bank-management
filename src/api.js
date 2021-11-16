@@ -15,6 +15,17 @@ export function login(payload){
 }
 
 // FOR ADMIN USERS
+export function getUsers(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getUsers, {
+            searchString: payload.searchString,
+            limit: payload.limit
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
 export function getStudents(){
     return new Promise((resolve, reject) => {
         axios.post(endpoints.getStudents, {})
