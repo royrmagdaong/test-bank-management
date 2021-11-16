@@ -35,3 +35,16 @@ export function getStudents(){
     })
 }
 
+export function createUser(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.createUser, {
+            role: payload.role,
+            account_name: payload.account_name,
+            email: payload.email,
+            password: payload.password
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+

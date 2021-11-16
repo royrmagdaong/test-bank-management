@@ -19,6 +19,7 @@
                     outlined
                     dense
                     hide-details
+                    v-model="account_name"
                 ></v-text-field>
             </v-col>
             <v-col cols="10" offset="1" class="py-1">
@@ -30,6 +31,7 @@
                     outlined
                     dense
                     hide-details
+                    v-model="email"
                 ></v-text-field>
             </v-col>
             <v-col cols="10" offset="1" class="py-1">
@@ -41,6 +43,21 @@
                     outlined
                     dense
                     hide-details
+                    v-model="password"
+                    type="password"
+                ></v-text-field>
+            </v-col>
+            <v-col cols="10" offset="1" class="py-1">
+                <div class="grey--text">Confirm Password:</div>
+                <v-text-field
+                    class="my-input"
+                    placeholder="Confirm Account Password"
+                    color="grey"
+                    outlined
+                    dense
+                    hide-details
+                    v-model="confirmPassword"
+                    type="password"
                 ></v-text-field>
             </v-col>
             <v-col cols="10" offset="1" class="py-1">
@@ -59,6 +76,7 @@
                 <v-btn
                     color="#F96332"
                     class="text-capitalize white--text body-2 px-6 mt-6"
+                    @click="createUser"
                 >Save</v-btn>
             </v-col>
         </v-card>
@@ -69,16 +87,42 @@
 <script>
 export default {
     data:()=>({
-        roleSelected: 'Administrator',
+        roleSelected: 'Student',
         roles: [
-            'Administrator',
+            'Student',
             'Instructor',
-            'Student'
-        ]
+            'Administrator'
+        ],
+        account_name: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
     }),
     methods:{
       back(){
         this.$router.push('/admin/manage-users')
+      },
+      createUser(){
+        if(this.password === this.confirmPassword){
+            this.$store.dispatch('adminUsers/createUser', {
+                role: this.roleSelected,
+                account_name: this.account_name,
+                email: this.email,
+                password: this.password
+            }).then(res=>{
+                console.log(res)
+                if(res.response){
+                    console.log(res.message)
+                    this.account_name = ''
+                    this.email = ''
+                    this.password = ''
+                    this.confirmPassword = ''
+                    this.roleSelected = 'Student'
+                }
+            })
+        }else{
+            console.log('password does not match!')
+        }
       }
     }
 }

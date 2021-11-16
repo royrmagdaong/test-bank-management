@@ -82,8 +82,8 @@ import {debounce, get} from 'lodash'
         get,
         selected:[],
         page: 1,
-        entryOptions:[1,5,10,20,50,100],
-        entryValue: 1,
+        entryOptions:[5,10,20,50,100],
+        entryValue: 10,
         headers: [
           { text: 'Account Name', value: 'account_name', sortable: true },
           { text: 'Username', value: 'email', sortable: true },

@@ -1,5 +1,6 @@
 import {
-    getUsers
+    getUsers,
+    createUser
 } from '../../api'
 
 var store = {
@@ -24,8 +25,18 @@ var store = {
             return new Promise((resolve, reject) => {
                 getUsers(payload).then(res => {
                     if(res.response){
-                        console.log(res)
                         context.commit('SET_USERS', res)
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        createUser(context, payload){
+            return new Promise((resolve, reject) => {
+                createUser(payload).then(res => {
+                    if(res.response){
                         resolve(res)
                     }else{
                         resolve(res)
