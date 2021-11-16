@@ -103,25 +103,34 @@ export default {
         this.$router.push('/admin/manage-users')
       },
       createUser(){
-        if(this.password === this.confirmPassword){
-            this.$store.dispatch('adminUsers/createUser', {
-                role: this.roleSelected,
-                account_name: this.account_name,
-                email: this.email,
-                password: this.password
-            }).then(res=>{
-                console.log(res)
-                if(res.response){
-                    console.log(res.message)
-                    this.account_name = ''
-                    this.email = ''
-                    this.password = ''
-                    this.confirmPassword = ''
-                    this.roleSelected = 'Student'
-                }
-            })
+        if(
+            this.account_name === '' ||
+            this.email === '' ||
+            this.password === '' ||
+            this.confirmPassword === ''
+        ){
+            console.log('please fill up all fields!')
         }else{
-            console.log('password does not match!')
+            if(this.password === this.confirmPassword){
+                this.$store.dispatch('adminUsers/createUser', {
+                    role: this.roleSelected,
+                    account_name: this.account_name,
+                    email: this.email,
+                    password: this.password
+                }).then(res=>{
+                    console.log(res)
+                    if(res.response){
+                        console.log(res.message)
+                        this.account_name = ''
+                        this.email = ''
+                        this.password = ''
+                        this.confirmPassword = ''
+                        this.roleSelected = 'Student'
+                    }
+                })
+            }else{
+                console.log('password does not match!')
+            }
         }
       }
     }
