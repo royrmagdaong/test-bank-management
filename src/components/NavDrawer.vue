@@ -28,8 +28,6 @@ export default {
             { title: 'Subjects', route: '/admin/subjects' },
             { title: 'Grade level', route: '/admin/grade-level' },
             { title: 'faculty', route: '/admin/faculty' },
-            { title: 'department', route: '/admin/department' },
-            { title: 'rooms', route: '/admin/rooms' },
             { title: 'class', route: '/admin/class' },
             { title: 'manage users', route: '/admin/manage-users' },
             { title: 'logout', route: 'logout' },
