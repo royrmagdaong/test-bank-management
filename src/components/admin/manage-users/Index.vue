@@ -14,6 +14,7 @@
             dense
             hide-details
             color="grey lighten-1"
+            @change="searchUsers"
             ></v-combobox>
         </div>
         <div class="d-flex align-center">
@@ -24,14 +25,14 @@
             outlined
             color="grey lighten-1"
             v-model="searchString"
-            @input="searchUsers"
+            @input="searchUsers_debounce"
             ></v-text-field>
         </div>
     </div>
     <!-- <hr style="border:#222 solid 1px;"> -->
     <v-data-table
         :headers="headers"
-        :items="users"
+        :items="get(users,'data')"
         :items-per-page="entryValue"
         class="elevation-0"
         search=""
@@ -50,11 +51,12 @@
     </div>
     <v-pagination
         v-model="page"
-        :length="Math.ceil(users.length/entryValue)"
+        :length="Math.ceil(get(users,'count')/entryValue)"
         prev-icon="mdi-menu-left"
         next-icon="mdi-menu-right"
         class=""
         color="grey lighten-1"
+        @input="paginate"
     ></v-pagination>
     </div>
     <div>
@@ -72,14 +74,16 @@
 </template>
 
 <script>
-import {debounce} from 'lodash'
+import {debounce, get} from 'lodash'
+
   export default {
     data () {
       return {
+        get,
         selected:[],
         page: 1,
-        entryOptions:[5,10,20,50,100],
-        entryValue: 10,
+        entryOptions:[1,5,10,20,50,100],
+        entryValue: 1,
         headers: [
           { text: 'Account Name', value: 'account_name', sortable: true },
           { text: 'Username', value: 'email', sortable: true },
@@ -87,9 +91,11 @@ import {debounce} from 'lodash'
         ],
         searchString: '',
         debounce_: debounce(()=>{
+            this.page = 1
             this.$store.dispatch('adminUsers/getUsers', { 
                 searchString: this.searchString, 
-                limit: this.entryValue 
+                limit: this.entryValue,
+                skip: ((this.page-1) * this.entryValue)
             })}, 300)
       }
     },
@@ -102,8 +108,19 @@ import {debounce} from 'lodash'
         this.searchUsers()
     },
     methods:{
-        searchUsers(){
+        searchUsers_debounce(){
             this.debounce_()
+        },
+        searchUsers(){
+            this.page = 1
+            this.paginate()
+        },
+        paginate(){
+            this.$store.dispatch('adminUsers/getUsers', { 
+                searchString: this.searchString, 
+                limit: this.entryValue,
+                skip: ((this.page-1) * this.entryValue)
+            })
         }
     }
   }

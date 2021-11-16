@@ -5,7 +5,7 @@ import {
 var store = {
     namespaced: true,
     state: {
-        users: []
+        users: {data:[],count:1}
     },
     getters: {
         getUsers: state => state.users
@@ -24,7 +24,8 @@ var store = {
             return new Promise((resolve, reject) => {
                 getUsers(payload).then(res => {
                     if(res.response){
-                        context.commit('SET_USERS', res.data)
+                        console.log(res)
+                        context.commit('SET_USERS', res)
                         resolve(res)
                     }else{
                         resolve(res)

@@ -19,7 +19,8 @@ export function getUsers(payload){
     return new Promise((resolve, reject) => {
         axios.post(endpoints.getUsers, {
             searchString: payload.searchString,
-            limit: payload.limit
+            limit: payload.limit,
+            skip: payload.skip
         })
         .then(res => { resolve(res.data)})
         .catch(err => { reject(err)} )
