@@ -14,6 +14,7 @@
             dense
             hide-details
             color="grey lighten-1"
+            @change="getStudent"
             ></v-combobox>
         </div>
         <div class="d-flex align-center">
@@ -23,13 +24,15 @@
             hide-details
             outlined
             color="grey lighten-1"
+            v-model="searchString"
+            @input="getStudent"
             ></v-text-field>
         </div>
     </div>
     <!-- <hr style="border:#222 solid 1px;"> -->
     <v-data-table
         :headers="headers"
-        :items="students"
+        :items="get(students, 'data')"
         :items-per-page="entryValue"
         class="elevation-0"
         search=""
@@ -39,6 +42,16 @@
         show-select
         :single-select="false"
     >
+        <template v-slot:[`item.age`]="{ item }">
+            <div class="">
+                {{ moment().diff(item.birth_day, 'years') }}
+            </div>
+        </template>
+        <template v-slot:[`item.birth_day`]="{ item }">
+            <div class="">
+                {{ formatDate(item.birth_day) }}
+            </div>
+        </template>
         <template v-slot:[`item.view`]="{ item }">
             <div class="view-student" @click="view(item)">
                 View
@@ -53,11 +66,12 @@
     </div>
     <v-pagination
         v-model="page"
-        :length="Math.ceil(students.length/entryValue)"
+        :length="Math.ceil(get(students,'count')/entryValue)"
         prev-icon="mdi-menu-left"
         next-icon="mdi-menu-right"
         class=""
         color="grey lighten-1"
+        @input="paginate"
     ></v-pagination>
     </div>
     <div>
@@ -75,12 +89,16 @@
 </template>
 
 <script>
+import moment from 'moment'
+import {debounce, get} from 'lodash'
   export default {
     data () {
       return {
+        get,
+        moment,
         selected:[],
         page: 1,
-        entryOptions:[5,10,20,50,100],
+        entryOptions:[1,5,10,20,50,100],
         entryValue: 10,
         headers: [
           {
@@ -92,11 +110,19 @@
           { text: 'ID#', value: 'student_id', sortable: true },
           { text: 'Fullname', value: 'full_name', sortable: true },
           { text: 'Sex', value: 'gender', sortable: true },
-          { text: 'Age', value: 'protein', sortable: true },
+          { text: 'Age', value: 'age', sortable: true },
           { text: 'Birth Date', value: 'birth_day', sortable: true },
           { text: 'Email Address', value: 'email', sortable: true },
           { text: 'Options', value: 'view' },
         ],
+        searchString:'',
+        searchStudent: debounce(()=>{
+          this.$store.dispatch('adminStudents/getStudents', {
+            searchString: this.searchString,
+            limit: this.entryValue,
+            skip: ((this.page-1) * this.entryValue)
+          })
+        }, 300)
       }
     },
     computed:{
@@ -105,13 +131,27 @@
       }
     },
     mounted(){
-      this.$store.dispatch('adminStudents/getStudents')
+      this.getStudent()
     },
     methods:{
-        view(student){
-            this.$store.dispatch('adminViewStudent/setStudent', student)
-            this.$router.push('students/view-student')
+      formatDate(date){
+        if(date){
+          return moment(date).format('MMM DD, YYYY')
         }
+        return ''
+      },
+      view(student){
+          this.$store.dispatch('adminViewStudent/setStudent', student)
+          this.$router.push('students/view-student')
+      },
+      getStudent(){
+        this.page = 1
+        this.searchStudent()
+      },
+      paginate(){
+        this.searchStudent()
+      }
+        
     }
   }
 </script>

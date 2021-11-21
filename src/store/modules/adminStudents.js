@@ -5,7 +5,7 @@ import {
 var store = {
     namespaced: true,
     state: {
-        students: []
+        students: {data:[],count:1}
     },
     getters: {
         getStudents: state => state.students
@@ -20,12 +20,12 @@ var store = {
         //     let user_info = JSON.parse(localStorage.getItem('user_info'))
         //     context.commit('SET_USER_INFO', user_info)
         // },
-        getStudents(context){
+        getStudents(context, payload){
             return new Promise((resolve, reject) => {
-                getStudents().then(res => {
+                getStudents(payload).then(res => {
                     if(res.response){
                         console.log(res)
-                        context.commit('SET_STUDENTS', res.data)
+                        context.commit('SET_STUDENTS', res)
                         resolve(res)
                     }else{
                         resolve(res)

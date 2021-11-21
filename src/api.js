@@ -27,9 +27,13 @@ export function getUsers(payload){
     })
 }
 
-export function getStudents(){
+export function getStudents(payload){
     return new Promise((resolve, reject) => {
-        axios.post(endpoints.getStudents, {})
+        axios.post(endpoints.getStudents, {
+            searchString: payload.searchString,
+            skip: payload.skip,
+            limit: payload.limit
+        })
         .then(res => { resolve(res.data)})
         .catch(err => { reject(err)} )
     })
