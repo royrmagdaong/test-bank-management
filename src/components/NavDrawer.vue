@@ -2,7 +2,7 @@
   <div>
     <v-navigation-drawer
       permanent
-      class="success lighten-2 px-4"
+      class="success lighten-2 px-4 d-none d-md-block"
       fixed
     >
         <div style="height: 14vh;"></div>

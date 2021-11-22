@@ -35,4 +35,10 @@ export default {
 tbody tr:nth-of-type(odd) {
   background-color: #F2F2F2;
 }
+
+@media only screen and (max-width: 959px) {
+  .nav-size{
+    margin-left: 0;
+  }
+}
 </style>
