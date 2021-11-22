@@ -1,9 +1,9 @@
 <template>
   <v-row no-gutters>
-      <v-col cols="7" class="red">
+      <v-col cols="12" sm="7" class="red d-none d-sm-block">
           <v-img src="/lizard.jpg" height="600px"></v-img>
       </v-col>
-      <v-col cols="5" class="d-flex flex-column justify-center " style="background: #FAE567;">
+      <v-col cols="12" sm="5" class="d-flex flex-column justify-center py-12 py-sm-0" style="background: #FAE567;">
           <v-col cols="8" offset="2" lg="6" offset-lg="3" class="pt-0 d-flex flex-column justify-center" >
               <div>
                 <div class="font-weight-bold mb-6" style="font-size:40px;">Login</div>

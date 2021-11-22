@@ -1,6 +1,7 @@
 <template>
   <div>
     <AppBar />
+    <div style="padding-bottom:71px;"></div>
     <Carousel v-if="get(home, 'carousel')" />
     <SignUp v-if="get(home, 'signUp')" />
     <SignIn v-if="get(home, 'login')"/>
