@@ -6,10 +6,10 @@
         <v-icon color="" @click="back">
           mdi-arrow-left
         </v-icon>
-        <span class="grey--text lighten-1 headline ml-2">Student Details</span>
+        <span class="grey--text lighten-1 headline ml-2 form-title">Student Details</span>
       </div>
     </v-col>
-    <v-col cols="4" class="pa-2">
+    <v-col cols="12" sm="6" md="4" class="pa-2">
       <div class="d-flex flex-column">
         <span class="grey--text lighten-2 body-2">ID Number*</span>
         <v-text-field
@@ -22,8 +22,8 @@
         ></v-text-field>
       </div>
     </v-col>
-    <v-col cols="8" class="pa-2"></v-col>
-    <v-col cols="4" class="pa-2">
+    <v-col cols="0" sm="6" md="8" class="pa-0 pa-sm-2"></v-col>
+    <v-col cols="12" sm="6" md="4" class="pa-2">
       <div class="d-flex flex-column">
         <span class="grey--text lighten-2 body-2">Last Name*</span>
         <v-text-field
@@ -36,7 +36,7 @@
         ></v-text-field>
       </div>
     </v-col>
-    <v-col cols="4" class="pa-2">
+    <v-col cols="12" sm="6" md="4" class="pa-2">
       <div class="d-flex flex-column">
         <span class="grey--text lighten-2 body-2">First Name*</span>
         <v-text-field
@@ -49,7 +49,7 @@
         ></v-text-field>
       </div>
     </v-col>
-    <v-col cols="4" class="pa-2">
+    <v-col cols="12" sm="6" md="4" class="pa-2">
       <div class="d-flex flex-column">
         <span class="grey--text lighten-2 body-2">Middle Name*</span>
         <v-text-field
@@ -62,7 +62,7 @@
         ></v-text-field>
       </div>
     </v-col>
-    <v-col cols="4" class="pa-2">
+    <v-col cols="12" sm="6" md="4" class="pa-2">
       <div class="d-flex flex-column">
         <span class="grey--text lighten-2 body-2">Gender</span>
         <v-text-field
@@ -75,7 +75,7 @@
         ></v-text-field>
       </div>
     </v-col>
-    <v-col cols="4" class="pa-2">
+    <v-col cols="12" sm="6" md="4" class="pa-2">
       <div class="d-flex flex-column">
         <span class="grey--text lighten-2 body-2">Birth Date</span>
         <v-text-field
@@ -88,7 +88,7 @@
         ></v-text-field>
       </div>
     </v-col>
-    <v-col cols="4" class="pa-2">
+    <v-col cols="12" sm="6" md="4" class="pa-2">
       <div class="d-flex flex-column">
         <span class="grey--text lighten-2 body-2">Birth place</span>
         <v-text-field
@@ -101,7 +101,7 @@
         ></v-text-field>
       </div>
     </v-col>
-    <v-col cols="4" class="pa-2">
+    <v-col cols="12" sm="6" md="4" class="pa-2">
       <div class="d-flex flex-column">
         <span class="grey--text lighten-2 body-2">Civil Status</span>
         <v-text-field
@@ -113,7 +113,7 @@
         ></v-text-field>
       </div>
     </v-col>
-    <v-col cols="4" class="pa-2">
+    <v-col cols="12" sm="6" md="4" class="pa-2">
       <div class="d-flex flex-column">
         <span class="grey--text lighten-2 body-2">Age</span>
         <v-text-field
@@ -125,7 +125,7 @@
         ></v-text-field>
       </div>
     </v-col>
-    <v-col cols="4" class="pa-2">
+    <v-col cols="12" sm="6" md="4" class="pa-2">
       <div class="d-flex flex-column">
         <span class="grey--text lighten-2 body-2">Nationality</span>
         <v-text-field
@@ -137,7 +137,7 @@
         ></v-text-field>
       </div>
     </v-col>
-    <v-col cols="4" class="pa-2">
+    <v-col cols="12" sm="6" md="4" class="pa-2">
       <div class="d-flex flex-column">
         <span class="grey--text lighten-2 body-2">Religion</span>
         <v-text-field
@@ -149,7 +149,7 @@
         ></v-text-field>
       </div>
     </v-col>
-    <v-col cols="4" class="pa-2">
+    <v-col cols="12" sm="6" md="4" class="pa-2">
       <div class="d-flex flex-column">
         <span class="grey--text lighten-2 body-2">Contact</span>
         <v-text-field
@@ -161,7 +161,7 @@
         ></v-text-field>
       </div>
     </v-col>
-    <v-col cols="4" class="pa-2">
+    <v-col cols="12" sm="6" md="4" class="pa-2">
       <div class="d-flex flex-column">
         <span class="grey--text lighten-2 body-2">Email*</span>
         <v-text-field
@@ -174,7 +174,7 @@
         ></v-text-field>
       </div>
     </v-col>
-    <v-col cols="8" class="pa-2">
+    <v-col cols="12" md="8" class="pa-2">
       <div class="d-flex flex-column">
         <span class="grey--text lighten-2 body-2">Home Address</span>
         <v-text-field
@@ -216,5 +216,13 @@ import {get} from 'lodash'
 <style>
 .my-input.v-input .v-input__slot {
   border-radius: 100px;
+}
+</style>
+
+<style scoped>
+@media only screen and (max-width: 480px) {
+  .form-title{
+    font-size: 18px !important;
+  }
 }
 </style>
