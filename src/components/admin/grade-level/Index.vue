@@ -1,11 +1,11 @@
 <template>
   <v-card class="pa-4" tile>
     <div>
-        <span class="headline">List of Year and Section</span>
+        <span class="headline tbl-name">List of Year and Section</span>
     </div>
 
-      <div class="mt-4 d-flex justify-space-between align-center">
-        <div class=" d-flex align-center mb-4">
+      <div class="mt-4 mb-2 d-flex justify-space-between align-center">
+        <div class=" d-flex align-center">
             <span class="mr-2 font-weight-light grey--text text--darken-1 subtitle-2">Show</span>
             <v-combobox
             style="max-width:120px !important;"
@@ -134,6 +134,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+@media only screen and (max-width: 480px) {
+  .tbl-name{
+    font-size: 18px !important;
+  }
+}
 </style>

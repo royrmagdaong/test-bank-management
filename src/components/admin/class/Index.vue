@@ -1,11 +1,11 @@
 <template>
   <div>
     <div>
-        <span class="headline">List of Class</span>
+        <span class="headline tbl-name">List of Class</span>
     </div>
 
-      <div class="mt-4 d-flex justify-space-between align-center">
-        <div class=" d-flex align-center mb-4">
+      <div class="mt-4 mb-2 d-flex justify-space-between align-center">
+        <div class=" d-flex align-center">
             <span class="mr-2 font-weight-light grey--text text--darken-1 subtitle-2">Show</span>
             <v-combobox
             style="max-width:120px !important;"
@@ -45,17 +45,28 @@
 
     <hr style="border:#222 solid 1px;">
     <div class="mt-4 d-flex justify-space-between align-center">
-    <div class="font-weight-light grey--text text--darken-1 subtitle-2">
-        <span>Showing 1 to {{entryValue}} of 36 entries</span>
+        <div class="font-weight-light grey--text text--darken-1 subtitle-2">
+            <span>Showing 1 to {{entryValue}} of 36 entries</span>
+        </div>
+        <v-pagination
+            v-model="page"
+            :length="Math.ceil(subjects.length/entryValue)"
+            prev-icon="mdi-menu-left"
+            next-icon="mdi-menu-right"
+            class=""
+            color="grey lighten-1"
+        ></v-pagination>
     </div>
-    <v-pagination
-        v-model="page"
-        :length="Math.ceil(subjects.length/entryValue)"
-        prev-icon="mdi-menu-left"
-        next-icon="mdi-menu-right"
-        class=""
-        color="grey lighten-1"
-    ></v-pagination>
+    <div>
+        <v-btn
+            class="grey white--text text-capitalize caption"
+            tile
+            @click="$router.push('class/create')"
+        >New</v-btn>
+        <v-btn
+            class="grey white--text text-capitalize caption"
+            tile
+        >Delete Selected</v-btn>
     </div>
   </div>
 </template>
@@ -122,5 +133,10 @@ export default {
 .view-student:hover{
     cursor: pointer;
     text-decoration: underline;
+}
+@media only screen and (max-width: 480px) {
+  .tbl-name{
+    font-size: 18px !important;
+  }
 }
 </style>
