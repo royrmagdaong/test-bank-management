@@ -14,7 +14,7 @@
             dense
             hide-details
             color="grey lighten-1"
-            @change="searchUsers"
+            @change="searchUsers_debounce"
             ></v-combobox>
         </div>
         <div class="d-flex align-center">
