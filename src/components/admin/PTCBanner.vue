@@ -17,14 +17,8 @@
     </div>
 
     <!-- for sm and up -->
-    <div class="ptc-banner d-none d-md-flex flex-column align-center ">
-      <div style="border: 2px solid #555; width:100%;" class="pa-2">
-        <div class="ptc headline font-weight-bold text-center">PATEROS TECHNOLOGICAL COLLEGE</div>
-        <div class="ptc-address body-1 font-weight-bold text-center">College St. Sto. Rosario Kanluran, Pateros, Metro Manila</div>
-      </div>
-    </div>
-    <div class="ptc-banner-sub d-none d-md-flex flex-column align-center " style="opacity:0;">
-      <div style="border: 2px solid #555; width:100%;" class="pa-2">
+    <div class="ptc-banner d-none d-md-flex flex-column align-center py-2 px-8">
+      <div class="pa-2" style="border: 2px solid #555; width:100%;">
         <div class="ptc headline font-weight-bold text-center">PATEROS TECHNOLOGICAL COLLEGE</div>
         <div class="ptc-address body-1 font-weight-bold text-center">College St. Sto. Rosario Kanluran, Pateros, Metro Manila</div>
       </div>
@@ -49,16 +43,7 @@ export default {
 
 <style scoped>
 .ptc-banner{
-  position: fixed;
-  z-index: 3;
-  width: -webkit-calc(100% - 256px);
-  width:    -moz-calc(100% - 256px);
-  width:         calc(100% - 256px);
-}
-.ptc-banner-sub{
-  width: -webkit-calc(100% - 256px);
-  width:    -moz-calc(100% - 256px);
-  width:         calc(100% - 256px);
+  width: 100%;
 }
 .ptc-banner-2{
   position: fixed;

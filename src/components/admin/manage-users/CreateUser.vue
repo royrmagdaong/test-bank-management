@@ -1,12 +1,12 @@
 <template>
 <v-row>
-    <v-col cols="8" offset="2">
+    <v-col cols="12" sm="8" offset-sm="2">
         <v-card class="pa-4" tile>
             <div class="d-flex mb-4">
                 <v-icon color="" @click="back" class="mr-2">
                     mdi-arrow-left
                 </v-icon>
-                <div class="headline grey--text text--darken-1">
+                <div class="headline grey--text text--darken-1 form-title">
                     New User Account
                 </div>
             </div>
@@ -137,6 +137,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+@media only screen and (max-width: 480px) {
+  .form-title{
+    font-size: 18px !important;
+  }
+}
 </style>

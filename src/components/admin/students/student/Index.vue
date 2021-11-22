@@ -3,7 +3,7 @@
     <div>
         <span class="headline tbl-name">List of Student</span>
     </div>
-    <div class="mt-4 d-flex justify-space-between align-center">
+    <div class="mt-4 mb-2 d-flex justify-space-between align-center">
         <div class=" d-flex align-center">
             <span class="mr-2 font-weight-light grey--text text--darken-1 subtitle-2">Show</span>
             <v-combobox

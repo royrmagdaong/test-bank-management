@@ -1,10 +1,10 @@
 <template>
   <v-card class="pa-4" tile>
     <div>
-        <span class="headline">List of User</span>
+        <span class="headline tbl-title">List of User</span>
     </div>
-    <div class="mt-4 d-flex justify-space-between align-center">
-        <div class=" d-flex align-center mb-4">
+    <div class="mt-4 mb-2 d-flex justify-space-between align-center">
+        <div class=" d-flex align-center">
             <span class="mr-2 font-weight-light grey--text text--darken-1 subtitle-2">Show</span>
             <v-combobox
             style="max-width:120px !important;"
@@ -136,5 +136,10 @@ import {debounce, get} from 'lodash'
 .view-student:hover{
     cursor: pointer;
     text-decoration: underline;
+}
+@media only screen and (max-width: 480px) {
+  .tbl-title{
+    font-size: 18px !important;
+  }
 }
 </style>
