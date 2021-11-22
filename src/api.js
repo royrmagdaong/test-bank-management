@@ -95,3 +95,14 @@ export function createProf(payload){
     })
 }
 
+export function getSubjects(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getSubjects, {
+            searchString: payload.searchString,
+            skip: payload.skip,
+            limit: payload.limit
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
