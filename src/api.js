@@ -130,3 +130,14 @@ export function getGradeLevel(payload){
         .catch(err => { reject(err)} )
     })
 }
+
+export function createGradeLevel(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.createGradeLevel, {
+            description: payload.description,
+            grade_level: payload.grade_level,
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}

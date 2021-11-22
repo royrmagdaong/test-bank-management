@@ -1,5 +1,6 @@
 import {
-    getGradeLevel
+    getGradeLevel,
+    createGradeLevel
 } from '../../api'
 
 var store = {
@@ -26,6 +27,18 @@ var store = {
                     if(res.response){
                         console.log(res)
                         context.commit('SET_GRADE_LEVELS', res)
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        createGradeLevel(context, payload){
+            return new Promise((resolve, reject) => {
+                createGradeLevel(payload).then(res => {
+                    if(res.response){
+                        console.log(res)
                         resolve(res)
                     }else{
                         resolve(res)

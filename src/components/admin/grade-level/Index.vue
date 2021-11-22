@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-card class="pa-4" tile>
     <div>
         <span class="headline">List of Year and Section</span>
     </div>
@@ -68,13 +68,14 @@
         <v-btn
             class="grey white--text text-capitalize caption"
             tile
+            @click="$router.push('grade-level/create')"
         >New</v-btn>
         <v-btn
             class="grey white--text text-capitalize caption"
             tile
         >Delete Selected</v-btn>
     </div>
-  </div>
+  </v-card>
 </template>
 
 <script>

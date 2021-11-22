@@ -17,5 +17,6 @@ export default {
     createProf: prof + 'create',
     getSubjects: subj,
     createSubject: subj + 'create',
-    getGradeLevel: gradeLevel
+    getGradeLevel: gradeLevel,
+    createGradeLevel: gradeLevel + 'create'
 }
