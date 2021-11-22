@@ -1,7 +1,7 @@
 const user = 'user/'
 const student = 'student/'
 const prof = 'prof/'
-const subj = 'subject'
+const subj = 'subject/'
 
 export default {
     // general user
@@ -14,5 +14,6 @@ export default {
     createStudent: student + 'create',
     getProf: prof,
     createProf: prof + 'create',
-    getSubjects: subj
+    getSubjects: subj,
+    createSubject: subj + 'create'
 }

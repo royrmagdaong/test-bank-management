@@ -69,6 +69,7 @@
         <v-btn
             class="grey white--text text-capitalize caption"
             tile
+            @click="$router.push('subjects/create')"
         >New</v-btn>
         <v-btn
             class="grey white--text text-capitalize caption"

@@ -1,5 +1,6 @@
 import {
-    getSubjects
+    getSubjects,
+    createSubject
 } from '../../api'
 
 var store = {
@@ -26,6 +27,18 @@ var store = {
                     if(res.response){
                         console.log(res)
                         context.commit('SET_SUBJECTS', res)
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        createSubject(context, payload){
+            return new Promise((resolve, reject) => {
+                createSubject(payload).then(res => {
+                    if(res.response){
+                        console.log(res)
                         resolve(res)
                     }else{
                         resolve(res)

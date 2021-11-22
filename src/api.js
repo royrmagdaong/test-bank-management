@@ -106,3 +106,15 @@ export function getSubjects(payload){
         .catch(err => { reject(err)} )
     })
 }
+
+export function createSubject(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.createSubject, {
+            code: payload.code,
+            description: payload.description,
+            grade_level: payload.grade_level,
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}

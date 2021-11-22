@@ -28,6 +28,7 @@ import AdminEnrollmentRecords from './components/admin/students/student/enrollme
 import AdminEnrolledSubjects from './components/admin/students/student/enrollment-records/EnrolledSubjects'
 import AdminSubjects from './components/admin/subjects/Subjects' // SUBJECT
 import AdminSubjectIndex from './components/admin/subjects/Index'
+import AdminSubjectCreate from './components/admin/subjects/CreateSubject'
 
 // Professor
 import ProfessorBase from './views/professor/Base'
@@ -173,6 +174,10 @@ const router =  new Router({
             {
               path: "/",
               component:AdminSubjectIndex
+            },
+            {
+              path: "create",
+              component:AdminSubjectCreate
             }
           ]
         },
