@@ -62,7 +62,7 @@
     <hr style="border:#222 solid 1px;">
     <div class="mt-4 d-flex justify-space-between align-center">
     <div class="font-weight-light grey--text text--darken-1 subtitle-2">
-        <span>Showing 1 to {{entryValue}} of 36 entries</span>
+        <span>Showing {{ ((page-1)*entryValue)+1 }} to {{ getEntryCount() }} of {{ get(students,'count') }} entries</span>
     </div>
     <v-pagination
         v-model="page"
@@ -156,6 +156,9 @@ import {debounce, get} from 'lodash'
       },
       paginate(){
         this.searchStudent()
+      },
+      getEntryCount(){
+        return ((this.page)*(this.entryValue)) < get(this.students, 'count') ? ((this.page)*(this.entryValue)) : get(this.students, 'count')
       }
         
     }
