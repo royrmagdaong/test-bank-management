@@ -1,7 +1,7 @@
 <template>
   <v-app>
     
-    <NavDrawer v-if="userInfo" />
+    <NavDrawer v-if="userInfo"/>
     
     <v-main :class="{'nav-size': userInfo}" class="grey lighten-2">
       <router-view></router-view>
@@ -15,7 +15,7 @@ export default {
   name: 'App',
 
   components: {
-    NavDrawer
+    NavDrawer,
   },
 
   data: () => ({

@@ -1,9 +1,26 @@
 <template>
   <div>
+      <!-- for md and up -->
     <v-navigation-drawer
       permanent
       class="success lighten-2 px-4 d-none d-md-block"
       fixed
+    >
+        <div style="height: 14vh;"></div>
+        <div class="mx-4 mt-2 mb-5" style="background: #111; height:2px;"></div>
+
+        <div class="d-flex flex-column" v-for="item in navItems" :key="item.title">
+            <div class="text-uppercase subtitle-1 text-center mx-4 nav-item" @click="navItem(item.route)" :class="{'nav-item-active':$route.path.includes(item.route)?true:false}">{{ item.title }}</div>
+        </div>
+    </v-navigation-drawer>
+
+    <!-- for sm and below -->
+    <v-navigation-drawer
+      :value="drawer"
+      temporary
+      class="success lighten-2 px-4 d-block d-md-none"
+      fixed
+      @input="drawerStatus"
     >
         <div style="height: 14vh;"></div>
         <div class="mx-4 mt-2 mb-5" style="background: #111; height:2px;"></div>
@@ -51,6 +68,9 @@ export default {
     computed:{
         userInfo(){
             return this.$store.getters['auth/getUserInfo']
+        },
+        drawer(){
+            return this.$store.getters['core/getDrawer']
         }
     },
     mounted(){
@@ -73,6 +93,9 @@ export default {
                     this.$router.push(route)
                 }
             }
+        },
+        drawerStatus(e){
+            this.$store.dispatch('core/setDrawer',e)
         }
     }
 }
