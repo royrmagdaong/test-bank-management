@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-card class="pa-4" tile>
     <div>
         <span class="headline">List of Faculty</span>
     </div>
@@ -15,6 +15,7 @@
             dense
             hide-details
             color="grey lighten-1"
+            @input="getProfessors"
             ></v-combobox>
         </div>
         <div class="d-flex align-center">
@@ -24,17 +25,19 @@
             hide-details
             outlined
             color="grey lighten-1"
+            v-model="searchString"
+            @input="getProfessors"
             ></v-text-field>
         </div>
     </div>
     <!-- <hr style="border:#222 solid 1px;"> -->
     <v-data-table
         :headers="headers"
-        :items="subjects"
+        :items="get(professors, 'data')"
         :items-per-page="entryValue"
         class="elevation-0"
         search=""
-        item-key="subject_code"
+        item-key="id_number"
         hide-default-footer
         v-model="selected"
         show-select
@@ -54,77 +57,81 @@
     </div>
     <v-pagination
         v-model="page"
-        :length="Math.ceil(subjects.length/entryValue)"
+        :length="Math.ceil(get(professors,'count')/entryValue)"
         prev-icon="mdi-menu-left"
         next-icon="mdi-menu-right"
         class=""
         color="grey lighten-1"
+        @input="paginate"
     ></v-pagination>
     </div>
     <div>
         <v-btn
             class="grey white--text text-capitalize caption"
             tile
+            @click="$router.push('faculty/create')"
         >New</v-btn>
         <v-btn
             class="grey white--text text-capitalize caption"
             tile
         >Delete Selected</v-btn>
     </div>
-  </div>
+  </v-card>
 </template>
 
 <script>
+import {get,debounce} from 'lodash'
 export default {
-    data:()=>({
-        selected:[],
-        page: 1,
-        entryOptions:[5,10,20,50,100],
-        entryValue: 10,
-        headers: [
-          {
-            text: 'No.',
-            align: 'left',
-            sortable: true,
-            value: 'index',
-          },
-          { text: 'Fullname', value: 'full_name', sortable: true },
-          { text: 'Address', value: 'address', sortable: true },
-          { text: 'Gender', value: 'gender', sortable: true },
-          { text: 'Civil Status', value: 'civil_status', sortable: true },
-          { text: 'Specialization', value: 'specialization', sortable: true },
-          { text: 'Email Address', value: 'email', sortable: true }
-        ],
-        subjects: [
+    data(){
+        return {
+            get,
+            selected:[],
+            page: 1,
+            entryOptions:[5,10,20,50,100],
+            entryValue: 10,
+            searchString: '',
+            headers: [
             {
-                index: 1,
-                full_name: 'Professor 1',
-                address: 'Pasig City',
-                gender: 'M',
-                civil_status: 'Single',
-                specialization: 'Computer Etc.',
-                email: 'professor1@gmail.com',
+                text: 'No.',
+                align: 'left',
+                sortable: true,
+                value: 'index',
             },
-            {
-                index: 2,
-                full_name: 'Professor 2',
-                address: 'Pasig City',
-                gender: 'M',
-                civil_status: 'Single',
-                specialization: 'Computer Etc.',
-                email: 'professor2@gmail.com',
-            },
-            {
-                index: 3,
-                full_name: 'Professor 3',
-                address: 'Pasig City',
-                gender: 'M',
-                civil_status: 'Single',
-                specialization: 'Computer Etc.',
-                email: 'professor3@gmail.com',
-            },
-        ]
-    })
+            { text: 'ID number', value: 'id_number', sortable: true },
+            { text: 'Fullname', value: 'full_name', sortable: true },
+            { text: 'Address', value: 'address', sortable: true },
+            { text: 'Gender', value: 'gender', sortable: true },
+            { text: 'Civil Status', value: 'civil_status', sortable: true },
+            { text: 'Specialization', value: 'specialization', sortable: true },
+            { text: 'Email Address', value: 'email', sortable: true }
+            ],
+            searchProf: debounce(()=>{
+                this.$store.dispatch('adminFaculty/fetchProf', {
+                    searchString: this.searchString,
+                    limit: this.entryValue,
+                    skip: ((this.page-1) * this.entryValue)
+                })
+            }, 300)
+        }
+    },
+    computed:{
+        professors(){
+            return this.$store.getters['adminFaculty/getProfessor']
+        }
+    },
+    mounted(){
+        this.getProfessors()
+        // this.$store.dispatch('adminFaculty/fetchProf')
+    },
+    methods:{
+        getProfessors(){
+            this.page = 1
+            this.searchProf()
+        },
+        paginate(){
+            this.searchProf()
+        }
+    }
 }
 </script>
 

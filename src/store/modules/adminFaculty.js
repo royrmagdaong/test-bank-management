@@ -1,19 +1,19 @@
 import {
-    getStudents,
-    createStudent
+    getProf,
+    createProf
 } from '../../api'
 
 var store = {
     namespaced: true,
     state: {
-        students: {data:[],count:0}
+        professors: {data:[],count:0}
     },
     getters: {
-        getStudents: state => state.students
+        getProfessor: state => state.professors
     },
     mutations: {
-        SET_STUDENTS(state, payload){
-            state.students = payload
+        SET_PROFESSORS(state, payload){
+            state.professors = payload
         }
     },
     actions:{
@@ -21,12 +21,12 @@ var store = {
         //     let user_info = JSON.parse(localStorage.getItem('user_info'))
         //     context.commit('SET_USER_INFO', user_info)
         // },
-        getStudents(context, payload){
+        fetchProf(context, payload){
             return new Promise((resolve, reject) => {
-                getStudents(payload).then(res => {
+                getProf(payload).then(res => {
                     if(res.response){
                         console.log(res)
-                        context.commit('SET_STUDENTS', res)
+                        context.commit('SET_PROFESSORS', res)
                         resolve(res)
                     }else{
                         resolve(res)
@@ -34,10 +34,11 @@ var store = {
                 }).catch(err => { reject(err) })
             })
         },
-        createStudent(context, payload){
+        createProf(context, payload){
             return new Promise((resolve, reject) => {
-                createStudent(payload).then(res => {
+                createProf(payload).then(res => {
                     if(res.response){
+                        console.log(res)
                         resolve(res)
                     }else{
                         resolve(res)

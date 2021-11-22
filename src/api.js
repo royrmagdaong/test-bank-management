@@ -68,3 +68,30 @@ export function createStudent(payload){
     })
 }
 
+export function getProf(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getProf, {
+            searchString: payload.searchString,
+            skip: payload.skip,
+            limit: payload.limit
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function createProf(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.createProf, {
+            first_name: payload.first_name,
+            middle_name: payload.middle_name,
+            last_name: payload.last_name,
+            email: payload.email,
+            civil_status: payload.civil_status,
+            department: payload.department
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
