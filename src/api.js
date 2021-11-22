@@ -118,3 +118,15 @@ export function createSubject(payload){
         .catch(err => { reject(err)} )
     })
 }
+
+export function getGradeLevel(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getGradeLevel, {
+            searchString: payload.searchString,
+            skip: payload.skip,
+            limit: payload.limit
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}

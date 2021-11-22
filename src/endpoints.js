@@ -2,6 +2,7 @@ const user = 'user/'
 const student = 'student/'
 const prof = 'prof/'
 const subj = 'subject/'
+const gradeLevel = 'grade-level/'
 
 export default {
     // general user
@@ -15,5 +16,6 @@ export default {
     getProf: prof,
     createProf: prof + 'create',
     getSubjects: subj,
-    createSubject: subj + 'create'
+    createSubject: subj + 'create',
+    getGradeLevel: gradeLevel
 }

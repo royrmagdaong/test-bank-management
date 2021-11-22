@@ -15,6 +15,7 @@
             dense
             hide-details
             color="grey lighten-1"
+            @change="getGradeLevel"
             ></v-combobox>
         </div>
         <div class="d-flex align-center">
@@ -24,17 +25,19 @@
             hide-details
             outlined
             color="grey lighten-1"
+            v-model="searchString"
+            @input="getGradeLevel"
             ></v-text-field>
         </div>
     </div>
     <!-- <hr style="border:#222 solid 1px;"> -->
     <v-data-table
         :headers="headers"
-        :items="subjects"
+        :items="get(grade_level, 'data')"
         :items-per-page="entryValue"
         class="elevation-0"
         search=""
-        item-key="subject_code"
+        item-key="index"
         hide-default-footer
         v-model="selected"
         show-select
@@ -50,11 +53,11 @@
     <hr style="border:#222 solid 1px;">
     <div class="mt-4 d-flex justify-space-between align-center">
     <div class="font-weight-light grey--text text--darken-1 subtitle-2">
-        <span>Showing 1 to {{entryValue}} of 36 entries</span>
+        <span>Showing {{ getFirstnumEntryCount(((page-1)*entryValue)+1) }} to {{ getEntryCount() }} of {{ get(grade_level,'count') }} entries</span>
     </div>
     <v-pagination
         v-model="page"
-        :length="Math.ceil(subjects.length/entryValue)"
+        :length="Math.ceil(get(grade_level,'count')/entryValue)"
         prev-icon="mdi-menu-left"
         next-icon="mdi-menu-right"
         class=""
@@ -75,27 +78,58 @@
 </template>
 
 <script>
+import {get, debounce} from 'lodash'
 export default {
-    data:()=>({
-        selected:[],
-        page: 1,
-        entryOptions:[5,10,20,50,100],
-        entryValue: 10,
-        headers: [
-          { text: 'Grade', value: 'grade_level', sortable: true },
-          { text: 'Description', value: 'description', sortable: true }
-        ],
-        subjects: [
+    data(){
+        return{
+            get,
+            selected:[],
+            page: 1,
+            entryOptions:[5,10,20,50,100],
+            entryValue: 10,
+            searchString: '',
+            headers: [
             {
-                description: 'Grade 11',
-                grade_level: 'Grade 11'
+                text: 'No.',
+                align: 'left',
+                sortable: true,
+                value: 'index',
             },
-            {
-                description: 'English 1',
-                grade_level: '2nd year of Senior High'
-            }
-        ]
-    })
+            { text: 'Grade', value: 'grade_level', sortable: true },
+            { text: 'Description', value: 'description', sortable: true }
+            ],
+            searchGradeLevel: debounce(()=>{
+                this.$store.dispatch('adminGradeLevel/getGradeLevel', {
+                    searchString: this.searchString,
+                    limit: this.entryValue,
+                    skip: ((this.page-1) * this.entryValue)
+                })
+            }, 300)
+        }
+    },
+    computed:{
+        grade_level(){
+            return this.$store.getters['adminGradeLevel/getGradeLevel']
+        }
+    },
+    mounted(){
+        this.getGradeLevel()
+    },
+    methods:{
+        getGradeLevel(){
+            this.page = 1;
+            this.searchGradeLevel()
+        },
+        paginate(){
+            this.searchGradeLevel()
+        },
+        getEntryCount(){
+            return ((this.page)*(this.entryValue)) < get(this.grade_level, 'count') ? ((this.page)*(this.entryValue)) : get(this.grade_level, 'count')
+        },
+        getFirstnumEntryCount(val){
+            return get(this.grade_level, 'count')===0?0:val
+        }
+    }
 }
 </script>
 
