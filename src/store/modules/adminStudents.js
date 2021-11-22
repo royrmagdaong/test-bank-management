@@ -1,5 +1,6 @@
 import {
-    getStudents
+    getStudents,
+    createStudent
 } from '../../api'
 
 var store = {
@@ -26,6 +27,17 @@ var store = {
                     if(res.response){
                         console.log(res)
                         context.commit('SET_STUDENTS', res)
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        createStudent(context, payload){
+            return new Promise((resolve, reject) => {
+                createStudent(payload).then(res => {
+                    if(res.response){
                         resolve(res)
                     }else{
                         resolve(res)

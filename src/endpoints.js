@@ -8,5 +8,6 @@ export default {
     // admin
     getUsers: user,
     getStudents: student,
-    createUser: user + 'create'
+    createUser: user + 'create',
+    createStudent: student + 'create',
 }

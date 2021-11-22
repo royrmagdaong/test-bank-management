@@ -44,7 +44,7 @@
     >
         <template v-slot:[`item.age`]="{ item }">
             <div class="">
-                {{ moment().diff(item.birth_day, 'years') }}
+                {{ getAge(item.birth_day) }}
             </div>
         </template>
         <template v-slot:[`item.birth_day`]="{ item }">
@@ -98,7 +98,7 @@ import {debounce, get} from 'lodash'
         moment,
         selected:[],
         page: 1,
-        entryOptions:[1,5,10,20,50,100],
+        entryOptions:[5,10,20,50,100],
         entryValue: 10,
         headers: [
           {
@@ -138,7 +138,13 @@ import {debounce, get} from 'lodash'
         if(date){
           return moment(date).format('MMM DD, YYYY')
         }
-        return ''
+        return '-'
+      },
+      getAge(bday){
+        if(bday){
+          return moment().diff(bday, 'years')
+        }
+        return '-'
       },
       view(student){
           this.$store.dispatch('adminViewStudent/setStudent', student)
