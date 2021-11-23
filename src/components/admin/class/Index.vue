@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-card class="pa-4" tile>
     <div>
         <span class="headline tbl-name">List of Class</span>
     </div>
@@ -68,7 +68,7 @@
             tile
         >Delete Selected</v-btn>
     </div>
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -92,30 +92,6 @@ export default {
           { text: 'Students', value: 'students' }
         ],
         subjects: [
-            {
-                index: 1,
-                class_code: 'Spiral Filipino',
-                instructor: 'Joken Villanueva',
-                days_and_time: 'MWF / 7:30am-10:00am',
-                room: 'Room 101',
-                section: 'A'
-            },
-            {
-                index: 2,
-                class_code: 'Spiral English',
-                instructor: 'Joken Villanueva',
-                days_and_time: 'NONE / NONE',
-                room: 'NONE',
-                section: 'NONE'
-            },
-            {
-                index: 3,
-                class_code: 'Spiral Science',
-                instructor: 'Joken Villanueva',
-                days_and_time: 'NONE / NONE',
-                room: 'NONE',
-                section: 'NONE'
-            }
         ]
     }),
     methods:{

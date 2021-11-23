@@ -10,6 +10,7 @@ import Homepage from './views/Homepage'
 import AdminBase from './views/admin/Base'
 import AdminClass from './components/admin/class/Class' // CLASS
 import AdminClassIndex from './components/admin/class/Index'
+import AdminClassCreate from './components/admin/class/CreateClass'
 import AdminDashboard from './components/admin/dashboard/Dashboard'
 import AdminFaculty from './components/admin/faculty/Faculty' // FACULTY
 import AdminFacultyIndex from './components/admin/faculty/Index'
@@ -94,6 +95,10 @@ const router =  new Router({
             {
               path: '/',
               component: AdminClassIndex
+            },
+            {
+              path: 'create',
+              component: AdminClassCreate
             }
           ]
         },
