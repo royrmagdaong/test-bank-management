@@ -3,6 +3,7 @@ const student = 'student/'
 const prof = 'prof/'
 const subj = 'subject/'
 const gradeLevel = 'grade-level/'
+const room = 'room/'
 
 export default {
     // general user
@@ -18,5 +19,7 @@ export default {
     getSubjects: subj,
     createSubject: subj + 'create',
     getGradeLevel: gradeLevel,
-    createGradeLevel: gradeLevel + 'create'
+    createGradeLevel: gradeLevel + 'create',
+    getRooms: room,
+    createRoom: room + 'create',
 }

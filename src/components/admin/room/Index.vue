@@ -15,6 +15,7 @@
             dense
             hide-details
             color="grey lighten-1"
+            @input="getRooms"
             ></v-combobox>
         </div>
         <div class="d-flex align-center">
@@ -25,12 +26,14 @@
             outlined
             color="grey lighten-1"
             v-model="searchString"
+            @input="getRooms"
             ></v-text-field>
         </div>
     </div>
     <!-- <hr style="border:#222 solid 1px;"> -->
     <v-data-table
         :headers="headers"
+        :items="get(rooms, 'data')"
         :items-per-page="entryValue"
         class="elevation-0"
         search=""
@@ -40,25 +43,21 @@
         show-select
         :single-select="false"
     >
-        <template v-slot:[`item.view`]="{ item }">
-            <div class="view-student" @click="view(item)">
-                View
-            </div>
-        </template>
     </v-data-table>
 
     <hr style="border:#222 solid 1px;">
     <div class="mt-4 d-flex justify-space-between align-center">
     <div class="font-weight-light grey--text text--darken-1 subtitle-2">
-        <!-- <span>Showing {{ getFirstnumEntryCount(((page-1)*entryValue)+1) }} to {{ getEntryCount() }} of {{ get(professors,'count') }} entries</span> -->
+        <span>Showing {{ getFirstnumEntryCount(((page-1)*entryValue)+1) }} to {{ getEntryCount() }} of {{ get(rooms,'count') }} entries</span>
     </div>
     <v-pagination
         v-model="page"
-        :length="1"
+        :length="Math.ceil(get(rooms,'count')/entryValue)"
         prev-icon="mdi-menu-left"
         next-icon="mdi-menu-right"
         class=""
         color="grey lighten-1"
+        @input="paginate"
     ></v-pagination>
     </div>
     <div>
@@ -88,21 +87,45 @@ export default {
             entryValue: 10,
             searchString: '',
             headers: [
-            {
-                text: 'No.',
-                align: 'left',
-                sortable: true,
-                value: 'index',
-            },
-            { text: 'Room', value: 'room', sortable: true },
+                {
+                    text: 'No.',
+                    align: 'left',
+                    sortable: true,
+                    value: 'index',
+                },
+                { text: 'Room', value: 'room', sortable: true },
             ],
+            searchRoom: debounce(()=>{
+                this.$store.dispatch('adminRoom/getRooms', {
+                    searchString: this.searchString,
+                    limit: this.entryValue,
+                    skip: ((this.page-1) * this.entryValue)
+                })
+            }, 300)
         }
     },
     computed:{
+        rooms(){
+            return this.$store.getters['adminRoom/getRooms']
+        }
     },
     mounted(){
+        this.getRooms()
     },
     methods:{
+        getRooms(){
+            this.page = 1
+            this.searchRoom()
+        },
+        paginate(){
+            this.searchRoom()
+        },
+        getEntryCount(){
+            return ((this.page)*(this.entryValue)) < get(this.rooms, 'count') ? ((this.page)*(this.entryValue)) : get(this.rooms, 'count')
+        },
+        getFirstnumEntryCount(val){
+            return get(this.rooms, 'count')===0?0:val
+        }
     }
 }
 </script>

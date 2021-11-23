@@ -142,3 +142,25 @@ export function createGradeLevel(payload){
         .catch(err => { reject(err)} )
     })
 }
+
+export function getRooms(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getRooms, {
+            searchString: payload.searchString,
+            skip: payload.skip,
+            limit: payload.limit
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function createRoom(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.createRoom, {
+            room: payload.room
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}

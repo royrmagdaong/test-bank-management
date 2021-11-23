@@ -32,6 +32,7 @@
           <v-btn
               class="grey white--text text-capitalize caption px-6"
               tile
+              @click="createRoom"
           >Save</v-btn>
         </v-col>
       </v-row>
@@ -55,6 +56,21 @@
       back(){
         this.$router.push('/admin/room')
       },
+      createRoom(){
+        if(
+            this.room
+        ){
+            this.$store.dispatch('adminRoom/createRoom',{
+                room: this.room
+            }).then(res=>{
+                if(res.response){
+                    this.room = ''
+                }
+            })
+        }else{
+            console.log('Please fill up all fields!')
+        }
+      }
     }
   }
 </script>
