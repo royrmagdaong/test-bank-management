@@ -112,8 +112,38 @@
             dense
             class="my-input"
             color="grey"
-            :items="rooms"
-          ></v-select>
+            item-text="room"
+            :items="get(rooms, 'data')"
+            v-model="selectedRoom"
+            @click="clearFields"
+          >
+            <template v-slot:prepend-item>
+              <div class="d-flex align-center px-2">
+                <v-text-field 
+                  dense 
+                  hide-details
+                  outlined
+                  label="Search"
+                  color="grey lighten-1"
+                  v-model="searchString"
+                  @input="getRooms"
+                ></v-text-field>
+              </div>
+            </template>
+            <template v-slot:append-item>
+              <div class="d-flex justify-end">
+                <v-pagination
+                  v-model="page"
+                  :length="Math.ceil(get(rooms,'count')/10)"
+                  prev-icon="mdi-menu-left"
+                  next-icon="mdi-menu-right"
+                  class="custom-pagination-1"
+                  color="grey lighten-1"
+                  @input="paginateRoom"
+                ></v-pagination>
+              </div>
+            </template>
+          </v-select>
         </v-col>
         <v-col cols="10" offset="1" sm="8" offset-sm="2" class="pb-2">
           <div class="grey--text">Year/Section:</div>
@@ -185,7 +215,9 @@ import {get, debounce} from 'lodash'
         selectedInstructor: '',
         selectedSubject: '',
         selectedGradeLevel: '',
-        rooms: ['101','102','103','201','202','203'],
+        selectedRoom: '',
+
+        // api call debounce
         searchProf: debounce(()=>{
           this.$store.dispatch('adminFaculty/fetchProf', {
             searchString: this.searchString,
@@ -206,6 +238,13 @@ import {get, debounce} from 'lodash'
             limit: 10,
             skip: ((this.page-1) * 10)
           })
+        }, 300),
+        searchRoom: debounce(()=>{
+          this.$store.dispatch('adminRoom/getRooms', {
+            searchString: this.searchString,
+            limit: 10,
+            skip: ((this.page-1) * 10)
+          })
         }, 300)
       }
     },
@@ -218,6 +257,9 @@ import {get, debounce} from 'lodash'
       },
       grade_level(){
         return this.$store.getters['adminGradeLevel/getGradeLevel']
+      },
+      rooms(){
+        return this.$store.getters['adminRoom/getRooms']
       }
     },
     mounted(){
@@ -248,12 +290,20 @@ import {get, debounce} from 'lodash'
       paginateGradeLevel(){
         this.searchGradeLevel()
       },
+      getRooms(){
+        this.page = 1
+        this.searchRoom()
+      },
+      paginateRoom(){
+        this.searchRoom()
+      },
       clearFields(){
         this.page = 1
         this.searchString = ''
         this.fetchProf()
         this.getSubjects()
         this.getGradeLevel()
+        this.getRooms()
       }
     }
   }
