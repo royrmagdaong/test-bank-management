@@ -18,12 +18,13 @@
             outlined
             hide-details
             dense
+            return-object
             class="my-input"
             color="grey"
             item-text="code_and_description"
             :items="get(subjects, 'data')"
             v-model="selectedSubject"
-            @click="clearFields"
+            @click="()=>{getSubjects(); page=1; searchString='';}"
           >
             <template v-slot:prepend-item>
               <div class="d-flex align-center px-2">
@@ -59,12 +60,13 @@
             outlined
             hide-details
             dense
+            return-object
             class="my-input"
             color="grey"
             item-text="full_name"
             :items="get(professors, 'data')"
             v-model="selectedInstructor"
-            @click="clearFields"
+            @click="()=>{fetchProf(); page=1; searchString='';}"
           >
             <template v-slot:prepend-item>
               <div class="d-flex align-center px-2">
@@ -96,13 +98,116 @@
         </v-col>
         <v-col cols="10" offset="1" sm="8" offset-sm="2" class="pb-2">
           <div class="grey--text">Days and time:</div>
-          <v-text-field
-            class="my-input"
-            color="grey"
-            outlined
-            dense
-            hide-details
-          ></v-text-field>
+          <v-row no-gutters>
+            <v-col cols="6" md="4" class="pa-0 pr-1 pr-md-1">
+              <v-dialog
+                ref="dialog"
+                v-model="timeModal"
+                :return-value.sync="time"
+                persistent
+                width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    :value="formatTime(time)"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                    class="my-input"
+                    color="grey"
+                    placeholder="From"
+                    outlined
+                    dense
+                    hide-details
+                  ></v-text-field>
+                </template>
+                <v-time-picker
+                  v-if="timeModal"
+                  v-model="time"
+                  full-width
+                  ampm-in-title
+                  header-color="success lighten-2"
+                  color="secondary"
+                >
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    text
+                    color="black"
+                    @click="timeModal = false"
+                  >
+                    Cancel
+                  </v-btn>
+                  <v-btn
+                    text
+                    color="black"
+                    @click="$refs.dialog.save(time)"
+                  >
+                    OK
+                  </v-btn>
+                </v-time-picker>
+              </v-dialog>
+            </v-col>
+            <v-col cols="6" md="4" class="pa-0 pl-1 px-md-1">
+              <v-dialog
+                ref="dialog2"
+                v-model="timeModal2"
+                :return-value.sync="time2"
+                persistent
+                width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    :value="formatTime(time2)"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                    class="my-input"
+                    color="grey"
+                    placeholder="To"
+                    outlined
+                    dense
+                    hide-details
+                  ></v-text-field>
+                </template>
+                <v-time-picker
+                  v-if="timeModal2"
+                  v-model="time2"
+                  full-width
+                  ampm-in-title
+                  header-color="success lighten-2"
+                  color="secondary"
+                >
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    text
+                    color="black"
+                    @click="timeModal2 = false"
+                  >
+                    Cancel
+                  </v-btn>
+                  <v-btn
+                    text
+                    color="black"
+                    @click="$refs.dialog2.save(time2)"
+                  >
+                    OK
+                  </v-btn>
+                </v-time-picker>
+              </v-dialog>
+            </v-col>
+            <v-col cols="12" md="4" class="pa-0 pl-md-1 mt-2 mt-md-0">
+              <v-select
+                class="my-input"
+                color="grey"
+                placeholder="Days"
+                outlined
+                dense
+                hide-details
+                :items="days"
+                v-model="selectedDays"
+              ></v-select>
+            </v-col>
+          </v-row>
         </v-col>
         <v-col cols="10" offset="1" sm="8" offset-sm="2" class="pb-2">
           <div class="grey--text">Room:</div>
@@ -110,12 +215,13 @@
             outlined
             hide-details
             dense
+            return-object
             class="my-input"
             color="grey"
             item-text="room"
             :items="get(rooms, 'data')"
             v-model="selectedRoom"
-            @click="clearFields"
+            @click="()=>{getRooms(); page=1; searchString='';}"
           >
             <template v-slot:prepend-item>
               <div class="d-flex align-center px-2">
@@ -151,12 +257,13 @@
             outlined
             hide-details
             dense
+            return-object
             class="my-input"
             color="grey"
             item-text="grade_and_section"
             :items="get(grade_level, 'data')"
             v-model="selectedGradeLevel"
-            @click="clearFields"
+            @click="()=>{getGradeLevel(); page=1; searchString='';}"
           >
             <template v-slot:prepend-item>
               <div class="d-flex align-center px-2">
@@ -195,6 +302,7 @@
           <v-btn
               class="grey white--text text-capitalize caption px-6"
               tile
+              @click="createClass"
           >Save</v-btn>
         </v-col>
       </v-row>
@@ -205,10 +313,12 @@
 
 <script>
 import {get, debounce} from 'lodash'
+import moment from 'moment'
   export default {
     data () {
       return {
         get,
+        moment,
         description: '',
         searchString: '',
         page: 1,
@@ -216,6 +326,12 @@ import {get, debounce} from 'lodash'
         selectedSubject: '',
         selectedGradeLevel: '',
         selectedRoom: '',
+        timeModal: false,
+        time: '',
+        timeModal2: false,
+        time2: '',
+        days: ['MWF','TTH','Sat'],
+        selectedDays:'',
 
         // api call debounce
         searchProf: debounce(()=>{
@@ -263,7 +379,10 @@ import {get, debounce} from 'lodash'
       }
     },
     mounted(){
-      this.clearFields()
+      this.fetchProf()
+      this.getSubjects()
+      this.getGradeLevel()
+      this.getRooms()
     },
     methods:{
       back(){
@@ -297,13 +416,43 @@ import {get, debounce} from 'lodash'
       paginateRoom(){
         this.searchRoom()
       },
-      clearFields(){
-        this.page = 1
-        this.searchString = ''
-        this.fetchProf()
-        this.getSubjects()
-        this.getGradeLevel()
-        this.getRooms()
+      formatTime(time){
+        return time? moment(time, "HH:mm:ss").format("hh:mmA"):time
+      },
+      createClass(){
+        let days_and_time = `${this.selectedDays} ${this.formatTime(this.time)} - ${this.formatTime(this.time2)}`
+        if(
+          this.time &&
+          this.time2 &&
+          this.selectedDays &&
+          this.selectedSubject &&
+          this.selectedGradeLevel &&
+          this.selectedRoom &&
+          this.selectedInstructor
+        ){
+          this.$store.dispatch('adminClass/createClass',{
+            class_code: get(this.selectedSubject, '_id'),
+            instructor: get(this.selectedInstructor, '_id'),
+            days_and_time: days_and_time,
+            room: get(this.selectedRoom, '_id'),
+            section: get(this.selectedGradeLevel, '_id')
+          }).then(res=>{
+            console.log(res)
+            if(res.response){
+              this.time = ''
+              this.time2 = ''
+              this.selectedDays = ''
+              this.selectedSubject = ''
+              this.selectedGradeLevel = ''
+              this.selectedRoom = ''
+              this.selectedInstructor = ''
+            }
+          }).catch(error => {
+            console.log(error.message)
+          })
+        }else{
+          console.log('Please fill up all fields!')
+        }
       }
     }
   }

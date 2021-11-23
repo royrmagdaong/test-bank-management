@@ -164,3 +164,29 @@ export function createRoom(payload){
         .catch(err => { reject(err)} )
     })
 }
+
+export function getClass(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getClass, {
+            searchString: payload.searchString,
+            skip: payload.skip,
+            limit: payload.limit
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function createClass(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.createClass, {
+            class_code: payload.class_code,
+            instructor: payload.instructor,
+            days_and_time: payload.days_and_time,
+            room: payload.room,
+            section: payload.section
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
