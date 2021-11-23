@@ -8,6 +8,9 @@ import Homepage from './views/Homepage'
 
 // Admin
 import AdminBase from './views/admin/Base'
+import AdminRoom from './components/admin/room/Room' // ROOM
+import AdminRoomIndex from './components/admin/room/Index'
+import AdminRoomCreate from './components/admin/room/CreateRoom'
 import AdminClass from './components/admin/class/Class' // CLASS
 import AdminClassIndex from './components/admin/class/Index'
 import AdminClassCreate from './components/admin/class/CreateClass'
@@ -99,6 +102,20 @@ const router =  new Router({
             {
               path: 'create',
               component: AdminClassCreate
+            }
+          ]
+        },
+        { 
+          path: "room",
+          component: AdminRoom,
+          children: [
+            {
+              path: '/',
+              component: AdminRoomIndex
+            },
+            {
+              path: 'create',
+              component: AdminRoomCreate
             }
           ]
         },

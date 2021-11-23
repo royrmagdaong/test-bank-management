@@ -46,6 +46,7 @@ export default {
             { title: 'Grade level', route: '/admin/grade-level' },
             { title: 'faculty', route: '/admin/faculty' },
             { title: 'class', route: '/admin/class' },
+            { title: 'room', route: '/admin/room' },
             { title: 'manage users', route: '/admin/manage-users' },
             { title: 'logout', route: 'logout' },
         ],
