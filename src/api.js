@@ -136,6 +136,7 @@ export function createGradeLevel(payload){
         axios.post(endpoints.createGradeLevel, {
             description: payload.description,
             grade_level: payload.grade_level,
+            section: payload.section
         })
         .then(res => { resolve(res.data)})
         .catch(err => { reject(err)} )

@@ -97,7 +97,8 @@ export default {
                 value: 'index',
             },
             { text: 'Grade', value: 'grade_level', sortable: true },
-            { text: 'Description', value: 'description', sortable: true }
+            { text: 'Description', value: 'description', sortable: true },
+            { text: 'Section', value: 'section', sortable: true }
             ],
             searchGradeLevel: debounce(()=>{
                 this.$store.dispatch('adminGradeLevel/getGradeLevel', {

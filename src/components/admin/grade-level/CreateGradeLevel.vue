@@ -13,6 +13,17 @@
     <div class="mt-10">
       <v-row no-gutters>
         <v-col cols="10" offset="1" sm="8" offset-sm="2" class="pb-2">
+          <div class="grey--text">Grade Level:</div>
+          <v-text-field
+            class="my-input"
+            color="grey"
+            outlined
+            dense
+            hide-details
+            v-model="grade_level"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="10" offset="1" sm="8" offset-sm="2" class="pb-2">
           <div class="grey--text">Description:</div>
           <v-text-field
             class="my-input"
@@ -24,14 +35,14 @@
           ></v-text-field>
         </v-col>
         <v-col cols="10" offset="1" sm="8" offset-sm="2" class="pb-2">
-          <div class="grey--text">Grade Level:</div>
+          <div class="grey--text">Section:</div>
           <v-text-field
             class="my-input"
             color="grey"
             outlined
             dense
             hide-details
-            v-model="grade_level"
+            v-model="section"
           ></v-text-field>
         </v-col>
         <v-col cols="10" offset="1" sm="8" offset-sm="2" class="pb-2 mt-2">
@@ -58,6 +69,7 @@
       return {
         description: '',
         grade_level: '',
+        section: ''
       }
     },
     computed:{
@@ -72,11 +84,13 @@
         if(this.description && this.grade_level){
           this.$store.dispatch('adminGradeLevel/createGradeLevel',{
             grade_level: this.grade_level,
-            description: this.description
+            description: this.description,
+            section: this.section
           }).then(res=>{
             if(res.response){
               this.grade_level = ''
               this.description = ''
+              this.section = ''
             }else{
               console.log(res)
             }

@@ -114,7 +114,7 @@
           ></v-select>
         </v-col>
         <v-col cols="10" offset="1" sm="8" offset-sm="2" class="pb-2">
-          <div class="grey--text">Section:</div>
+          <div class="grey--text">Year/Section:</div>
           <v-select
             outlined
             hide-details
