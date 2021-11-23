@@ -23,6 +23,7 @@
             item-text="code_and_description"
             :items="get(subjects, 'data')"
             v-model="selectedSubject"
+            @click="clearFields"
           >
             <template v-slot:prepend-item>
               <div class="d-flex align-center px-2">
@@ -63,6 +64,7 @@
             item-text="full_name"
             :items="get(professors, 'data')"
             v-model="selectedInstructor"
+            @click="clearFields"
           >
             <template v-slot:prepend-item>
               <div class="d-flex align-center px-2">
@@ -121,7 +123,38 @@
             dense
             class="my-input"
             color="grey"
-          ></v-select>
+            item-text="grade_and_section"
+            :items="get(grade_level, 'data')"
+            v-model="selectedGradeLevel"
+            @click="clearFields"
+          >
+            <template v-slot:prepend-item>
+              <div class="d-flex align-center px-2">
+                <v-text-field 
+                  dense 
+                  hide-details
+                  outlined
+                  label="Search"
+                  color="grey lighten-1"
+                  v-model="searchString"
+                  @input="getGradeLevel"
+                ></v-text-field>
+              </div>
+            </template>
+            <template v-slot:append-item>
+              <div class="d-flex justify-end">
+                <v-pagination
+                  v-model="page"
+                  :length="Math.ceil(get(grade_level,'count')/10)"
+                  prev-icon="mdi-menu-left"
+                  next-icon="mdi-menu-right"
+                  class="custom-pagination-1"
+                  color="grey lighten-1"
+                  @input="paginateGradeLevel"
+                ></v-pagination>
+              </div>
+            </template>
+          </v-select>
         </v-col>
         <v-col cols="10" offset="1" sm="8" offset-sm="2" class="pb-2 mt-2">
           <v-btn
@@ -147,11 +180,11 @@ import {get, debounce} from 'lodash'
       return {
         get,
         description: '',
-        grade_level: '',
         searchString: '',
         page: 1,
         selectedInstructor: '',
         selectedSubject: '',
+        selectedGradeLevel: '',
         rooms: ['101','102','103','201','202','203'],
         searchProf: debounce(()=>{
           this.$store.dispatch('adminFaculty/fetchProf', {
@@ -166,6 +199,13 @@ import {get, debounce} from 'lodash'
             limit: 10,
             skip: ((this.page-1) * 10)
           })
+        }, 300),
+        searchGradeLevel: debounce(()=>{
+          this.$store.dispatch('adminGradeLevel/getGradeLevel', {
+            searchString: this.searchString,
+            limit: 10,
+            skip: ((this.page-1) * 10)
+          })
         }, 300)
       }
     },
@@ -176,10 +216,12 @@ import {get, debounce} from 'lodash'
       subjects(){
         return this.$store.getters['adminSubjects/getSubjects']
       },
+      grade_level(){
+        return this.$store.getters['adminGradeLevel/getGradeLevel']
+      }
     },
     mounted(){
-      this.fetchProf()
-      this.getSubjects()
+      this.clearFields()
     },
     methods:{
       back(){
@@ -199,6 +241,20 @@ import {get, debounce} from 'lodash'
       paginateSubj(){
         this.searchSubjects()
       },
+      getGradeLevel(){
+        this.page = 1;
+        this.searchGradeLevel()
+      },
+      paginateGradeLevel(){
+        this.searchGradeLevel()
+      },
+      clearFields(){
+        this.page = 1
+        this.searchString = ''
+        this.fetchProf()
+        this.getSubjects()
+        this.getGradeLevel()
+      }
     }
   }
 </script>
