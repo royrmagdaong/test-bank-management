@@ -417,7 +417,7 @@ import moment from 'moment'
         this.searchRoom()
       },
       formatTime(time){
-        return time? moment(time, "HH:mm:ss").format("hh:mmA"):time
+        return time? moment(time, "HH:mm:ss").format("h:mmA"):time
       },
       createClass(){
         let days_and_time = `${this.selectedDays} ${this.formatTime(this.time)} - ${this.formatTime(this.time2)}`
