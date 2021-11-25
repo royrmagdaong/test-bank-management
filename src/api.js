@@ -223,3 +223,21 @@ export function getStudentsInClass(payload){
         .catch(err => { reject(err)} )
     })
 }
+
+export function getStudentSubjects(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getStudentSubjects, {
+            student_id: payload.student_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getStudentInfo(){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getStudentInfo, {})
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}

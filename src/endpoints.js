@@ -27,5 +27,10 @@ export default {
     createClass: _class + 'create',
     getStudentsByID: student + 'students',
     addStudent: _class + 'add-student',
-    getStudentsInClass: _class + 'students'
+    getStudentsInClass: _class + 'students',
+
+    // student
+    getStudentInfo: student + 'student-info',
+    getStudentSubjects: _class + 'student-subjects',
+    
 }

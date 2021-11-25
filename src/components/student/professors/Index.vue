@@ -8,11 +8,13 @@
         <div class=" d-flex align-center">
             <span class="mr-2 font-weight-light grey--text text--darken-1 subtitle-2">Show</span>
             <v-combobox
-            style="max-width:120px !important;"
-            outlined
-            dense
-            hide-details
-            color="grey lighten-1"
+                style="max-width:120px !important;"
+                outlined
+                dense
+                hide-details
+                color="grey lighten-1"
+                :items="entryOptions"
+                v-model="entryValue"
             ></v-combobox>
         </div>
         <div class="d-flex align-center">
@@ -28,30 +30,31 @@
     <!-- <hr style="border:#222 solid 1px;"> -->
     <v-data-table
         :headers="headers"
-        :items="[]"
+        :items="instructors"
         :items-per-page="entryValue"
         class="elevation-0"
-        search=""
-        item-key="id_number"
         hide-default-footer
-        show-select
-        :single-select="false"
     >
-        <!-- <template v-slot:[`item.view`]="{ item }">
-            <div class="view-student" @click="view(item)">
-                View
+        <template v-slot:[`item.full_name`]="{ item }">
+            <div>
+                {{ get(item, 'first_name') }} {{ get(item, 'last_name') }}
             </div>
-        </template> -->
+        </template>
+        <template v-slot:[`item.specialization`]="{ item }">
+            <div>
+                {{ get(item, 'specialization') }}
+            </div>
+        </template>
     </v-data-table>
 
     <hr style="border:#222 solid 1px;">
     <div class="mt-4 d-flex justify-space-between align-center">
     <div class="font-weight-light grey--text text--darken-1 subtitle-2">
-        <!-- <span>Showing {{ getFirstnumEntryCount(((page-1)*entryValue)+1) }} to {{ getEntryCount() }} of {{ get(professors,'count') }} entries</span> -->
+        <span>Showing {{ getFirstnumEntryCount(((page-1)*entryValue)+1) }} to {{ getEntryCount() }} of {{ instructors.length }} entries</span>
     </div>
     <v-pagination
         v-model="page"
-        :length="1"
+        :length="Math.ceil(instructors.length/entryValue)"
         prev-icon="mdi-menu-left"
         next-icon="mdi-menu-right"
         class=""
@@ -83,27 +86,26 @@ export default {
             entryValue: 10,
             searchString: '',
             headers: [
-            {
-                text: 'No.',
-                align: 'left',
-                sortable: true,
-                value: 'index',
-            },
-            { text: 'ID number', value: 'id_number', sortable: true },
             { text: 'Fullname', value: 'full_name', sortable: true },
-            { text: 'Address', value: 'address', sortable: true },
-            { text: 'Gender', value: 'gender', sortable: true },
-            { text: 'Civil Status', value: 'civil_status', sortable: true },
             { text: 'Specialization', value: 'specialization', sortable: true },
             { text: 'Email Address', value: 'email', sortable: true }
             ],
         }
     },
     computed:{
+        instructors(){
+            return this.$store.getters['studentSubjects/getInstructors']
+        }
     },
     mounted(){
     },
     methods:{
+        getEntryCount(){
+            return ((this.page)*(this.entryValue)) < this.instructors.length ? ((this.page)*(this.entryValue)) : this.instructors.length
+        },
+        getFirstnumEntryCount(val){
+            return this.instructors.length===0?0:val
+        }
     }
 }
 </script>
