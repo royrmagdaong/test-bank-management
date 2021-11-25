@@ -14,6 +14,8 @@ import AdminRoomCreate from './components/admin/room/CreateRoom'
 import AdminClass from './components/admin/class/Class' // CLASS
 import AdminClassIndex from './components/admin/class/Index'
 import AdminClassCreate from './components/admin/class/CreateClass'
+import AdminClassStudents from './components/admin/class/StudentInClass'
+import AdminClassAddStudent from './components/admin/class/AddStudent'
 import AdminDashboard from './components/admin/dashboard/Dashboard'
 import AdminFaculty from './components/admin/faculty/Faculty' // FACULTY
 import AdminFacultyIndex from './components/admin/faculty/Index'
@@ -102,6 +104,14 @@ const router =  new Router({
             {
               path: 'create',
               component: AdminClassCreate
+            },
+            {
+              path: 'students',
+              component: AdminClassStudents
+            },
+            {
+              path: 'add-student',
+              component: AdminClassAddStudent
             }
           ]
         },

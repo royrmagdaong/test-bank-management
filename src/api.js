@@ -190,3 +190,36 @@ export function createClass(payload){
         .catch(err => { reject(err)} )
     })
 }
+
+export function getStudentsByID(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getStudentsByID, {
+            searchString: payload.searchString,
+            skip: payload.skip,
+            limit: payload.limit
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function addStudent(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.addStudent, {
+            class_id: payload.class_id,
+            student_id: payload.student_id,
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getStudentsInClass(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getStudentsInClass, {
+            class_id: payload.class_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}

@@ -25,4 +25,7 @@ export default {
     createRoom: room + 'create',
     getClass: _class,
     createClass: _class + 'create',
+    getStudentsByID: student + 'students',
+    addStudent: _class + 'add-student',
+    getStudentsInClass: _class + 'students'
 }

@@ -1,8 +1,12 @@
 <template>
   <v-card class="pa-4" tile>
-    <div>
-        <span class="headline tbl-name">List of Class</span>
+    <div class="d-flex">
+      <v-icon color="" @click="back" class="mr-2">
+          mdi-arrow-left
+      </v-icon>
+      <span class="headline tbl-name">List of Students in Class</span>
     </div>
+        
 
       <div class="mt-4 mb-2 d-flex justify-space-between align-center">
         <div class=" d-flex align-center">
@@ -15,7 +19,6 @@
             dense
             hide-details
             color="grey lighten-1"
-            @input="getClass"
             ></v-combobox>
         </div>
         <div class="d-flex align-center">
@@ -26,42 +29,21 @@
             outlined
             color="grey lighten-1"
             v-model="searchString"
-            @input="getClass"
             ></v-text-field>
         </div>
     </div>
     <!-- <hr style="border:#222 solid 1px;"> -->
     <v-data-table
         :headers="headers"
-        :items="get(classes, 'data')"
+        :items="students"
         :items-per-page="entryValue"
         class="elevation-0"
         search=""
         hide-default-footer
     >
-        <template v-slot:[`item.class_code`]="{ item }">
+        <template v-slot:[`item.full_name`]="{ item }">
             <div>
-                {{get(item, 'class_code.code')}} - {{get(item, 'class_code.description')}}
-            </div>
-        </template>
-        <template v-slot:[`item.instructor`]="{ item }">
-            <div>
-                {{get(item, 'instructor.first_name')}} {{get(item, 'instructor.last_name')}}
-            </div>
-        </template>
-        <template v-slot:[`item.room`]="{ item }">
-            <div>
-                {{get(item, 'room.room')}}
-            </div>
-        </template>
-        <template v-slot:[`item.section`]="{ item }">
-            <div>
-                {{get(item, 'section.grade_level')}} - {{get(item, 'section.section')}}
-            </div>
-        </template>
-        <template v-slot:[`item.students`]="{ item }">
-            <div class="view-student" @click="view(item)">
-                View List
+                {{get(item, 'last_name')}}, {{get(item, 'first_name')}}
             </div>
         </template>
     </v-data-table>
@@ -69,24 +51,23 @@
     <hr style="border:#222 solid 1px;">
     <div class="mt-4 d-flex justify-space-between align-center">
         <div class="font-weight-light grey--text text--darken-1 subtitle-2">
-            <span>Showing {{ getFirstnumEntryCount(((page-1)*entryValue)+1) }} to {{ getEntryCount() }} of {{ get(classes,'count') }} entries</span>
+            <span>Showing {{ getFirstnumEntryCount(((page-1)*entryValue)+1) }} to {{ getEntryCount() }} of {{ students.length }} entries</span>
         </div>
         <v-pagination
             v-model="page"
-            :length="Math.ceil(get(classes,'count')/entryValue)"
+            :length="Math.ceil(students.length/entryValue)"
             prev-icon="mdi-menu-left"
             next-icon="mdi-menu-right"
             class=""
             color="grey lighten-1"
-            @input="paginate"
         ></v-pagination>
     </div>
     <div>
         <v-btn
             class="grey white--text text-capitalize caption"
             tile
-            @click="$router.push('class/create')"
-        >New</v-btn>
+            @click="$router.push('add-student')"
+        >Add</v-btn>
         <v-btn
             class="grey white--text text-capitalize caption"
             tile
@@ -107,18 +88,17 @@ export default {
             entryValue: 10,
             searchString: '',
             headers: [
-            {
+              {
                 text: 'No.',
                 align: 'left',
                 sortable: true,
                 value: 'index',
-            },
-            { text: 'Class code', value: 'class_code', sortable: true },
-            { text: 'Instructor', value: 'instructor', sortable: true },
-            { text: 'Days and Time', value: 'days_and_time', sortable: true },
-            { text: 'Room', value: 'room', sortable: true },
-            { text: 'Section', value: 'section', sortable: true },
-            { text: 'Students', value: 'students' }
+              },
+              { text: 'ID#', value: 'student_id', sortable: true },
+              { text: 'Fullname', value: 'full_name', sortable: true },
+              { text: 'Sex', value: 'gender', sortable: true },
+              { text: 'Year Level', value: 'year_level', sortable: true },
+              { text: 'Email Address', value: 'email', sortable: true },
             ],
             searchClass: debounce(()=>{
                 this.$store.dispatch('adminClass/getClass', {
@@ -130,32 +110,30 @@ export default {
         }
     },
     computed:{
-        classes(){
-            return this.$store.getters['adminClass/getClass']
-        }
+      classId(){
+        return this.$store.getters['adminClass/getSelectedClassID']
+      },
+      students(){
+        return this.$store.getters['adminClass/getClassStudents']
+      }
     },
     mounted(){
-        this.getClass()
+      if(!this.classId){
+        this.$router.push('/admin/class')
+      }
     },
     methods:{
-        view(item){
-            console.log(item)
-            this.$store.dispatch('adminClass/setSelectedClassID', item._id)
-            this.$store.dispatch('adminClass/getClassStudents', {class_id:item._id})
-            this.$router.push('class/students')
+        view(students){
+            console.log(students)
         },
-        getClass(){
-            this.page = 1
-            this.searchClass()
-        },
-        paginate(){
-            this.searchClass()
+        back(){
+          this.$router.push('/admin/class')
         },
         getEntryCount(){
-            return ((this.page)*(this.entryValue)) < get(this.classes, 'count') ? ((this.page)*(this.entryValue)) : get(this.classes, 'count')
+            return ((this.page)*(this.entryValue)) < this.students.length ? ((this.page)*(this.entryValue)) : this.students.length
         },
         getFirstnumEntryCount(val){
-            return get(this.classes, 'count')===0?0:val
+            return this.students.length===0?0:val
         }
     }
 }
