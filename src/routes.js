@@ -39,6 +39,16 @@ import AdminSubjectCreate from './components/admin/subjects/CreateSubject'
 
 // Professor
 import ProfessorBase from './views/professor/Base'
+import ProfessorDashboard from './components/professor/dashboard/Dashboard' // DASHBOARD
+import ProfessorDashboardIndex from './components/professor/dashboard/Index'
+import ProfessorHelp from './components/professor/help/Help' // HELP
+import ProfessorHelpIndex from './components/professor/help/Index'
+import ProfessorProfile from './components/professor/profile/Profile' // PROFILE
+import ProfessorProfileIndex from './components/professor/profile/Index'
+import ProfessorStudents from './components/professor/students/Students' // STUDENTS
+import ProfessorStudentsIndex from './components/professor/students/Index'
+import ProfessorSubjects from './components/professor/subjects/Subjects' // SUBJECTS
+import ProfessorSubjectsIndex from './components/professor/subjects/Index'
 
 // Student
 import StudentBase from './views/student/Base'
@@ -247,13 +257,66 @@ const router =  new Router({
     },
     {
         path: '/professor',
-        name: 'professor',
         component: ProfessorBase,
         meta:{
           requiresAuth: true,
           isHeadDepartmentOnly: true
         },
         children: [
+          {
+            path: '/',
+            redirect: "dashboard"
+          },
+          { 
+            path: "dashboard",
+            component: ProfessorDashboard,
+            children:[
+              {
+                path: '/',
+                component: ProfessorDashboardIndex
+              }
+            ]
+          },
+          { 
+            path: "help",
+            component: ProfessorHelp,
+            children:[
+              {
+                path: '/',
+                component: ProfessorHelpIndex
+              }
+            ]
+          },
+          { 
+            path: "profile",
+            component: ProfessorProfile,
+            children:[
+              {
+                path: '/',
+                component: ProfessorProfileIndex
+              }
+            ]
+          },
+          { 
+            path: "students",
+            component: ProfessorStudents,
+            children:[
+              {
+                path: '/',
+                component: ProfessorStudentsIndex
+              }
+            ]
+          },
+          { 
+            path: "subjects",
+            component: ProfessorSubjects,
+            children:[
+              {
+                path: '/',
+                component: ProfessorSubjectsIndex
+              }
+            ]
+          },
           { path: "*", component: NotFound } // should be last
         ]
       }

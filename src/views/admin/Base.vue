@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import PTCBanner from '../../components/admin/PTCBanner.vue'
+import PTCBanner from '../../components/PTCBanner.vue'
 export default {
   components:{
     PTCBanner
