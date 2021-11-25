@@ -52,6 +52,14 @@ import ProfessorSubjectsIndex from './components/professor/subjects/Index'
 
 // Student
 import StudentBase from './views/student/Base'
+import StudentDashboard from './components/student/dashboard/Dashboard' // DASHBOARD
+import StudentDashboardIndex from './components/student/dashboard/Index'
+import StudentHelp from './components/student/help/Help' // HELP
+import StudentHelpIndex from './components/student/help/Index'
+import StudentProfessors from './components/student/professors/Professors' // PROFESSORS
+import StudentProfessorsIndex from './components/student/professors/Index'
+import StudentSubjects from './components/student/subjects/Subjects' // SUBJECTS
+import StudentSubjectsIndex from './components/student/subjects/Index'
 
 
 Vue.use(Router)
@@ -240,18 +248,46 @@ const router =  new Router({
         isStudentOnly: true
       },
       children: [
-        // { 
-        //   path: "/", 
-        //   redirect: "student-info"
-        // },
-        // { 
-        //   path: "student-info", 
-        //   component: StudentInfo
-        // },
-        // { 
-        //   path: "clearance-form", 
-        //   component: StudentClearanceForm
-        // },
+        { 
+          path: "dashboard",
+          component: StudentDashboard,
+          children:[
+            {
+              path: '/',
+              component: StudentDashboardIndex
+            }
+          ]
+        },
+        { 
+          path: "help",
+          component: StudentHelp,
+          children:[
+            {
+              path: '/',
+              component: StudentHelpIndex
+            }
+          ]
+        },
+        { 
+          path: "professor",
+          component: StudentProfessors,
+          children:[
+            {
+              path: '/',
+              component: StudentProfessorsIndex
+            }
+          ]
+        },
+        { 
+          path: "subjects",
+          component: StudentSubjects,
+          children:[
+            {
+              path: '/',
+              component: StudentSubjectsIndex
+            }
+          ]
+        },
         { path: "*", component: NotFound }
       ]
     },
