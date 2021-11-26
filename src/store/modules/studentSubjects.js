@@ -3,6 +3,8 @@ import {
     getStudentInfo
 } from '../../api'
 
+import {get} from 'lodash'
+
 var store = {
     namespaced: true,
     state: {
@@ -41,7 +43,7 @@ var store = {
     actions:{
         initStore(context){
             let user_info = JSON.parse(localStorage.getItem('user_info'))
-            if(user_info){
+            if(get(user_info, 'role') === 'student'){
                 context.dispatch('getStudentInfo')
             }
         },

@@ -241,3 +241,21 @@ export function getStudentInfo(){
         .catch(err => { reject(err)} )
     })
 }
+
+export function getProfessorInfo(){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getProfessorInfo, {})
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getProfessorSubjects(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getProfessorSubjects, {
+            prof_id: payload.prof_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}

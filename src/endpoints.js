@@ -32,5 +32,9 @@ export default {
     // student
     getStudentInfo: student + 'student-info',
     getStudentSubjects: _class + 'student-subjects',
+
+    // professor
+    getProfessorInfo: prof + 'prof-info',
+    getProfessorSubjects: _class + 'prof-subjects'
     
 }
