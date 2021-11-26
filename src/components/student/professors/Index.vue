@@ -61,16 +61,6 @@
         color="grey lighten-1"
     ></v-pagination>
     </div>
-    <div>
-        <v-btn
-            class="grey white--text text-capitalize caption"
-            tile
-        >New</v-btn>
-        <v-btn
-            class="grey white--text text-capitalize caption"
-            tile
-        >Delete Selected</v-btn>
-    </div>
   </v-card>
 </template>
 
