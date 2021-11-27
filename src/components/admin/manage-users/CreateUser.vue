@@ -74,7 +74,7 @@
                     :items="get(professors, 'data')"
                     v-model="selectedAccountName"
                     v-if="roleSelected === 'Instructor'"
-                    @change="studentAccountName"
+                    @change="profAccountName"
                     @click="searchString = ''"
                 >
                     <template v-slot:prepend-item>
@@ -153,7 +153,7 @@
                     outlined
                     dense
                     hide-details
-                    @change="account_name = ''"
+                    @change="changeType"
                 ></v-combobox>
             </v-col>
             <v-col cols="10" offset="1" class="py-1">
@@ -238,6 +238,16 @@ export default {
       studentAccountName(){
         this.account_name = get(this.selectedAccountName, 'first_name') + ' ' + get(this.selectedAccountName, 'last_name')
         console.log(this.selectedAccountName)
+      },
+      profAccountName(){
+        this.email = get(this.selectedAccountName, 'email')
+        this.account_name = get(this.selectedAccountName, 'first_name') + ' ' + get(this.selectedAccountName, 'last_name')
+        console.log(this.selectedAccountName)
+      },
+      changeType(){
+        this.account_name = ''
+        this.email = ''
+        this.selectedAccountName = ''
       },
       createUser(){
         if(
