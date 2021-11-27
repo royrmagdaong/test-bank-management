@@ -46,6 +46,30 @@
           ></v-text-field>
         </v-col>
         <v-col cols="10" offset="1" sm="8" offset-sm="2" class="pb-2">
+          <div class="grey--text">Email:</div>
+          <v-text-field
+            type="email"
+            class="my-input"
+            color="grey"
+            outlined
+            dense
+            hide-details
+            v-model="email"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="10" offset="1" sm="8" offset-sm="2" class="pb-2">
+          <div class="grey--text">Gender:</div>
+          <v-combobox
+            class="my-input"
+            color="grey"
+            :items="genderOpt"
+            outlined
+            dense
+            hide-details
+            v-model="gender"
+          ></v-combobox>
+        </v-col>
+        <v-col cols="10" offset="1" sm="8" offset-sm="2" class="pb-2">
           <div class="grey--text">Status:</div>
           <v-combobox
             class="my-input"
@@ -116,12 +140,15 @@
     data () {
       return {
         statusOpt:['New Student'],
+        genderOpt:['M','F'],
         first_name: '',
         middle_name: '',
         last_name: '',
+        email: '',
         section: '',
         year_level: '',
         status: 'New Student',
+        gender: 'M',
         academic_year: '',
         section_opt: ['A','B','C'],
         year_level_opt: ['Grade 11', 'Grade 12'],
@@ -141,6 +168,8 @@
           this.first_name &&
           this.middle_name &&
           this.last_name &&
+          this.email &&
+          this.gender &&
           this.status &&
           this.year_level &&
           this.section &&
@@ -150,6 +179,8 @@
             first_name: this.first_name,
             middle_name: this.middle_name,
             last_name: this.last_name,
+            email: this.email,
+            gender: this.gender,
             status: this.status,
             year_level: this.year_level,
             section: this.section,
@@ -160,6 +191,8 @@
               this.first_name = ''
               this.middle_name = ''
               this.last_name = ''
+              this.email = ''
+              this.gender = 'M'
               this.status = 'New Student'
               this.year_level = ''
               this.section = ''

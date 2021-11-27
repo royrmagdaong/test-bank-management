@@ -83,6 +83,8 @@ export function createStudent(payload){
           first_name: payload.first_name,
           middle_name: payload.middle_name,
           last_name: payload.last_name,
+          email: payload.email,
+          gender: payload.gender,
           status: payload.status,
           year_level: payload.year_level,
           section: payload.section,
