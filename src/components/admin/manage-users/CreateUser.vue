@@ -236,6 +236,7 @@ export default {
         this.searchProfessor()
       },
       studentAccountName(){
+        this.email = get(this.selectedAccountName, 'email')
         this.account_name = get(this.selectedAccountName, 'first_name') + ' ' + get(this.selectedAccountName, 'last_name')
         console.log(this.selectedAccountName)
       },
