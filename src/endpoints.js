@@ -13,6 +13,8 @@ export default {
     // admin
     getUsers: user,
     getStudents: student,
+    getStudentsWithoutUser: student+ 'students-no-user',
+    getProfessorsWithoutUser: prof+ 'professors-no-user',
     createUser: user + 'create',
     createStudent: student + 'create',
     getProf: prof,

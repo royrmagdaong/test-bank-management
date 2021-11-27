@@ -39,13 +39,38 @@ export function getStudents(payload){
     })
 }
 
+export function getStudentsWithoutUser(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getStudentsWithoutUser, {
+            searchString: payload.searchString,
+            skip: payload.skip,
+            limit: payload.limit
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getProfessorsWithoutUser(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getProfessorsWithoutUser, {
+            searchString: payload.searchString,
+            skip: payload.skip,
+            limit: payload.limit
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
 export function createUser(payload){
     return new Promise((resolve, reject) => {
         axios.post(endpoints.createUser, {
             role: payload.role,
             account_name: payload.account_name,
             email: payload.email,
-            password: payload.password
+            password: payload.password,
+            id: payload.id
         })
         .then(res => { resolve(res.data)})
         .catch(err => { reject(err)} )
