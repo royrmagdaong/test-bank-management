@@ -48,7 +48,9 @@ import ProfessorDashboardExamCreate from './components/professor/dashboard/exam/
 import ProfessorDashboardGrowth from './components/professor/dashboard/growth/Index'
 import ProfessorDashboardModule from './components/professor/dashboard/module/Index'
 import ProfessorDashboardNotes from './components/professor/dashboard/notes/Index'
-import ProfessorDashboardQuiz from './components/professor/dashboard/quiz/Index'
+import ProfessorDashboardQuiz from './components/professor/dashboard/quiz/Base'
+import ProfessorDashboardQuizIndex from './components/professor/dashboard/quiz/Index'
+import ProfessorDashboardQuizCreate from './components/professor/dashboard/quiz/Create'
 import ProfessorDashboardRetake from './components/professor/dashboard/retake/Index'
 import ProfessorHelp from './components/professor/help/Help' // HELP
 import ProfessorHelpIndex from './components/professor/help/Index'
@@ -386,7 +388,17 @@ const router =  new Router({
               },
               {
                 path: 'quiz',
-                component: ProfessorDashboardQuiz
+                component: ProfessorDashboardQuiz,
+                children:[
+                  {
+                    path: '/',
+                    component: ProfessorDashboardQuizIndex
+                  },
+                  {
+                    path: 'create',
+                    component: ProfessorDashboardQuizCreate
+                  }
+                ]
               },
               {
                 path: 'retake',

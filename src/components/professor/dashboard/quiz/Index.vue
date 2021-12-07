@@ -4,7 +4,7 @@
       <v-icon color="" @click="back" class="mr-2">
         mdi-arrow-left
       </v-icon>
-      <span class="headline tbl-title">List of Quiz</span>
+      <span class="headline tbl-title">List of Quizzes</span>
     </div>
 
     <div class="mt-4 mb-2 d-flex justify-space-between align-center">
@@ -83,8 +83,7 @@ export default {
       entryOptions: [5,10,20,50,100],
       searchString: '',
       headers: [
-        { text: 'Subject', value: 'subject', sortable: true },
-        { text: 'Class', value: 'class_', sortable: true },
+        { text: 'Title', value: 'title', sortable: true },
         { text: 'number of questions', value: 'questions', sortable: true },
         { text: 'Date Created', value: 'created_at', sortable: true }
       ],
