@@ -2,6 +2,9 @@
   <v-card class="pa-4" tile>
     <div>
         <span class="headline tbl-title">Profile</span>
+        <div>
+          <!-- {{professorInfo}} -->
+        </div>
     </div>
   </v-card>
 </template>
@@ -35,6 +38,9 @@ export default {
         }
     },
     computed:{
+      professorInfo(){
+        return this.$store.getters['professorSubjects/getProfessorInfo']
+      },
     },
     mounted(){
     },
