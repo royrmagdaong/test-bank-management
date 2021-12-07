@@ -289,3 +289,14 @@ export function getProfessorSubjects(payload){
         .catch(err => { reject(err)} )
     })
 }
+
+export function createActivity(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.createActivity, {
+            activityName: payload.activityName,
+            questions: payload.questions
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}

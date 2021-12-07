@@ -5,6 +5,7 @@ const subj = 'subject/'
 const gradeLevel = 'grade-level/'
 const room = 'room/'
 const _class = 'class/'
+const activity = 'activity/'
 
 export default {
     // general user
@@ -37,6 +38,7 @@ export default {
 
     // professor
     getProfessorInfo: prof + 'prof-info',
-    getProfessorSubjects: _class + 'prof-subjects'
+    getProfessorSubjects: _class + 'prof-subjects',
+    createActivity: activity + 'create',
     
 }

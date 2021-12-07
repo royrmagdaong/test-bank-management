@@ -8,7 +8,7 @@
     </div>
 
     <v-row>
-      <v-col cols="4" offset="8">
+      <v-col cols="5" offset="7">
         <v-text-field
           placeholder="Activity Name"
           hide-details
@@ -196,8 +196,25 @@ export default {
           choices: this.choices[i]
         })
       }
-      console.log(questions)
-      console.log(this.activityName)
+      if(questions.length>0 && this.activityName){
+        this.$store.dispatch('adminActivity/createActivity',{
+          activityName: this.activityName,
+          questions: questions
+        }).then(res=>{
+          if(res.response){
+            this.activityName = ''
+            this.questions = []
+            this.activity_questions = []
+            this.choices = []
+            this.$store.dispatch('adminActivity/resetQuestions')
+            this.questions = this.questions_vx
+            this.$store.dispatch('adminActivity/setActivityQuestions',[])
+            this.$store.dispatch('adminActivity/setChoices',[])
+          }
+        })
+      }else{
+        console.log('requirements not met.')
+      }
     }
   }
 }
