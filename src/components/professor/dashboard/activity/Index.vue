@@ -33,16 +33,26 @@
     </div>
     <v-data-table
       :headers="headers"
-      :items="[]"
+      :items="activities"
       :items-per-page="entryValue"
       class="elevation-0"
       hide-default-footer
     >
-      <!-- <template v-slot:[`item.full_name`]="{ item }">
+      <template v-slot:[`item.totalQuestions`]="{ item }">
           <div>
-              {{ get(item,'studentInfo.first_name') }} {{ get(item,'studentInfo.last_name') }}
+              {{ get(item,'questions').length }}
           </div>
-      </template> -->
+      </template>
+      <template v-slot:[`item.created_at`]="{ item }">
+          <div>
+              {{ formatDate(get(item,'created_at')) }}
+          </div>
+      </template>
+      <template v-slot:[`item.class_list`]="{  }">
+          <div class="blue--text text--lighten-2">
+              View List
+          </div>
+      </template>
     </v-data-table>
 
     <hr style="border:#222 solid 1px;">
@@ -52,7 +62,7 @@
       </div>
       <v-pagination
         v-model="page"
-        :length="1"
+        :length="Math.ceil(activities.length/entryValue)"
         prev-icon="mdi-menu-left"
         next-icon="mdi-menu-right"
         class=""
@@ -65,37 +75,54 @@
         tile
         @click="$router.push('activity/create')"
       >New</v-btn>
-      <v-btn
-        class="grey white--text text-capitalize caption"
-        tile
-      >Delete Selected</v-btn>
     </div>
   </v-card>
 </template>
 
 <script>
+import {get} from 'lodash'
+import moment from 'moment'
 
 export default {
   data(){
     return {
+      get,
       page: 1,
-      entryValue: 1,
+      entryValue: 10,
       entryOptions: [5,10,20,50,100],
       searchString: '',
       headers: [
-        { text: 'Title', value: 'title', sortable: true },
-        { text: 'number of questions', value: 'questions', sortable: true },
-        { text: 'Date Created', value: 'created_at', sortable: true }
+        { text: 'Activity Name', value: 'activityName', sortable: true },
+        { text: 'Number of questions', value: 'totalQuestions', sortable: true },
+        { text: 'Date Created', value: 'created_at', sortable: true },
+        { text: 'Class', value: 'class_list', sortable: true }
       ],
     }
   },
   computed:{
+    activities(){
+      return this.$store.getters['adminActivity/getActivities']
+    }
   },
   mounted(){
+    this.getActivities()
   },
   methods:{
     back(){
       this.$router.push('/professor/dashboard')
+    },
+    formatDate(date){
+      if(date){
+        return moment(date).format('MMM DD, YYYY')
+      }
+      return '-'
+    },
+    getActivities(){
+      this.$store.dispatch('adminActivity/getProfActivities').then(res=>{
+        if(res.response){
+          console.log(res.data)
+        }
+      })
     }
   }
 }

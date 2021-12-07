@@ -300,3 +300,11 @@ export function createActivity(payload){
         .catch(err => { reject(err)} )
     })
 }
+
+export function getProfActivities(){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getProfActivities)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
