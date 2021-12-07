@@ -41,6 +41,13 @@ import AdminSubjectCreate from './components/admin/subjects/CreateSubject'
 import ProfessorBase from './views/professor/Base'
 import ProfessorDashboard from './components/professor/dashboard/Dashboard' // DASHBOARD
 import ProfessorDashboardIndex from './components/professor/dashboard/Index'
+import ProfessorDashboardActivity from './components/professor/dashboard/activity/Index'
+import ProfessorDashboardExam from './components/professor/dashboard/exam/Index'
+import ProfessorDashboardGrowth from './components/professor/dashboard/growth/Index'
+import ProfessorDashboardModule from './components/professor/dashboard/module/Index'
+import ProfessorDashboardNotes from './components/professor/dashboard/notes/Index'
+import ProfessorDashboardQuiz from './components/professor/dashboard/quiz/Index'
+import ProfessorDashboardRetake from './components/professor/dashboard/retake/Index'
 import ProfessorHelp from './components/professor/help/Help' // HELP
 import ProfessorHelpIndex from './components/professor/help/Index'
 import ProfessorProfile from './components/professor/profile/Profile' // PROFILE
@@ -344,6 +351,34 @@ const router =  new Router({
               {
                 path: '/',
                 component: ProfessorDashboardIndex
+              },
+              {
+                path: 'activity',
+                component: ProfessorDashboardActivity
+              },
+              {
+                path: 'exam',
+                component: ProfessorDashboardExam
+              },
+              {
+                path: 'growth-development',
+                component: ProfessorDashboardGrowth
+              },
+              {
+                path: 'module',
+                component: ProfessorDashboardModule
+              },
+              {
+                path: 'notes',
+                component: ProfessorDashboardNotes
+              },
+              {
+                path: 'quiz',
+                component: ProfessorDashboardQuiz
+              },
+              {
+                path: 'retake',
+                component: ProfessorDashboardRetake
               }
             ]
           },

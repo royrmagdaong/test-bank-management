@@ -44,7 +44,7 @@
       </v-card>
     </v-col>
     <v-col cols="12" md="4">
-      <v-card tile class="pa-4 dashboard-item" @click="routeTo('dashboard/notes')" height="200">
+      <v-card tile class="pa-4 dashboard-item" @click="routeTo('dashboard/retake')" height="200">
         <div class="title text-center">RETAKE</div>
       </v-card>
     </v-col>
