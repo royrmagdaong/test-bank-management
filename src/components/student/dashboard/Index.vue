@@ -1,9 +1,49 @@
 <template>
-  <v-card class="pa-4" tile>
-    <div>
-        <span class="headline tbl-title">Dashboard</span>
-    </div>
-  </v-card>
+  <v-row>
+    <v-col cols="12" class="d-flex justify-space-between">
+      <v-card tile class="py-2 px-4 d-flex align-center">
+        <span class="headline tbl-title">Student Dashboard</span>
+      </v-card>
+      <v-card tile class="py-2 px-4">
+        <v-text-field
+          hide-details
+          dense
+          outlined
+          label="Search"
+        ></v-text-field>
+      </v-card>
+    </v-col>
+    <v-col cols="12" md="4">
+      <v-card tile class="pa-4 dashboard-item" height="200">
+        <div class="title text-center">EXAM</div>
+      </v-card>
+    </v-col>
+    <v-col cols="12" md="4">
+      <v-card tile class="pa-4 dashboard-item" height="200">
+        <div class="title text-center">QUIZ</div>
+      </v-card>
+    </v-col>
+    <v-col cols="12" md="4">
+      <v-card tile class="pa-4 dashboard-item" height="200">
+        <div class="title text-center">ACTIVITY</div>
+      </v-card>
+    </v-col>
+    <v-col cols="12" md="4">
+      <v-card tile class="pa-4 dashboard-item" height="200">
+        <div class="title text-center">MODULE</div>
+      </v-card>
+    </v-col>
+    <v-col cols="12" md="4">
+      <v-card tile class="pa-4 dashboard-item" height="200">
+        <div class="title text-center">GROWTH DEVELOPMENT</div>
+      </v-card>
+    </v-col>
+    <v-col cols="12" md="4">
+      <v-card tile class="pa-4 dashboard-item" height="200">
+        <div class="title text-center">NOTES</div>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -48,5 +88,11 @@ export default {
   .tbl-title{
     font-size: 18px !important;
   }
+}
+.dashboard-item{
+  cursor: pointer;
+}
+.dashboard-item:hover{
+  background-color: #85E783;
 }
 </style>
