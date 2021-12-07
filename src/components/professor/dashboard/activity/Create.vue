@@ -4,7 +4,7 @@
       <v-icon color="" @click="back" class="mr-2">
         mdi-arrow-left
       </v-icon>
-      <span class="headline tbl-title">Create Exam</span>
+      <span class="headline tbl-title">Create Activity</span>
     </div>
 
     <v-card color="#eee" class="mt-4" tile flat v-for="(q,index) in questions" :key="index">
@@ -23,7 +23,7 @@
             style="border-radius: 0 !important;"
             hide-details
             outlined
-            v-model="exam_questions[index]"
+            v-model="activity_questions[index]"
           ></v-text-field>
           <ol class="pa-0 pl-6" style="list-style-type: upper-alpha;">
             <li v-for="(choice,index2) in choices[index]" :key="index2" style="position:relative;">
@@ -75,7 +75,7 @@
         class="black--text px-8"
         large
         tile
-        @click="createExam"
+        @click="createActivity"
       >Create</v-btn>
     </div>
   </v-card>
@@ -87,42 +87,42 @@ export default {
   data(){
     return {
       get,
-      exam_questions: [],
+      activity_questions: [],
       choices: [],
       questions: []
     }
   },
   computed:{
     questions_vx(){
-      return this.$store.getters['adminExam/getQuestions']
+      return this.$store.getters['adminActivity/getQuestions']
     },
     choices_vx(){
-      return this.$store.getters['adminExam/getChoices']
+      return this.$store.getters['adminActivity/getChoices']
     },
-    exam_questions_vx(){
-      return this.$store.getters['adminExam/getExamQuestions']
+    activity_questions_vx(){
+      return this.$store.getters['adminActivity/getActivityQuestions']
     }
   },
   mounted(){
     this.questions = this.questions_vx
     this.choices = this.choices_vx
-    this.exam_questions = this.exam_questions_vx
+    this.activity_questions = this.activity_questions_vx
 
     if(this.choices.length<1){
       this.questions.forEach(question=>{
-        this.exam_questions.push(question.question)
+        this.activity_questions.push(question.question)
         this.choices.push(question.choices)
       })
     }
   },
   destroyed(){
-    this.$store.dispatch('adminExam/setQuestions', this.questions)
-    this.$store.dispatch('adminExam/setChoices', this.choices)
-    this.$store.dispatch('adminExam/setExamQuestions', this.exam_questions)
+    this.$store.dispatch('adminActivity/setQuestions', this.questions)
+    this.$store.dispatch('adminActivity/setChoices', this.choices)
+    this.$store.dispatch('adminActivity/setActivityQuestions', this.activity_questions)
   },
   methods:{
     back(){
-      this.$router.push('/professor/dashboard/exam')
+      this.$router.push('/professor/dashboard/activity')
     },
     addChoice(question_number){
       this.choices[question_number].push({answer:'', value:false})
@@ -139,7 +139,7 @@ export default {
     deleteQuestion(question_number){
       if(this.questions.length > 1){
         if (question_number > -1) {
-          this.exam_questions.splice(question_number, 1);
+          this.activity_questions.splice(question_number, 1);
           this.questions.splice(question_number, 1);
           this.choices.splice(question_number, 1);
         }
@@ -173,11 +173,11 @@ export default {
         console.log('you cannot delete a choice if the choices are only 2')
       }
     },
-    createExam(){
+    createActivity(){
       let questions = []
-      for(let i=0;i<this.exam_questions.length;i++){
+      for(let i=0;i<this.activity_questions.length;i++){
         questions.push({
-          question: this.exam_questions[i],
+          question: this.activity_questions[i],
           choices: this.choices[i]
         })
       }

@@ -88,27 +88,8 @@ export default {
     return {
       get,
       quiz_questions: [],
-      choices: [
-        // [
-        //   {text:'',answer:true},
-        //   {text:'',answer:false}
-        // ]
-      ],
-      questions: [
-        // {
-        //   question: '',
-        //   choices: [
-        //     {
-        //       value: true,
-        //       answer: '',
-        //     },
-        //     {
-        //       value: false,
-        //       answer: '',
-        //     }
-        //   ],
-        // },
-      ]
+      choices: [],
+      questions: []
     }
   },
   computed:{

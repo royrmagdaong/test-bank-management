@@ -41,7 +41,9 @@ import AdminSubjectCreate from './components/admin/subjects/CreateSubject'
 import ProfessorBase from './views/professor/Base'
 import ProfessorDashboard from './components/professor/dashboard/Dashboard' // DASHBOARD
 import ProfessorDashboardIndex from './components/professor/dashboard/Index'
-import ProfessorDashboardActivity from './components/professor/dashboard/activity/Index'
+import ProfessorDashboardActivity from './components/professor/dashboard/activity/Base'
+import ProfessorDashboardActivityIndex from './components/professor/dashboard/activity/Index'
+import ProfessorDashboardActivityCreate from './components/professor/dashboard/activity/Create'
 import ProfessorDashboardExam from './components/professor/dashboard/exam/Base'
 import ProfessorDashboardExamIndex from './components/professor/dashboard/exam/Index'
 import ProfessorDashboardExamCreate from './components/professor/dashboard/exam/Create'
@@ -358,7 +360,17 @@ const router =  new Router({
               },
               {
                 path: 'activity',
-                component: ProfessorDashboardActivity
+                component: ProfessorDashboardActivity,
+                children:[
+                  {
+                    path: '/',
+                    component: ProfessorDashboardActivityIndex
+                  },
+                  {
+                    path: 'create',
+                    component: ProfessorDashboardActivityCreate
+                  }
+                ]
               },
               {
                 path: 'exam',
