@@ -7,6 +7,20 @@
       <span class="headline tbl-title">Create Quiz</span>
     </div>
 
+    <v-row>
+      <v-col cols="4" offset="8">
+        <v-text-field
+          placeholder="Quiz Name"
+          hide-details
+          dense
+          outlined
+          color="#aaa"
+          style="border-radius: 0 !important;"
+          v-model="quizName"
+        ></v-text-field>
+      </v-col>
+    </v-row>
+
     <v-card color="#eee" class="mt-4" tile flat v-for="(q,index) in questions" :key="index">
       <v-row no-gutters>
         <v-col cols="10" offset="1" class="pt-10 pb-15">
@@ -89,7 +103,8 @@ export default {
       get,
       quiz_questions: [],
       choices: [],
-      questions: []
+      questions: [],
+      quizName: ''
     }
   },
   computed:{
@@ -182,6 +197,7 @@ export default {
         })
       }
       console.log(questions)
+      console.log(this.quizName)
     }
   }
 }
