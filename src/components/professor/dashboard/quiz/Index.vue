@@ -47,17 +47,28 @@
 
     <hr style="border:#222 solid 1px;">
     <div class="mt-4 d-flex justify-space-between align-center">
-    <div class="font-weight-light grey--text text--darken-1 subtitle-2">
-      <span>Showing 0 to 0 of 0 entries</span>
-    </div>
-    <v-pagination
+      <div class="font-weight-light grey--text text--darken-1 subtitle-2">
+        <span>Showing 0 to 0 of 0 entries</span>
+      </div>
+      <v-pagination
         v-model="page"
         :length="1"
         prev-icon="mdi-menu-left"
         next-icon="mdi-menu-right"
         class=""
         color="grey lighten-1"
-    ></v-pagination>
+      ></v-pagination>
+    </div>
+    <div>
+      <v-btn
+        class="grey white--text text-capitalize caption"
+        tile
+        @click="$router.push('quiz/create')"
+      >New</v-btn>
+      <v-btn
+        class="grey white--text text-capitalize caption"
+        tile
+      >Delete Selected</v-btn>
     </div>
   </v-card>
 </template>

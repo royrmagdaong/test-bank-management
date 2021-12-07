@@ -42,7 +42,9 @@ import ProfessorBase from './views/professor/Base'
 import ProfessorDashboard from './components/professor/dashboard/Dashboard' // DASHBOARD
 import ProfessorDashboardIndex from './components/professor/dashboard/Index'
 import ProfessorDashboardActivity from './components/professor/dashboard/activity/Index'
-import ProfessorDashboardExam from './components/professor/dashboard/exam/Index'
+import ProfessorDashboardExam from './components/professor/dashboard/exam/Base'
+import ProfessorDashboardExamIndex from './components/professor/dashboard/exam/Index'
+import ProfessorDashboardExamCreate from './components/professor/dashboard/exam/Create'
 import ProfessorDashboardGrowth from './components/professor/dashboard/growth/Index'
 import ProfessorDashboardModule from './components/professor/dashboard/module/Index'
 import ProfessorDashboardNotes from './components/professor/dashboard/notes/Index'
@@ -358,7 +360,17 @@ const router =  new Router({
               },
               {
                 path: 'exam',
-                component: ProfessorDashboardExam
+                component: ProfessorDashboardExam,
+                children:[
+                  {
+                    path: '/',
+                    component: ProfessorDashboardExamIndex
+                  },
+                  {
+                    path: 'create',
+                    component: ProfessorDashboardExamCreate
+                  }
+                ]
               },
               {
                 path: 'growth-development',
