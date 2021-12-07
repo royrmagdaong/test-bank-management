@@ -95,29 +95,49 @@ export default {
         // ]
       ],
       questions: [
-        {
-          question: '2x2',
-          choices: [
-            {
-              value: true,
-              answer: '4',
-            },
-            {
-              value: false,
-              answer: '1',
-            }
-          ],
-        },
+        // {
+        //   question: '',
+        //   choices: [
+        //     {
+        //       value: true,
+        //       answer: '',
+        //     },
+        //     {
+        //       value: false,
+        //       answer: '',
+        //     }
+        //   ],
+        // },
       ]
     }
   },
   computed:{
+    questions_vx(){
+      return this.$store.getters['adminExam/getQuestions']
+    },
+    choices_vx(){
+      return this.$store.getters['adminExam/getChoices']
+    },
+    exam_questions_vx(){
+      return this.$store.getters['adminExam/getExamQuestions']
+    }
   },
   mounted(){
-    this.questions.forEach(question=>{
-      this.exam_questions.push(question.question)
-      this.choices.push(question.choices)
-    })
+    this.questions = this.questions_vx
+    this.choices = this.choices_vx
+    this.exam_questions = this.exam_questions_vx
+
+    if(this.choices.length<1){
+      this.questions.forEach(question=>{
+        this.exam_questions.push(question.question)
+        this.choices.push(question.choices)
+      })
+    }
+  },
+  destroyed(){
+    this.$store.dispatch('adminExam/setQuestions', this.questions)
+    this.$store.dispatch('adminExam/setChoices', this.choices)
+    this.$store.dispatch('adminExam/setExamQuestions', this.exam_questions)
   },
   methods:{
     back(){
