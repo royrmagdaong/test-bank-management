@@ -193,8 +193,14 @@ export default {
       }
     },
     createExam(){
-      console.log(this.exam_questions)
-      console.log(this.choices)
+      let questions = []
+      for(let i=0;i<this.exam_questions.length;i++){
+        questions.push({
+          question: this.exam_questions[i],
+          choices: this.choices[i]
+        })
+      }
+      console.log(questions)
     }
   }
 }

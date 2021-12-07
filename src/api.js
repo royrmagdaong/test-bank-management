@@ -269,6 +269,9 @@ export function getStudentInfo(){
     })
 }
 
+
+// Prof
+
 export function getProfessorInfo(){
     return new Promise((resolve, reject) => {
         axios.post(endpoints.getProfessorInfo, {})

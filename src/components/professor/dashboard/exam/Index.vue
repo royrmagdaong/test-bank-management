@@ -83,10 +83,9 @@ export default {
       entryOptions: [5,10,20,50,100],
       searchString: '',
       headers: [
-        { text: 'Subject', value: 'subject', sortable: true },
-        { text: 'Class', value: 'class_', sortable: true },
+        { text: 'Title', value: 'title', sortable: true },
         { text: 'number of questions', value: 'questions', sortable: true },
-        { text: 'Date Created', value: 'created_at', sortable: true }
+        { text: 'Date Created', value: 'created_at', sortable: true },
       ],
     }
   },
