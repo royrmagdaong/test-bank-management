@@ -54,6 +54,12 @@ import ProfessorSubjectsIndex from './components/professor/subjects/Index'
 import StudentBase from './views/student/Base'
 import StudentDashboard from './components/student/dashboard/Dashboard' // DASHBOARD
 import StudentDashboardIndex from './components/student/dashboard/Index'
+import StudentDashboardActivity from './components/student/dashboard/activity/Index'
+import StudentDashboardExam from './components/student/dashboard/exam/Index'
+import StudentDashboardGrowth from './components/student/dashboard/growth/Index'
+import StudentDashboardModule from './components/student/dashboard/module/Index'
+import StudentDashboardNotes from './components/student/dashboard/notes/Index'
+import StudentDashboardQuiz from './components/student/dashboard/quiz/Index'
 import StudentHelp from './components/student/help/Help' // HELP
 import StudentHelpIndex from './components/student/help/Index'
 import StudentProfessors from './components/student/professors/Professors' // PROFESSORS
@@ -248,6 +254,10 @@ const router =  new Router({
         isStudentOnly: true
       },
       children: [
+        {
+          path: '/',
+          redirect: 'dashboard'
+        },
         { 
           path: "dashboard",
           component: StudentDashboard,
@@ -255,6 +265,30 @@ const router =  new Router({
             {
               path: '/',
               component: StudentDashboardIndex
+            },
+            {
+              path: 'activity',
+              component: StudentDashboardActivity
+            },
+            {
+              path: 'exam',
+              component: StudentDashboardExam
+            },
+            {
+              path: 'growth-development',
+              component: StudentDashboardGrowth
+            },
+            {
+              path: 'module',
+              component: StudentDashboardModule
+            },
+            {
+              path: 'notes',
+              component: StudentDashboardNotes
+            },
+            {
+              path: 'quiz',
+              component: StudentDashboardQuiz
             }
           ]
         },

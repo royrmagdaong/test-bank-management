@@ -14,32 +14,32 @@
       </v-card>
     </v-col>
     <v-col cols="12" md="4">
-      <v-card tile class="pa-4 dashboard-item" height="200">
+      <v-card tile class="pa-4 dashboard-item" @click="routeTo('dashboard/exam')" height="200">
         <div class="title text-center">EXAM</div>
       </v-card>
     </v-col>
     <v-col cols="12" md="4">
-      <v-card tile class="pa-4 dashboard-item" height="200">
+      <v-card tile class="pa-4 dashboard-item" @click="routeTo('dashboard/quiz')" height="200">
         <div class="title text-center">QUIZ</div>
       </v-card>
     </v-col>
     <v-col cols="12" md="4">
-      <v-card tile class="pa-4 dashboard-item" height="200">
+      <v-card tile class="pa-4 dashboard-item" @click="routeTo('dashboard/activity')" height="200">
         <div class="title text-center">ACTIVITY</div>
       </v-card>
     </v-col>
     <v-col cols="12" md="4">
-      <v-card tile class="pa-4 dashboard-item" height="200">
+      <v-card tile class="pa-4 dashboard-item" @click="routeTo('dashboard/module')" height="200">
         <div class="title text-center">MODULE</div>
       </v-card>
     </v-col>
     <v-col cols="12" md="4">
-      <v-card tile class="pa-4 dashboard-item" height="200">
+      <v-card tile class="pa-4 dashboard-item" @click="routeTo('dashboard/growth-development')" height="200">
         <div class="title text-center">GROWTH DEVELOPMENT</div>
       </v-card>
     </v-col>
     <v-col cols="12" md="4">
-      <v-card tile class="pa-4 dashboard-item" height="200">
+      <v-card tile class="pa-4 dashboard-item" @click="routeTo('dashboard/notes')" height="200">
         <div class="title text-center">NOTES</div>
       </v-card>
     </v-col>
@@ -79,6 +79,11 @@ export default {
     mounted(){
     },
     methods:{
+      routeTo(route){
+        if(this.$route.path !== route){
+          this.$router.push(route)
+        }
+      }
     }
 }
 </script>
