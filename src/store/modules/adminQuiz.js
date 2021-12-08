@@ -1,4 +1,5 @@
 import {
+    createQuiz
 } from '../../api'
 
 var store = {
@@ -39,6 +40,23 @@ var store = {
         }
     },
     actions:{
+        resetQuestions(context){
+            context.commit('SET_QUESTIONS', [
+                {
+                    question: '',
+                    choices: [
+                    {
+                        value: true,
+                        answer: '',
+                    },
+                    {
+                        value: false,
+                        answer: '',
+                    }
+                    ],
+                },
+            ])
+        },
         setQuestions(context, payload){
             context.commit('SET_QUESTIONS', payload)
         },
@@ -47,6 +65,17 @@ var store = {
         },
         setChoices(context, payload){
             context.commit('SET_CHOICES', payload)
+        },
+        createQuiz(context, payload){
+            return new Promise((resolve, reject) => {
+                createQuiz(payload).then(res => {
+                    if(res.response){
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
         },
     }
 }

@@ -6,6 +6,7 @@ const gradeLevel = 'grade-level/'
 const room = 'room/'
 const _class = 'class/'
 const activity = 'activity/'
+const quiz = 'quiz/'
 
 export default {
     // general user
@@ -45,5 +46,6 @@ export default {
     updateActivity: activity + 'update',
     deleteActivity: activity + 'delete',
     getActivityCount: activity + 'count',
+    createQuiz: quiz + 'create',
     
 }

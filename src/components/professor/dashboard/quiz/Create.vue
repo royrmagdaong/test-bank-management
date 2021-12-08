@@ -198,7 +198,26 @@ export default {
       }
       console.log(questions)
       console.log(this.quizName)
-    }
+      if(questions.length>0 && this.quizName){
+        this.$store.dispatch('adminQuiz/createQuiz',{
+          quizName: this.quizName,
+          questions: questions
+        }).then(res=>{
+          if(res.response){
+            this.quizName = ''
+            this.questions = []
+            this.quiz_questions = []
+            this.choices = []
+            this.$store.dispatch('adminQuiz/resetQuestions')
+            this.questions = this.questions_vx
+            this.$store.dispatch('adminQuiz/setQuizQuestions',[])
+            this.$store.dispatch('adminQuiz/setChoices',[])
+          }
+        })
+      }else{
+        console.log('requirements not met.')
+      }
+    },
   }
 }
 </script>
