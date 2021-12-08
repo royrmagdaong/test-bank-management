@@ -6,72 +6,84 @@
       </v-icon>
       <span class="headline tbl-title">Edit Activity</span>
     </div>
-    <v-row>
-      <v-col cols="5" offset="7">
-        <v-text-field
-          placeholder="Activity Name"
-          hide-details
-          dense
-          outlined
-          color="#aaa"
-          style="border-radius: 0 !important;"
-          v-model="activityName"
-        ></v-text-field>
-      </v-col>
-    </v-row>
-    
-    <v-card color="#eee" class="mt-4" tile flat v-for="(q,index) in questions" :key="index">
-      <v-row no-gutters>
-        <v-col cols="10" offset="1" class="pt-10 pb-15">
-          <div class="d-flex justify-space-between">
-            <span class="question-number">Question {{ index+1 }}</span>
-            <v-icon class="question-delete" @click="deleteQuestion(index)">
-              mdi-close
-            </v-icon>
-          </div>
+
+    <div v-if="isLoading" class="text-center pa-4">
+      <v-progress-circular
+        indeterminate
+        color="green"
+        size="80"
+        width="10"
+      ></v-progress-circular>
+    </div>
+    <div v-else>
+      <v-row>
+        <v-col cols="5" offset="7">
           <v-text-field
-            placeholder="Question"
-            color="#aaa"
-            class="mt-4 white"
-            style="border-radius: 0 !important;"
+            placeholder="Activity Name"
             hide-details
+            dense
             outlined
-            v-model="activity_questions[index]"
+            color="#aaa"
+            style="border-radius: 0 !important;"
+            v-model="activityName"
           ></v-text-field>
-          <ol class="pa-0 pl-6" style="list-style-type: upper-alpha;">
-            <li v-for="(choice,index2) in choices[index]" :key="index2" style="position:relative;">
-              <div class="d-flex" style="position:absolute;z-index:2;right:10px;top:7px;">
-                <v-hover v-slot="{ hover }">
-                  <div>
-                    <v-icon :class="{'choice-check-active':choices[index][index2].value,'choice-check':!hover}" v-if="choices[index][index2].value">mdi-check</v-icon>
-                    <v-icon :class="{'choice-check-active':hover,'choice-check':!hover}" v-else @click="changeAnswer(index,index2)">mdi-check</v-icon>
-                  </div>
-                </v-hover>
-                <v-icon class="choice-delete" @click="deleteChoice(index, index2)">mdi-close</v-icon>
-              </div>
-              <v-text-field
-                placeholder="Answer"
-                color="#aaa"
-                class="mt-4 white"
-                style="border-radius: 0 !important;"
-                hide-details
-                outlined
-                dense
-                v-model="choices[index][index2].answer"
-              ></v-text-field>
-            </li>
-          </ol>
-          <div class="d-flex justify-end mt-2">
-            <div class="add-choice d-flex align-center" @click="addChoice(index)">
-              <span>add choice</span>
-              <v-icon small color="rgb(53, 164, 238)">
-                mdi-plus
-              </v-icon>
-            </div>
-          </div>
         </v-col>
       </v-row>
-    </v-card>
+
+      <v-card color="#eee" class="mt-4" tile flat v-for="(q,index) in questions" :key="index">
+        <v-row no-gutters>
+          <v-col cols="10" offset="1" class="pt-10 pb-15">
+            <div class="d-flex justify-space-between">
+              <span class="question-number">Question {{ index+1 }}</span>
+              <v-icon class="question-delete" @click="deleteQuestion(index)">
+                mdi-close
+              </v-icon>
+            </div>
+            <v-text-field
+              placeholder="Question"
+              color="#aaa"
+              class="mt-4 white"
+              style="border-radius: 0 !important;"
+              hide-details
+              outlined
+              v-model="activity_questions[index]"
+            ></v-text-field>
+            <ol class="pa-0 pl-6" style="list-style-type: upper-alpha;">
+              <li v-for="(choice,index2) in choices[index]" :key="index2" style="position:relative;">
+                <div class="d-flex" style="position:absolute;z-index:2;right:10px;top:7px;">
+                  <v-hover v-slot="{ hover }">
+                    <div>
+                      <v-icon :class="{'choice-check-active':choices[index][index2].value,'choice-check':!hover}" v-if="choices[index][index2].value">mdi-check</v-icon>
+                      <v-icon :class="{'choice-check-active':hover,'choice-check':!hover}" v-else @click="changeAnswer(index,index2)">mdi-check</v-icon>
+                    </div>
+                  </v-hover>
+                  <v-icon class="choice-delete" @click="deleteChoice(index, index2)">mdi-close</v-icon>
+                </div>
+                <v-text-field
+                  placeholder="Answer"
+                  color="#aaa"
+                  class="mt-4 white"
+                  style="border-radius: 0 !important;"
+                  hide-details
+                  outlined
+                  dense
+                  v-model="choices[index][index2].answer"
+                ></v-text-field>
+              </li>
+            </ol>
+            <div class="d-flex justify-end mt-2">
+              <div class="add-choice d-flex align-center" @click="addChoice(index)">
+                <span>add choice</span>
+                <v-icon small color="rgb(53, 164, 238)">
+                  mdi-plus
+                </v-icon>
+              </div>
+            </div>
+          </v-col>
+        </v-row>
+      </v-card>
+    </div>
+    
     <v-hover v-slot="{ hover }">
       <v-card class="py-4 my-4 add-question" color="#E9F0FE" tile flat>
         <div class="d-flex align-center justify-center" @click="addQuestion">
@@ -103,12 +115,14 @@ export default {
       activity_questions: [],
       choices: [],
       questions: [],
-      activityName: ''
+      activityName: '',
+      isLoading: true,
     }
   },
   computed:{
   },
   mounted(){
+    console.log(this.isLoading)
     this.getActivity()
   },
   methods:{
@@ -129,6 +143,9 @@ export default {
           this.choices = choices_temp
           this.activity_questions = activity_questions_temp
         }
+        setTimeout(()=>{
+          this.isLoading = false
+        },800)
       })
     },
     addChoice(question_number){
