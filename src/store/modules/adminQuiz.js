@@ -3,7 +3,8 @@ import {
     getProfQuizzes,
     getQuizById,
     updateQuiz,
-    deleteQuiz
+    deleteQuiz,
+    getQuizCount
 } from '../../api'
 
 var store = {
@@ -26,13 +27,15 @@ var store = {
         ],
         choices:[],
         quiz_questions:[],
-        quizzes: []
+        quizzes: [],
+        quiz_count: 0
     },
     getters: {
         getQuestions: state => state.questions,
         getQuizQuestions: state => state.quiz_questions,
         getChoices: state => state.choices,
-        getQuizzes: state => state.quizzes
+        getQuizzes: state => state.quizzes,
+        getQuizCount: state => state.quiz_count
     },
     mutations: {
         SET_QUESTIONS(state, payload){
@@ -46,6 +49,9 @@ var store = {
         },
         SET_QUIZZES(state, payload){
             state.quizzes = payload
+        },
+        SET_QUIZ_COUNT(state, payload){
+            state.quiz_count = payload
         }
     },
     actions:{
@@ -124,6 +130,18 @@ var store = {
             return new Promise((resolve, reject) => {
                 deleteQuiz(payload).then(res => {
                     if(res.response){
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        getQuizCount(context){
+            return new Promise((resolve, reject) => {
+                getQuizCount().then(res => {
+                    if(res.response){
+                        context.commit('SET_QUIZ_COUNT', res.count)
                         resolve(res)
                     }else{
                         resolve(res)

@@ -51,5 +51,6 @@ export default {
     getQuizById: quiz + 'get',
     updateQuiz: quiz + 'update',
     deleteQuiz: quiz + 'delete',
+    getQuizCount: quiz + 'count',
     
 }
