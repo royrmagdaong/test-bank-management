@@ -371,3 +371,15 @@ export function getQuizById(payload){
         .catch(err => { reject(err)} )
     })
 }
+
+export function updateQuiz(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.updateQuiz,{
+            quizName: payload.quizName,
+            quizId: payload.quizId,
+            questions: payload.questions
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}

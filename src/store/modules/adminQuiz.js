@@ -1,7 +1,8 @@
 import {
     createQuiz,
     getProfQuizzes,
-    getQuizById
+    getQuizById,
+    updateQuiz
 } from '../../api'
 
 var store = {
@@ -99,6 +100,17 @@ var store = {
         getQuizById(context,payload){
             return new Promise((resolve, reject) => {
                 getQuizById(payload).then(res => {
+                    if(res.response){
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        updateQuiz(context,payload){
+            return new Promise((resolve, reject) => {
+                updateQuiz(payload).then(res => {
                     if(res.response){
                         resolve(res)
                     }else{

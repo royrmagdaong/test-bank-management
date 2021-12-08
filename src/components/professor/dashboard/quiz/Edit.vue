@@ -205,21 +205,20 @@ export default {
           choices: this.choices[i]
         })
       }
-      console.log(questions)
 
-      // if(questions.length>0 && this.quizName){
-      //   this.$store.dispatch('adminActivity/updateActivity',{
-      //     activityName: this.activityName,
-      //     questions: questions,
-      //     activityId: this.$route.params.id
-      //   }).then(res=>{
-      //     if(res.response){
-      //       console.log(res.message)
-      //     }
-      //   })
-      // }else{
-      //   console.log('requirements not met.')
-      // }
+      if(questions.length>0 && this.quizName){
+        this.$store.dispatch('adminQuiz/updateQuiz',{
+          quizName: this.quizName,
+          questions: questions,
+          quizId: this.$route.params.id
+        }).then(res=>{
+          if(res.response){
+            console.log(res.message)
+          }
+        })
+      }else{
+        console.log('requirements not met.')
+      }
     }
   }
 }
