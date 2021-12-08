@@ -153,15 +153,9 @@ export default {
       return '-'
     },
     getQuizzes(){
-      this.$store.dispatch('adminQuiz/getProfQuizzes').then(res=>{
-        if(res.response){
-          console.log(res.data)
-        }
-      })
+      this.$store.dispatch('adminQuiz/getProfQuizzes')
     },
     editQuiz(item){
-      console.log('edit')
-      console.log(item)
       this.$router.push(`/professor/dashboard/quiz/edit/${item._id}`)
     },
     deleteQuiz(){

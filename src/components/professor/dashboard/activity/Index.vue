@@ -154,15 +154,9 @@ export default {
       return '-'
     },
     getActivities(){
-      this.$store.dispatch('adminActivity/getProfActivities').then(res=>{
-        if(res.response){
-          console.log(res.data)
-        }
-      })
+      this.$store.dispatch('adminActivity/getProfActivities')
     },
     editActivity(item){
-      console.log('edit')
-      console.log(item)
       this.$router.push(`/professor/dashboard/activity/edit/${item._id}`)
     },
     deleteActivity(){

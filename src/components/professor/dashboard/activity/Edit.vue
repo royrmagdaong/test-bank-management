@@ -205,7 +205,6 @@ export default {
           choices: this.choices[i]
         })
       }
-      console.log(questions)
 
       if(questions.length>0 && this.activityName){
         this.$store.dispatch('adminActivity/updateActivity',{
