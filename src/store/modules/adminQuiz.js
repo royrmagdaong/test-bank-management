@@ -1,6 +1,7 @@
 import {
     createQuiz,
-    getProfQuizzes
+    getProfQuizzes,
+    getQuizById
 } from '../../api'
 
 var store = {
@@ -88,6 +89,17 @@ var store = {
                 getProfQuizzes().then(res => {
                     if(res.response){
                         context.commit('SET_QUIZZES',res.data)
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        getQuizById(context,payload){
+            return new Promise((resolve, reject) => {
+                getQuizById(payload).then(res => {
+                    if(res.response){
                         resolve(res)
                     }else{
                         resolve(res)

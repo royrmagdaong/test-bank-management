@@ -363,3 +363,11 @@ export function getProfQuizzes(){
         .catch(err => { reject(err)} )
     })
 }
+
+export function getQuizById(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(`${endpoints.getQuizById}/${payload.id}`)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}

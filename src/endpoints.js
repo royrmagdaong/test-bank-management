@@ -48,5 +48,6 @@ export default {
     getActivityCount: activity + 'count',
     createQuiz: quiz + 'create',
     getProfQuizzes: quiz,
+    getQuizById: quiz + 'get',
     
 }

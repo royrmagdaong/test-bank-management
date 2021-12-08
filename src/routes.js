@@ -54,6 +54,7 @@ import ProfessorDashboardNotes from './components/professor/dashboard/notes/Inde
 import ProfessorDashboardQuiz from './components/professor/dashboard/quiz/Base'
 import ProfessorDashboardQuizIndex from './components/professor/dashboard/quiz/Index'
 import ProfessorDashboardQuizCreate from './components/professor/dashboard/quiz/Create'
+import ProfessorDashboardQuizEdit from './components/professor/dashboard/quiz/Edit'
 import ProfessorDashboardRetake from './components/professor/dashboard/retake/Index'
 import ProfessorHelp from './components/professor/help/Help' // HELP
 import ProfessorHelpIndex from './components/professor/help/Index'
@@ -414,6 +415,10 @@ const router =  new Router({
                   {
                     path: 'create',
                     component: ProfessorDashboardQuizCreate
+                  },
+                  {
+                    path: 'edit/:id',
+                    component: ProfessorDashboardQuizEdit
                   }
                 ]
               },
