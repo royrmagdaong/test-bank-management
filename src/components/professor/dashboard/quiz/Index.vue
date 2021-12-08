@@ -49,9 +49,19 @@
         </div>
       </template>
       <template v-slot:[`item.class_list`]="{  }">
-        <div class="blue--text text--lighten-2">
-          View List
-        </div>
+        <span class="blue--text text--lighten-2 view-list" @click="listDialog = true">
+          View
+        </span>
+      </template>
+      <template v-slot:[`item.start`]="{  }">
+        <span class="blue--text text--lighten-2 view-list">
+          Set
+        </span>
+      </template>
+      <template v-slot:[`item.assign`]="{ item }">
+        <span class="blue--text text--lighten-2 assign-to" @click="assignTo(item)">
+          Assign to
+        </span>
       </template>
       <template v-slot:[`item.action`]="{ item }">
         <v-hover v-slot="{ hover }">
@@ -109,6 +119,51 @@
       </v-card>
     </v-dialog>
 
+    <v-dialog
+      v-model="assignDialog"
+      width="400"
+    >
+      <v-card class="py-4 px-6">
+        <div class="pb-2">Assign to:</div>
+        <v-select
+          outlined
+          hide-details
+          label="Class"
+          return-object
+          dense
+          color="grey"
+          item-text="class_section"
+          :items="classes"
+          v-model="selectedClass"
+        >
+          <template v-slot:[`item.class_code`]="{ item }">
+            <div>
+              {{item}}
+            </div>
+          </template>
+        </v-select>
+        <div class="d-flex justify-end">
+          <v-btn
+            color="primary"
+            class="black--text mt-2"
+            @click="assign"
+          >Assign</v-btn>
+        </div>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog
+      v-model="listDialog"
+      width="400"
+    >
+      <v-card class="py-4 px-6">
+        <div>Class List</div>
+        <ul>
+          <li v-for="i in 3" :key="i">Class A</li>
+        </ul>
+      </v-card>
+    </v-dialog>
+
   </v-card>
 </template>
 
@@ -123,24 +178,34 @@ export default {
       entryValue: 10,
       entryOptions: [5,10,20,50,100],
       searchString: '',
+      assignDialog: false,
+      listDialog: false,
       headers: [
-        { text: 'Quiz Name', value: 'quizName', sortable: true },
-        { text: 'Number of questions', value: 'totalQuestions', sortable: true },
+        { text: 'Name', value: 'quizName', sortable: true },
+        { text: 'No. of questions', value: 'totalQuestions', sortable: true },
         { text: 'Date Created', value: 'created_at', sortable: true },
-        { text: 'Class', value: 'class_list', sortable: true },
-        { text: 'Action', value: 'action', sortable: true }
+        { text: 'Class List', value: 'class_list', sortable: false },
+        { text: 'Assign', value: 'assign', sortable: false },
+        { text: 'Set time to start', value: 'start', sortable: false },
+        { text: 'Action', value: 'action', sortable: false }
       ],
       deleteDialog: '',
-      delete_quiz: {}
+      delete_quiz: {},
+      selectedClass:null,
+      quiz_id: null
     }
   },
   computed:{
     quizzes(){
       return this.$store.getters['professorQuiz/getQuizzes']
+    },
+    classes(){
+      return this.$store.getters['professorClass/getClass']
     }
   },
   mounted(){
     this.getQuizzes()
+    this.getClass()
   },
   methods:{
     back(){
@@ -151,6 +216,11 @@ export default {
         return moment(date).format('MMM DD, YYYY')
       }
       return '-'
+    },
+    getClass(){
+      this.$store.dispatch('professorClass/getClassByProf').then(res=>{
+        console.log(res.data)
+      })
     },
     getQuizzes(){
       this.$store.dispatch('professorQuiz/getProfQuizzes')
@@ -169,6 +239,24 @@ export default {
     openDeleteModal(item){
       this.delete_quiz = item
       this.deleteDialog = true
+    },
+    assign(){
+      if(this.selectedClass){
+        this.$store.dispatch('professorQuiz/assignQuizToClass', {
+          quiz_id: this.quiz_id,
+          class_id: this.selectedClass._id
+        }).then(res=>{
+          console.log(res)
+          // clear
+          this.quiz_id = null
+          this.selectedClass = null
+          this.assignDialog = false
+        })
+      }
+    },
+    assignTo(item){
+      this.assignDialog = true
+      this.quiz_id = item._id
     }
   }
 }
@@ -190,4 +278,9 @@ export default {
   background: rgb(233, 186, 189);
   border-radius: 10%;
 }
+.view-list:hover, .assign-to:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 </style>

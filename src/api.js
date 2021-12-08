@@ -400,6 +400,17 @@ export function getQuizCount(){
     })
 }
 
+export function assignQuizToClass(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.assignQuizToClass,{
+            class_id: payload.class_id,
+            quiz_id: payload.quiz_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
 export function createExam(payload){
     return new Promise((resolve, reject) => {
         axios.post(endpoints.createExam, {
@@ -450,6 +461,14 @@ export function deleteExam(payload){
 export function getExamCount(){
     return new Promise((resolve, reject) => {
         axios.post(endpoints.getExamCount)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getClassByProf(){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getClassByProf)
         .then(res => { resolve(res.data)})
         .catch(err => { reject(err)} )
     })

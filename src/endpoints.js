@@ -53,11 +53,13 @@ export default {
     updateQuiz: quiz + 'update',
     deleteQuiz: quiz + 'delete',
     getQuizCount: quiz + 'count',
+    assignQuizToClass: quiz + 'assign-class',
     createExam: exam + 'create',
     getProfExams: exam,
     getExamById: exam + 'get',
     updateExam: exam + 'update',
     deleteExam: exam + 'delete',
     getExamCount: exam + 'count',
+    getClassByProf: _class + 'prof-class',
     
 }

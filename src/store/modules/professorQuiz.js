@@ -4,7 +4,8 @@ import {
     getQuizById,
     updateQuiz,
     deleteQuiz,
-    getQuizCount
+    getQuizCount,
+    assignQuizToClass
 } from '../../api'
 
 var store = {
@@ -142,6 +143,17 @@ var store = {
                 getQuizCount().then(res => {
                     if(res.response){
                         context.commit('SET_QUIZ_COUNT', res.count)
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        assignQuizToClass(context,payload){
+            return new Promise((resolve, reject) => {
+                assignQuizToClass(payload).then(res => {
+                    if(res.response){
                         resolve(res)
                     }else{
                         resolve(res)
