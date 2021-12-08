@@ -70,7 +70,6 @@ var store = {
                     if(res.response){
                         context.commit('SET_SUBJECTS', res.data)
                         context.commit('SET_STUDENTS', res.data)
-                        console.log(res.data)
                         resolve(res)
                     }else{
                         resolve(res)

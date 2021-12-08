@@ -122,7 +122,6 @@ export default {
   computed:{
   },
   mounted(){
-    console.log(this.isLoading)
     this.getQuiz()
   },
   methods:{

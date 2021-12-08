@@ -43,7 +43,6 @@ var store = {
             return new Promise((resolve, reject) => {
                 getClass(payload).then(res => {
                     if(res.response){
-                        console.log(res)
                         context.commit('SET_CLASS', res)
                         resolve(res)
                     }else{
@@ -59,7 +58,6 @@ var store = {
             return new Promise((resolve, reject) => {
                 createClass(payload).then(res => {
                     if(res.response){
-                        console.log(res)
                         resolve(res)
                     }else{
                         resolve(res)

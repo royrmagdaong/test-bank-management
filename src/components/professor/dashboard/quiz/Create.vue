@@ -196,8 +196,6 @@ export default {
           choices: this.choices[i]
         })
       }
-      console.log(questions)
-      console.log(this.quizName)
       if(questions.length>0 && this.quizName){
         this.$store.dispatch('adminQuiz/createQuiz',{
           quizName: this.quizName,

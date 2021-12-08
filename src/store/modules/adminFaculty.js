@@ -25,7 +25,6 @@ var store = {
             return new Promise((resolve, reject) => {
                 getProf(payload).then(res => {
                     if(res.response){
-                        console.log(res)
                         context.commit('SET_PROFESSORS', res)
                         resolve(res)
                     }else{
@@ -38,7 +37,6 @@ var store = {
             return new Promise((resolve, reject) => {
                 createProf(payload).then(res => {
                     if(res.response){
-                        console.log(res)
                         resolve(res)
                     }else{
                         resolve(res)
