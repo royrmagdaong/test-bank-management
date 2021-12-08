@@ -2,7 +2,8 @@ import {
     createActivity,
     getProfActivities,
     getActivityById,
-    updateActivity
+    updateActivity,
+    deleteActivity,
 } from '../../api'
 
 var store = {
@@ -111,6 +112,17 @@ var store = {
         updateActivity(context,payload){
             return new Promise((resolve, reject) => {
                 updateActivity(payload).then(res => {
+                    if(res.response){
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        deleteActivity(context,payload){
+            return new Promise((resolve, reject) => {
+                deleteActivity(payload).then(res => {
                     if(res.response){
                         resolve(res)
                     }else{

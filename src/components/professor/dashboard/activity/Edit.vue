@@ -19,7 +19,7 @@
         ></v-text-field>
       </v-col>
     </v-row>
-
+    
     <v-card color="#eee" class="mt-4" tile flat v-for="(q,index) in questions" :key="index">
       <v-row no-gutters>
         <v-col cols="10" offset="1" class="pt-10 pb-15">

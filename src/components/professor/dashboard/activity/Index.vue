@@ -58,7 +58,7 @@
           <v-icon small color="blue lighten-2" class="pa-1" :class="{'edit-active':hover}" @click="editActivity(item)">mdi-pencil</v-icon>
         </v-hover>
         <v-hover v-slot="{ hover }">
-          <v-icon small color="red lighten-1" class="pa-1" :class="{'delete-active':hover}" @click="deleteActivity(item)">mdi-delete</v-icon>
+          <v-icon small color="red lighten-1" class="pa-1" :class="{'delete-active':hover}" @click="openDeleteModal(item)">mdi-delete</v-icon>
         </v-hover>
         
       </template>
@@ -85,6 +85,25 @@
         @click="$router.push('activity/create')"
       >New</v-btn>
     </div>
+
+    <v-dialog
+      v-model="deleteDialog"
+      width="500"
+    >
+      <v-card class="pt-6 px-4 pb-2">
+        <div >Are you sure you want to delete <b>{{ get(delete_activity,'activityName') }}?</b></div>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="red"
+            class="white--text"
+            @click="deleteActivity"
+          >
+            Delete
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -100,6 +119,7 @@ export default {
       entryValue: 10,
       entryOptions: [5,10,20,50,100],
       searchString: '',
+      deleteDialog: '',
       headers: [
         { text: 'Activity Name', value: 'activityName', sortable: true },
         { text: 'Number of questions', value: 'totalQuestions', sortable: true },
@@ -107,6 +127,7 @@ export default {
         { text: 'Class', value: 'class_list', sortable: true },
         { text: 'Action', value: 'action', sortable: true }
       ],
+      delete_activity: {}
     }
   },
   computed:{
@@ -139,9 +160,17 @@ export default {
       console.log(item)
       this.$router.push(`/professor/dashboard/activity/edit/${item._id}`)
     },
-    deleteActivity(item){
-      console.log('delete')
-      console.log(item)
+    deleteActivity(){
+      this.$store.dispatch('adminActivity/deleteActivity',{id:this.delete_activity._id}).then(res=>{
+        if(res.response){
+          this.getActivities()
+          this.deleteDialog = false
+        }
+      })
+    },
+    openDeleteModal(item){
+      this.delete_activity = item
+      this.deleteDialog = true
     }
   }
 }

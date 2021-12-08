@@ -328,3 +328,11 @@ export function updateActivity(payload){
         .catch(err => { reject(err)} )
     })
 }
+
+export function deleteActivity(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(`${endpoints.deleteActivity}/${payload.id}`)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}

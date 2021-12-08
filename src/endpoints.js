@@ -43,5 +43,6 @@ export default {
     getProfActivities: activity,
     getActivityById: activity + 'get',
     updateActivity: activity + 'update',
+    deleteActivity: activity + 'delete',
     
 }
