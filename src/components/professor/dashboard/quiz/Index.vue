@@ -136,7 +136,7 @@ export default {
   },
   computed:{
     quizzes(){
-      return this.$store.getters['adminQuiz/getQuizzes']
+      return this.$store.getters['professorQuiz/getQuizzes']
     }
   },
   mounted(){
@@ -153,13 +153,13 @@ export default {
       return '-'
     },
     getQuizzes(){
-      this.$store.dispatch('adminQuiz/getProfQuizzes')
+      this.$store.dispatch('professorQuiz/getProfQuizzes')
     },
     editQuiz(item){
       this.$router.push(`/professor/dashboard/quiz/edit/${item._id}`)
     },
     deleteQuiz(){
-      this.$store.dispatch('adminQuiz/deleteQuiz',{id:this.delete_quiz._id}).then(res=>{
+      this.$store.dispatch('professorQuiz/deleteQuiz',{id:this.delete_quiz._id}).then(res=>{
         if(res.response){
           this.getQuizzes()
           this.deleteDialog = false

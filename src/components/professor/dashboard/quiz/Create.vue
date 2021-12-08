@@ -109,13 +109,13 @@ export default {
   },
   computed:{
     questions_vx(){
-      return this.$store.getters['adminQuiz/getQuestions']
+      return this.$store.getters['professorQuiz/getQuestions']
     },
     choices_vx(){
-      return this.$store.getters['adminQuiz/getChoices']
+      return this.$store.getters['professorQuiz/getChoices']
     },
     quiz_questions_vx(){
-      return this.$store.getters['adminQuiz/getQuizQuestions']
+      return this.$store.getters['professorQuiz/getQuizQuestions']
     }
   },
   mounted(){
@@ -131,9 +131,9 @@ export default {
     }
   },
   destroyed(){
-    this.$store.dispatch('adminQuiz/setQuestions', this.questions)
-    this.$store.dispatch('adminQuiz/setChoices', this.choices)
-    this.$store.dispatch('adminQuiz/setQuizQuestions', this.quiz_questions)
+    this.$store.dispatch('professorQuiz/setQuestions', this.questions)
+    this.$store.dispatch('professorQuiz/setChoices', this.choices)
+    this.$store.dispatch('professorQuiz/setQuizQuestions', this.quiz_questions)
   },
   methods:{
     back(){
@@ -197,7 +197,7 @@ export default {
         })
       }
       if(questions.length>0 && this.quizName){
-        this.$store.dispatch('adminQuiz/createQuiz',{
+        this.$store.dispatch('professorQuiz/createQuiz',{
           quizName: this.quizName,
           questions: questions
         }).then(res=>{
@@ -206,10 +206,10 @@ export default {
             this.questions = []
             this.quiz_questions = []
             this.choices = []
-            this.$store.dispatch('adminQuiz/resetQuestions')
+            this.$store.dispatch('professorQuiz/resetQuestions')
             this.questions = this.questions_vx
-            this.$store.dispatch('adminQuiz/setQuizQuestions',[])
-            this.$store.dispatch('adminQuiz/setChoices',[])
+            this.$store.dispatch('professorQuiz/setQuizQuestions',[])
+            this.$store.dispatch('professorQuiz/setChoices',[])
           }
         })
       }else{

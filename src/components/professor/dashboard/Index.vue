@@ -83,10 +83,10 @@ export default {
   },
   computed:{
     activityCount(){
-      return this.$store.getters['adminActivity/getActivityCount']
+      return this.$store.getters['professorActivity/getActivityCount']
     },
     quizCount(){
-      return this.$store.getters['adminQuiz/getQuizCount']
+      return this.$store.getters['professorQuiz/getQuizCount']
     }
   },
   mounted(){
@@ -100,10 +100,10 @@ export default {
       }
     },
     getActivityCount(){
-      this.$store.dispatch('adminActivity/getActivityCount')
+      this.$store.dispatch('professorActivity/getActivityCount')
     },
     getQuizCount(){
-      this.$store.dispatch('adminQuiz/getQuizCount')
+      this.$store.dispatch('professorQuiz/getQuizCount')
     }
   }
 }

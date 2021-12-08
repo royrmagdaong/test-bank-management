@@ -137,7 +137,7 @@ export default {
   },
   computed:{
     activities(){
-      return this.$store.getters['adminActivity/getActivities']
+      return this.$store.getters['professorActivity/getActivities']
     }
   },
   mounted(){
@@ -154,13 +154,13 @@ export default {
       return '-'
     },
     getActivities(){
-      this.$store.dispatch('adminActivity/getProfActivities')
+      this.$store.dispatch('professorActivity/getProfActivities')
     },
     editActivity(item){
       this.$router.push(`/professor/dashboard/activity/edit/${item._id}`)
     },
     deleteActivity(){
-      this.$store.dispatch('adminActivity/deleteActivity',{id:this.delete_activity._id}).then(res=>{
+      this.$store.dispatch('professorActivity/deleteActivity',{id:this.delete_activity._id}).then(res=>{
         if(res.response){
           this.getActivities()
           this.deleteDialog = false

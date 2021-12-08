@@ -129,7 +129,7 @@ export default {
       this.$router.push('/professor/dashboard/activity')
     },
     getActivity(){
-      this.$store.dispatch('adminActivity/getActivityById',{id:this.$route.params.id}).then(res=>{
+      this.$store.dispatch('professorActivity/getActivityById',{id:this.$route.params.id}).then(res=>{
         if(res.response){
           let activity_questions_temp = []
           let choices_temp = []
@@ -206,7 +206,7 @@ export default {
       }
 
       if(questions.length>0 && this.activityName){
-        this.$store.dispatch('adminActivity/updateActivity',{
+        this.$store.dispatch('professorActivity/updateActivity',{
           activityName: this.activityName,
           questions: questions,
           activityId: this.$route.params.id

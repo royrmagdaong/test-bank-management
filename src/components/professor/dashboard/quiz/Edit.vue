@@ -129,7 +129,7 @@ export default {
       this.$router.push('/professor/dashboard/quiz')
     },
     getQuiz(){
-      this.$store.dispatch('adminQuiz/getQuizById',{id:this.$route.params.id}).then(res=>{
+      this.$store.dispatch('professorQuiz/getQuizById',{id:this.$route.params.id}).then(res=>{
         if(res.response){
           let quiz_questions_temp = []
           let choices_temp = []
@@ -206,7 +206,7 @@ export default {
       }
 
       if(questions.length>0 && this.quizName){
-        this.$store.dispatch('adminQuiz/updateQuiz',{
+        this.$store.dispatch('professorQuiz/updateQuiz',{
           quizName: this.quizName,
           questions: questions,
           quizId: this.$route.params.id

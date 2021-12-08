@@ -109,13 +109,13 @@ export default {
   },
   computed:{
     questions_vx(){
-      return this.$store.getters['adminActivity/getQuestions']
+      return this.$store.getters['professorActivity/getQuestions']
     },
     choices_vx(){
-      return this.$store.getters['adminActivity/getChoices']
+      return this.$store.getters['professorActivity/getChoices']
     },
     activity_questions_vx(){
-      return this.$store.getters['adminActivity/getActivityQuestions']
+      return this.$store.getters['professorActivity/getActivityQuestions']
     }
   },
   mounted(){
@@ -131,9 +131,9 @@ export default {
     }
   },
   destroyed(){
-    this.$store.dispatch('adminActivity/setQuestions', this.questions)
-    this.$store.dispatch('adminActivity/setChoices', this.choices)
-    this.$store.dispatch('adminActivity/setActivityQuestions', this.activity_questions)
+    this.$store.dispatch('professorActivity/setQuestions', this.questions)
+    this.$store.dispatch('professorActivity/setChoices', this.choices)
+    this.$store.dispatch('professorActivity/setActivityQuestions', this.activity_questions)
   },
   methods:{
     back(){
@@ -197,7 +197,7 @@ export default {
         })
       }
       if(questions.length>0 && this.activityName){
-        this.$store.dispatch('adminActivity/createActivity',{
+        this.$store.dispatch('professorActivity/createActivity',{
           activityName: this.activityName,
           questions: questions
         }).then(res=>{
@@ -206,10 +206,10 @@ export default {
             this.questions = []
             this.activity_questions = []
             this.choices = []
-            this.$store.dispatch('adminActivity/resetQuestions')
+            this.$store.dispatch('professorActivity/resetQuestions')
             this.questions = this.questions_vx
-            this.$store.dispatch('adminActivity/setActivityQuestions',[])
-            this.$store.dispatch('adminActivity/setChoices',[])
+            this.$store.dispatch('professorActivity/setActivityQuestions',[])
+            this.$store.dispatch('professorActivity/setChoices',[])
           }
         })
       }else{

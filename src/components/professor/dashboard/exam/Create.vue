@@ -109,13 +109,13 @@ export default {
   },
   computed:{
     questions_vx(){
-      return this.$store.getters['adminExam/getQuestions']
+      return this.$store.getters['professorExam/getQuestions']
     },
     choices_vx(){
-      return this.$store.getters['adminExam/getChoices']
+      return this.$store.getters['professorExam/getChoices']
     },
     exam_questions_vx(){
-      return this.$store.getters['adminExam/getExamQuestions']
+      return this.$store.getters['professorExam/getExamQuestions']
     }
   },
   mounted(){
@@ -131,9 +131,9 @@ export default {
     }
   },
   destroyed(){
-    this.$store.dispatch('adminExam/setQuestions', this.questions)
-    this.$store.dispatch('adminExam/setChoices', this.choices)
-    this.$store.dispatch('adminExam/setExamQuestions', this.exam_questions)
+    this.$store.dispatch('professorExam/setQuestions', this.questions)
+    this.$store.dispatch('professorExam/setChoices', this.choices)
+    this.$store.dispatch('professorExam/setExamQuestions', this.exam_questions)
   },
   methods:{
     back(){
