@@ -399,3 +399,58 @@ export function getQuizCount(){
         .catch(err => { reject(err)} )
     })
 }
+
+export function createExam(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.createExam, {
+            examName: payload.examName,
+            questions: payload.questions
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getProfExams(){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getProfExams)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getExamById(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(`${endpoints.getExamById}/${payload.id}`)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function updateExam(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.updateExam,{
+            examName: payload.examName,
+            examId: payload.examId,
+            questions: payload.questions
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function deleteExam(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(`${endpoints.deleteExam}/${payload.id}`)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getExamCount(){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getExamCount)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}

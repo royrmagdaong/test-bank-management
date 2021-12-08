@@ -48,6 +48,7 @@ import ProfessorDashboardActivityEdit from './components/professor/dashboard/act
 import ProfessorDashboardExam from './components/professor/dashboard/exam/Base'
 import ProfessorDashboardExamIndex from './components/professor/dashboard/exam/Index'
 import ProfessorDashboardExamCreate from './components/professor/dashboard/exam/Create'
+import ProfessorDashboardExamEdit from './components/professor/dashboard/exam/Edit'
 import ProfessorDashboardGrowth from './components/professor/dashboard/growth/Index'
 import ProfessorDashboardModule from './components/professor/dashboard/module/Index'
 import ProfessorDashboardNotes from './components/professor/dashboard/notes/Index'
@@ -389,6 +390,10 @@ const router =  new Router({
                   {
                     path: 'create',
                     component: ProfessorDashboardExamCreate
+                  },
+                  {
+                    path: 'edit/:id',
+                    component: ProfessorDashboardExamEdit
                   }
                 ]
               },

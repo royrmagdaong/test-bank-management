@@ -7,6 +7,7 @@ const room = 'room/'
 const _class = 'class/'
 const activity = 'activity/'
 const quiz = 'quiz/'
+const exam = 'exam/'
 
 export default {
     // general user
@@ -52,5 +53,11 @@ export default {
     updateQuiz: quiz + 'update',
     deleteQuiz: quiz + 'delete',
     getQuizCount: quiz + 'count',
+    createExam: exam + 'create',
+    getProfExams: exam,
+    getExamById: exam + 'get',
+    updateExam: exam + 'update',
+    deleteExam: exam + 'delete',
+    getExamCount: exam + 'count',
     
 }

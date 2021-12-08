@@ -4,75 +4,86 @@
       <v-icon color="" @click="back" class="mr-2">
         mdi-arrow-left
       </v-icon>
-      <span class="headline tbl-title">Create Exam</span>
+      <span class="headline tbl-title">Edit Exam</span>
     </div>
 
-    <v-row>
-      <v-col cols="4" offset="8">
-        <v-text-field
-          placeholder="Exam Name"
-          hide-details
-          dense
-          outlined
-          color="#aaa"
-          style="border-radius: 0 !important;"
-          v-model="examName"
-        ></v-text-field>
-      </v-col>
-    </v-row>
-
-    <v-card color="#eee" class="mt-4" tile flat v-for="(q,index) in questions" :key="index">
-      <v-row no-gutters>
-        <v-col cols="10" offset="1" class="pt-10 pb-15">
-          <div class="d-flex justify-space-between">
-            <span class="question-number">Question {{ index+1 }}</span>
-            <v-icon class="question-delete" @click="deleteQuestion(index)">
-              mdi-close
-            </v-icon>
-          </div>
+    <div v-if="isLoading" class="text-center pa-4">
+      <v-progress-circular
+        indeterminate
+        color="green"
+        size="80"
+        width="10"
+      ></v-progress-circular>
+    </div>
+    <div v-else>
+      <v-row>
+        <v-col cols="5" offset="7">
           <v-text-field
-            placeholder="Question"
-            color="#aaa"
-            class="mt-4 white"
-            style="border-radius: 0 !important;"
+            placeholder="Exam Name"
             hide-details
+            dense
             outlined
-            v-model="exam_questions[index]"
+            color="#aaa"
+            style="border-radius: 0 !important;"
+            v-model="examName"
           ></v-text-field>
-          <ol class="pa-0 pl-6" style="list-style-type: upper-alpha;">
-            <li v-for="(choice,index2) in choices[index]" :key="index2" style="position:relative;">
-              <div class="d-flex" style="position:absolute;z-index:2;right:10px;top:7px;">
-                <v-hover v-slot="{ hover }">
-                  <div>
-                    <v-icon :class="{'choice-check-active':choices[index][index2].value,'choice-check':!hover}" v-if="choices[index][index2].value">mdi-check</v-icon>
-                    <v-icon :class="{'choice-check-active':hover,'choice-check':!hover}" v-else @click="changeAnswer(index,index2)">mdi-check</v-icon>
-                  </div>
-                </v-hover>
-                <v-icon class="choice-delete" @click="deleteChoice(index, index2)">mdi-close</v-icon>
-              </div>
-              <v-text-field
-                placeholder="Answer"
-                color="#aaa"
-                class="mt-4 white"
-                style="border-radius: 0 !important;"
-                hide-details
-                outlined
-                dense
-                v-model="choices[index][index2].answer"
-              ></v-text-field>
-            </li>
-          </ol>
-          <div class="d-flex justify-end mt-2">
-            <div class="add-choice d-flex align-center" @click="addChoice(index)">
-              <span>add choice</span>
-              <v-icon small color="rgb(53, 164, 238)">
-                mdi-plus
-              </v-icon>
-            </div>
-          </div>
         </v-col>
       </v-row>
-    </v-card>
+
+      <v-card color="#eee" class="mt-4" tile flat v-for="(q,index) in questions" :key="index">
+        <v-row no-gutters>
+          <v-col cols="10" offset="1" class="pt-10 pb-15">
+            <div class="d-flex justify-space-between">
+              <span class="question-number">Question {{ index+1 }}</span>
+              <v-icon class="question-delete" @click="deleteQuestion(index)">
+                mdi-close
+              </v-icon>
+            </div>
+            <v-text-field
+              placeholder="Question"
+              color="#aaa"
+              class="mt-4 white"
+              style="border-radius: 0 !important;"
+              hide-details
+              outlined
+              v-model="exam_questions[index]"
+            ></v-text-field>
+            <ol class="pa-0 pl-6" style="list-style-type: upper-alpha;">
+              <li v-for="(choice,index2) in choices[index]" :key="index2" style="position:relative;">
+                <div class="d-flex" style="position:absolute;z-index:2;right:10px;top:7px;">
+                  <v-hover v-slot="{ hover }">
+                    <div>
+                      <v-icon :class="{'choice-check-active':choices[index][index2].value,'choice-check':!hover}" v-if="choices[index][index2].value">mdi-check</v-icon>
+                      <v-icon :class="{'choice-check-active':hover,'choice-check':!hover}" v-else @click="changeAnswer(index,index2)">mdi-check</v-icon>
+                    </div>
+                  </v-hover>
+                  <v-icon class="choice-delete" @click="deleteChoice(index, index2)">mdi-close</v-icon>
+                </div>
+                <v-text-field
+                  placeholder="Answer"
+                  color="#aaa"
+                  class="mt-4 white"
+                  style="border-radius: 0 !important;"
+                  hide-details
+                  outlined
+                  dense
+                  v-model="choices[index][index2].answer"
+                ></v-text-field>
+              </li>
+            </ol>
+            <div class="d-flex justify-end mt-2">
+              <div class="add-choice d-flex align-center" @click="addChoice(index)">
+                <span>add choice</span>
+                <v-icon small color="rgb(53, 164, 238)">
+                  mdi-plus
+                </v-icon>
+              </div>
+            </div>
+          </v-col>
+        </v-row>
+      </v-card>
+    </div>
+    
     <v-hover v-slot="{ hover }">
       <v-card class="py-4 my-4 add-question" color="#E9F0FE" tile flat>
         <div class="d-flex align-center justify-center" @click="addQuestion">
@@ -89,8 +100,8 @@
         class="black--text px-8"
         large
         tile
-        @click="createExam"
-      >Create</v-btn>
+        @click="updateExam"
+      >Update</v-btn>
     </div>
   </v-card>
 </template>
@@ -104,40 +115,37 @@ export default {
       exam_questions: [],
       choices: [],
       questions: [],
-      examName: ''
+      examName: '',
+      isLoading: true,
     }
   },
   computed:{
-    questions_vx(){
-      return this.$store.getters['professorExam/getQuestions']
-    },
-    choices_vx(){
-      return this.$store.getters['professorExam/getChoices']
-    },
-    exam_questions_vx(){
-      return this.$store.getters['professorExam/getExamQuestions']
-    }
   },
   mounted(){
-    this.questions = this.questions_vx
-    this.choices = this.choices_vx
-    this.exam_questions = this.exam_questions_vx
-
-    if(this.choices.length<1){
-      this.questions.forEach(question=>{
-        this.exam_questions.push(question.question)
-        this.choices.push(question.choices)
-      })
-    }
-  },
-  destroyed(){
-    this.$store.dispatch('professorExam/setQuestions', this.questions)
-    this.$store.dispatch('professorExam/setChoices', this.choices)
-    this.$store.dispatch('professorExam/setExamQuestions', this.exam_questions)
+    this.getExam()
   },
   methods:{
     back(){
       this.$router.push('/professor/dashboard/exam')
+    },
+    getExam(){
+      this.$store.dispatch('professorExam/getExamById',{id:this.$route.params.id}).then(res=>{
+        if(res.response){
+          let exam_questions_temp = []
+          let choices_temp = []
+          for(let i=0;i<res.data.questions.length;i++){
+            exam_questions_temp.push(res.data.questions[i].question)
+            choices_temp.push(res.data.questions[i].choices)
+          }
+          this.examName = res.data.examName
+          this.questions = res.data.questions
+          this.choices = choices_temp
+          this.exam_questions = exam_questions_temp
+        }
+        setTimeout(()=>{
+          this.isLoading = false
+        },500)
+      })
     },
     addChoice(question_number){
       this.choices[question_number].push({answer:'', value:false})
@@ -188,7 +196,7 @@ export default {
         console.log('you cannot delete a choice if the choices are only 2')
       }
     },
-    createExam(){
+    updateExam(){
       let questions = []
       for(let i=0;i<this.exam_questions.length;i++){
         questions.push({
@@ -196,20 +204,15 @@ export default {
           choices: this.choices[i]
         })
       }
+
       if(questions.length>0 && this.examName){
-        this.$store.dispatch('professorExam/createExam',{
+        this.$store.dispatch('professorExam/updateExam',{
           examName: this.examName,
-          questions: questions
+          questions: questions,
+          examId: this.$route.params.id
         }).then(res=>{
           if(res.response){
-            this.examName = ''
-            this.questions = []
-            this.exam_questions = []
-            this.choices = []
-            this.$store.dispatch('professorExam/resetQuestions')
-            this.questions = this.questions_vx
-            this.$store.dispatch('professorExam/setExamQuestions',[])
-            this.$store.dispatch('professorExam/setChoices',[])
+            console.log(res.message)
           }
         })
       }else{
