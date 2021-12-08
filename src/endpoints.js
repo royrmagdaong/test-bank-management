@@ -47,5 +47,6 @@ export default {
     deleteActivity: activity + 'delete',
     getActivityCount: activity + 'count',
     createQuiz: quiz + 'create',
+    getProfQuizzes: quiz,
     
 }

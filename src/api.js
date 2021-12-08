@@ -355,3 +355,11 @@ export function createQuiz(payload){
         .catch(err => { reject(err)} )
     })
 }
+
+export function getProfQuizzes(){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getProfQuizzes)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}

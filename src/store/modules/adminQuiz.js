@@ -1,5 +1,6 @@
 import {
-    createQuiz
+    createQuiz,
+    getProfQuizzes
 } from '../../api'
 
 var store = {
@@ -21,12 +22,14 @@ var store = {
             },
         ],
         choices:[],
-        quiz_questions:[]
+        quiz_questions:[],
+        quizzes: []
     },
     getters: {
         getQuestions: state => state.questions,
         getQuizQuestions: state => state.quiz_questions,
-        getChoices: state => state.choices
+        getChoices: state => state.choices,
+        getQuizzes: state => state.quizzes
     },
     mutations: {
         SET_QUESTIONS(state, payload){
@@ -37,6 +40,9 @@ var store = {
         },
         SET_QUIZ_QUESTIONS(state, payload){
             state.quiz_questions = payload
+        },
+        SET_QUIZZES(state, payload){
+            state.quizzes = payload
         }
     },
     actions:{
@@ -70,6 +76,18 @@ var store = {
             return new Promise((resolve, reject) => {
                 createQuiz(payload).then(res => {
                     if(res.response){
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        getProfQuizzes(context){
+            return new Promise((resolve, reject) => {
+                getProfQuizzes().then(res => {
+                    if(res.response){
+                        context.commit('SET_QUIZZES',res.data)
                         resolve(res)
                     }else{
                         resolve(res)
