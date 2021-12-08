@@ -308,3 +308,23 @@ export function getProfActivities(){
         .catch(err => { reject(err)} )
     })
 }
+
+export function getActivityById(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(`${endpoints.getActivityById}/${payload.id}`)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function updateActivity(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.updateActivity,{
+            activityName: payload.activityName,
+            activityId: payload.activityId,
+            questions: payload.questions
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}

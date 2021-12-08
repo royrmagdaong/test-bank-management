@@ -39,19 +39,28 @@
       hide-default-footer
     >
       <template v-slot:[`item.totalQuestions`]="{ item }">
-          <div>
-              {{ get(item,'questions').length }}
-          </div>
+        <div>
+          {{ get(item,'questions').length }}
+        </div>
       </template>
       <template v-slot:[`item.created_at`]="{ item }">
-          <div>
-              {{ formatDate(get(item,'created_at')) }}
-          </div>
+        <div>
+          {{ formatDate(get(item,'created_at')) }}
+        </div>
       </template>
       <template v-slot:[`item.class_list`]="{  }">
-          <div class="blue--text text--lighten-2">
-              View List
-          </div>
+        <div class="blue--text text--lighten-2">
+          View List
+        </div>
+      </template>
+      <template v-slot:[`item.action`]="{ item }">
+        <v-hover v-slot="{ hover }">
+          <v-icon small color="blue lighten-2" class="pa-1" :class="{'edit-active':hover}" @click="editActivity(item)">mdi-pencil</v-icon>
+        </v-hover>
+        <v-hover v-slot="{ hover }">
+          <v-icon small color="red lighten-1" class="pa-1" :class="{'delete-active':hover}" @click="deleteActivity(item)">mdi-delete</v-icon>
+        </v-hover>
+        
       </template>
     </v-data-table>
 
@@ -95,7 +104,8 @@ export default {
         { text: 'Activity Name', value: 'activityName', sortable: true },
         { text: 'Number of questions', value: 'totalQuestions', sortable: true },
         { text: 'Date Created', value: 'created_at', sortable: true },
-        { text: 'Class', value: 'class_list', sortable: true }
+        { text: 'Class', value: 'class_list', sortable: true },
+        { text: 'Action', value: 'action', sortable: true }
       ],
     }
   },
@@ -123,6 +133,15 @@ export default {
           console.log(res.data)
         }
       })
+    },
+    editActivity(item){
+      console.log('edit')
+      console.log(item)
+      this.$router.push(`/professor/dashboard/activity/edit/${item._id}`)
+    },
+    deleteActivity(item){
+      console.log('delete')
+      console.log(item)
     }
   }
 }
@@ -133,5 +152,15 @@ export default {
   .tbl-title{
     font-size: 18px !important;
   }
+}
+.edit-active{
+  cursor: pointer;
+  background: rgb(204, 204, 226);
+  border-radius: 10%;
+}
+.delete-active{
+  cursor: pointer;
+  background: rgb(233, 186, 189);
+  border-radius: 10%;
 }
 </style>

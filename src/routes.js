@@ -44,6 +44,7 @@ import ProfessorDashboardIndex from './components/professor/dashboard/Index'
 import ProfessorDashboardActivity from './components/professor/dashboard/activity/Base'
 import ProfessorDashboardActivityIndex from './components/professor/dashboard/activity/Index'
 import ProfessorDashboardActivityCreate from './components/professor/dashboard/activity/Create'
+import ProfessorDashboardActivityEdit from './components/professor/dashboard/activity/Edit'
 import ProfessorDashboardExam from './components/professor/dashboard/exam/Base'
 import ProfessorDashboardExamIndex from './components/professor/dashboard/exam/Index'
 import ProfessorDashboardExamCreate from './components/professor/dashboard/exam/Create'
@@ -369,6 +370,10 @@ const router =  new Router({
                   {
                     path: 'create',
                     component: ProfessorDashboardActivityCreate
+                  },
+                  {
+                    path: 'edit/:id',
+                    component: ProfessorDashboardActivityEdit
                   }
                 ]
               },

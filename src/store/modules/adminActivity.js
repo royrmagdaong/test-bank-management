@@ -1,6 +1,8 @@
 import {
     createActivity,
-    getProfActivities
+    getProfActivities,
+    getActivityById,
+    updateActivity
 } from '../../api'
 
 var store = {
@@ -23,13 +25,13 @@ var store = {
         ],
         choices:[],
         activity_questions:[],
-        activities: []
+        activities: [],
     },
     getters: {
         getQuestions: state => state.questions,
         getActivityQuestions: state => state.activity_questions,
         getChoices: state => state.choices,
-        getActivities: state => state.activities
+        getActivities: state => state.activities,
     },
     mutations: {
         SET_QUESTIONS(state, payload){
@@ -88,6 +90,28 @@ var store = {
                 getProfActivities().then(res => {
                     if(res.response){
                         context.commit('SET_ACTIVITIES',res.data)
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        getActivityById(context,payload){
+            return new Promise((resolve, reject) => {
+                getActivityById(payload).then(res => {
+                    if(res.response){
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        updateActivity(context,payload){
+            return new Promise((resolve, reject) => {
+                updateActivity(payload).then(res => {
+                    if(res.response){
                         resolve(res)
                     }else{
                         resolve(res)
