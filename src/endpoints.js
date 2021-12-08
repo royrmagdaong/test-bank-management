@@ -44,5 +44,6 @@ export default {
     getActivityById: activity + 'get',
     updateActivity: activity + 'update',
     deleteActivity: activity + 'delete',
+    getActivityCount: activity + 'count',
     
 }

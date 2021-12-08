@@ -4,6 +4,7 @@ import {
     getActivityById,
     updateActivity,
     deleteActivity,
+    getActivityCount
 } from '../../api'
 
 var store = {
@@ -27,12 +28,14 @@ var store = {
         choices:[],
         activity_questions:[],
         activities: [],
+        activity_count: 0
     },
     getters: {
         getQuestions: state => state.questions,
         getActivityQuestions: state => state.activity_questions,
         getChoices: state => state.choices,
         getActivities: state => state.activities,
+        getActivityCount: state => state.activity_count,
     },
     mutations: {
         SET_QUESTIONS(state, payload){
@@ -46,6 +49,9 @@ var store = {
         },
         SET_ACTIVITIES(state, payload){
             state.activities = payload
+        },
+        SET_ACTIVITY_COUNT(state, payload){
+            state.activity_count = payload
         },
     },
     actions:{
@@ -124,6 +130,18 @@ var store = {
             return new Promise((resolve, reject) => {
                 deleteActivity(payload).then(res => {
                     if(res.response){
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        getActivityCount(context){
+            return new Promise((resolve, reject) => {
+                getActivityCount().then(res => {
+                    if(res.response){
+                        context.commit('SET_ACTIVITY_COUNT', res.count)
                         resolve(res)
                     }else{
                         resolve(res)
