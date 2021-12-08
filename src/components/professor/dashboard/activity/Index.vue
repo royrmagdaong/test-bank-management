@@ -95,6 +95,11 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
+            @click="deleteDialog = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
             color="red"
             class="white--text"
             @click="deleteActivity"

@@ -145,7 +145,7 @@ export default {
         }
         setTimeout(()=>{
           this.isLoading = false
-        },800)
+        },500)
       })
     },
     addChoice(question_number){
