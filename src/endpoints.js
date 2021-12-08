@@ -50,5 +50,6 @@ export default {
     getProfQuizzes: quiz,
     getQuizById: quiz + 'get',
     updateQuiz: quiz + 'update',
+    deleteQuiz: quiz + 'delete',
     
 }

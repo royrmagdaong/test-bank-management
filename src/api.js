@@ -383,3 +383,11 @@ export function updateQuiz(payload){
         .catch(err => { reject(err)} )
     })
 }
+
+export function deleteQuiz(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(`${endpoints.deleteQuiz}/${payload.id}`)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}

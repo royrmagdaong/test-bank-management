@@ -2,7 +2,8 @@ import {
     createQuiz,
     getProfQuizzes,
     getQuizById,
-    updateQuiz
+    updateQuiz,
+    deleteQuiz
 } from '../../api'
 
 var store = {
@@ -111,6 +112,17 @@ var store = {
         updateQuiz(context,payload){
             return new Promise((resolve, reject) => {
                 updateQuiz(payload).then(res => {
+                    if(res.response){
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        deleteQuiz(context,payload){
+            return new Promise((resolve, reject) => {
+                deleteQuiz(payload).then(res => {
                     if(res.response){
                         resolve(res)
                     }else{
