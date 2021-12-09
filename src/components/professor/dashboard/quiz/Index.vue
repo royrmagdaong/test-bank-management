@@ -155,13 +155,13 @@
 
     <v-dialog
       v-model="listDialog"
-      width="500"
+      width="450"
     >
       <v-card class="py-4 px-6">
         <div class="title">Class List</div>
         <ul v-if="assigned_class.length>0">
-          <li v-for="(_class,index) in assigned_class" :key="index">
-            <div class="d-flex align-center">
+          <li v-for="(_class,index) in assigned_class" :key="index" class="ml-4">
+            <div class="d-flex align-center body-2">
               <div class="mr-2">{{get(_class, 'class_section')}}</div>
               <v-tooltip bottom color="warning">
                 <template v-slot:activator="{ on, attrs }">
@@ -172,7 +172,13 @@
             </div>
           </li>
         </ul>
-        <div v-else class="ml-4 mt-1 grey--text text--darken-1">No class assigned for this quiz</div>
+        <div v-else class="ml-4 mt-1 grey--text text--darken-1">No available class for this quiz</div>
+        <div class="d-flex justify-end">
+          <v-btn
+            class="black--text mt-4"
+            @click="listDialog = false"
+          >Close</v-btn>
+        </div>
       </v-card>
     </v-dialog>
 
