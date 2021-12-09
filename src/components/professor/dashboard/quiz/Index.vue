@@ -296,7 +296,6 @@ export default {
           class_id: class_id
         }).then(res=>{
           if(res.response){
-            console.log(res)
             this.getAssignedClass({_id: this.quiz_id})
           }
         })

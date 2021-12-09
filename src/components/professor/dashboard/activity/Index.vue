@@ -281,7 +281,6 @@ export default {
     getAssignedClass(item){
       this.listDialog = true
       this.activity_id = item._id
-      console.log(this.activity_id)
       this.$store.dispatch('professorActivity/getAllClassByActivity',{
         activity_id: item._id
       }).then(res=>{
@@ -292,17 +291,14 @@ export default {
     },
     unAssign(class_id){
       if(class_id && this.activity_id){
-        console.log(class_id)
-        console.log(this.activity_id)
-        // this.$store.dispatch('professorQuiz/unassignQuizToClass', {
-        //   quiz_id: this.quiz_id,
-        //   class_id: class_id
-        // }).then(res=>{
-        //   if(res.response){
-        //     console.log(res)
-        //     this.getAssignedClass({_id: this.quiz_id})
-        //   }
-        // })
+        this.$store.dispatch('professorActivity/unAssignActivityToClass', {
+          activity_id: this.activity_id,
+          class_id: class_id
+        }).then(res=>{
+          if(res.response){
+            this.getAssignedClass({_id: this.activity_id})
+          }
+        })
       }
     }
   }

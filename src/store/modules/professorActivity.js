@@ -7,7 +7,8 @@ import {
     getActivityCount,
     assignActivityToClass,
     getClassByProfActivity,
-    getAllClassByActivity
+    getAllClassByActivity,
+    unAssignActivityToClass
 } from '../../api'
 
 var store = {
@@ -183,6 +184,17 @@ var store = {
         getAllClassByActivity(context, payload){
             return new Promise((resolve, reject) => {
                 getAllClassByActivity(payload).then(res => {
+                    if(res.response){
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        unAssignActivityToClass(context, payload){
+            return new Promise((resolve, reject) => {
+                unAssignActivityToClass(payload).then(res => {
                     if(res.response){
                         resolve(res)
                     }else{

@@ -50,6 +50,7 @@ export default {
     assignActivityToClass: activity + 'assign-activity',
     getClassByProfActivity: activity + 'class-prof-activity',
     getAllClassByActivity: activity + 'class-by-activity',
+    unAssignActivityToClass: activity + 'unassign-activity-to-class',
     createQuiz: quiz + 'create',
     getProfQuizzes: quiz,
     getQuizById: quiz + 'get',
