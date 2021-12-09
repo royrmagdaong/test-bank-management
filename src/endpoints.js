@@ -54,6 +54,7 @@ export default {
     deleteQuiz: quiz + 'delete',
     getQuizCount: quiz + 'count',
     assignQuizToClass: quiz + 'assign-class',
+    getAllClassAssignedToQuiz: quiz + 'assigned-class',
     createExam: exam + 'create',
     getProfExams: exam,
     getExamById: exam + 'get',

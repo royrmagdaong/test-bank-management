@@ -48,8 +48,8 @@
           {{ formatDate(get(item,'created_at')) }}
         </div>
       </template>
-      <template v-slot:[`item.class_list`]="{  }">
-        <span class="blue--text text--lighten-2 view-list" @click="listDialog = true">
+      <template v-slot:[`item.class_list`]="{ item }">
+        <span class="blue--text text--lighten-2 view-list" @click="getAssignedClass(item)">
           View
         </span>
       </template>
@@ -133,6 +133,7 @@
           dense
           color="grey"
           item-text="class_section"
+          item-disabled="disable"
           :items="classes"
           v-model="selectedClass"
         >
@@ -154,12 +155,14 @@
 
     <v-dialog
       v-model="listDialog"
-      width="400"
+      width="500"
     >
       <v-card class="py-4 px-6">
-        <div>Class List</div>
+        <div class="title">Class List</div>
         <ul>
-          <li v-for="i in 3" :key="i">Class A</li>
+          <li v-for="(_class,index) in assigned_class" :key="index">
+            {{get(_class, 'class_section')}}
+          </li>
         </ul>
       </v-card>
     </v-dialog>
@@ -192,7 +195,8 @@ export default {
       deleteDialog: '',
       delete_quiz: {},
       selectedClass:null,
-      quiz_id: null
+      quiz_id: null,
+      assigned_class: []
     }
   },
   computed:{
@@ -205,7 +209,6 @@ export default {
   },
   mounted(){
     this.getQuizzes()
-    this.getClass()
   },
   methods:{
     back(){
@@ -217,8 +220,8 @@ export default {
       }
       return '-'
     },
-    getClass(){
-      this.$store.dispatch('professorClass/getClassByProf').then(res=>{
+    getClass(item){
+      this.$store.dispatch('professorClass/getClassByProf',{quiz_id: item._id}).then(res=>{
         console.log(res.data)
       })
     },
@@ -246,17 +249,29 @@ export default {
           quiz_id: this.quiz_id,
           class_id: this.selectedClass._id
         }).then(res=>{
-          console.log(res)
-          // clear
-          this.quiz_id = null
-          this.selectedClass = null
-          this.assignDialog = false
+          if(res.response){
+            // clear
+            this.quiz_id = null
+            this.selectedClass = null
+            this.assignDialog = false
+          }
         })
       }
     },
     assignTo(item){
       this.assignDialog = true
       this.quiz_id = item._id
+      this.getClass(item)
+    },
+    getAssignedClass(item){
+      this.listDialog = true
+      this.$store.dispatch('professorQuiz/getAllClassAssignedToQuiz',{
+        quiz_id: item._id
+      }).then(res=>{
+        if(res.response){
+          this.assigned_class = res.data
+        }
+      })
     }
   }
 }

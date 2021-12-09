@@ -17,9 +17,9 @@ var store = {
         }
     },
     actions:{
-        getClassByProf(context){
+        getClassByProf(context, payload){
             return new Promise((resolve, reject) => {
-                getClassByProf().then(res => {
+                getClassByProf(payload).then(res => {
                     if(res.response){
                         context.commit('SET_CLASS', res.data)
                         resolve(res)

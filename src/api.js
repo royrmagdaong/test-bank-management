@@ -411,6 +411,16 @@ export function assignQuizToClass(payload){
     })
 }
 
+export function getAllClassAssignedToQuiz(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getAllClassAssignedToQuiz,{
+            quiz_id: payload.quiz_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
 export function createExam(payload){
     return new Promise((resolve, reject) => {
         axios.post(endpoints.createExam, {
@@ -466,9 +476,11 @@ export function getExamCount(){
     })
 }
 
-export function getClassByProf(){
+export function getClassByProf(payload){
     return new Promise((resolve, reject) => {
-        axios.post(endpoints.getClassByProf)
+        axios.post(endpoints.getClassByProf,{
+            quiz_id: payload.quiz_id
+        })
         .then(res => { resolve(res.data)})
         .catch(err => { reject(err)} )
     })
