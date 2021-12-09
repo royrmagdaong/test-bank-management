@@ -88,17 +88,12 @@
 
     <v-dialog
       v-model="deleteDialog"
-      width="500"
+      width="400"
     >
-      <v-card class="pt-6 px-4 pb-2">
-        <div >Are you sure you want to delete <b>{{ get(delete_exam,'examName') }}?</b></div>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            @click="deleteDialog = false"
-          >
-            Cancel
-          </v-btn>
+      <v-card class="py-4 px-6">
+        <div class="ml-4 mt-3">Are you sure you want to delete <b>{{ get(delete_exam,'examName') }}?</b></div>
+        
+        <div class="d-flex justify-end mt-4">
           <v-btn
             color="red"
             class="white--text"
@@ -106,7 +101,7 @@
           >
             Delete
           </v-btn>
-        </v-card-actions>
+        </div>
       </v-card>
     </v-dialog>
 
