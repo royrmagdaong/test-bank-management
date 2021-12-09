@@ -4,7 +4,9 @@ import {
     getActivityById,
     updateActivity,
     deleteActivity,
-    getActivityCount
+    getActivityCount,
+    assignActivityToClass,
+    getClassByProfActivity
 } from '../../api'
 
 var store = {
@@ -28,7 +30,8 @@ var store = {
         choices:[],
         activity_questions:[],
         activities: [],
-        activity_count: 0
+        activity_count: 0,
+        profClassActivity: []
     },
     getters: {
         getQuestions: state => state.questions,
@@ -36,6 +39,7 @@ var store = {
         getChoices: state => state.choices,
         getActivities: state => state.activities,
         getActivityCount: state => state.activity_count,
+        getProfClassActivity: state => state.profClassActivity
     },
     mutations: {
         SET_QUESTIONS(state, payload){
@@ -52,6 +56,9 @@ var store = {
         },
         SET_ACTIVITY_COUNT(state, payload){
             state.activity_count = payload
+        },
+        SET_PROF_CLASS_ACTIVITY(state, payload){
+            state.profClassActivity = payload
         },
     },
     actions:{
@@ -142,6 +149,29 @@ var store = {
                 getActivityCount().then(res => {
                     if(res.response){
                         context.commit('SET_ACTIVITY_COUNT', res.count)
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        assignActivityToClass(context, payload){
+            return new Promise((resolve, reject) => {
+                assignActivityToClass(payload).then(res => {
+                    if(res.response){
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        getClassByProfActivity(context, payload){
+            return new Promise((resolve, reject) => {
+                getClassByProfActivity(payload).then(res => {
+                    if(res.response){
+                        context.commit('SET_PROF_CLASS_ACTIVITY', res.data)
                         resolve(res)
                     }else{
                         resolve(res)

@@ -48,10 +48,20 @@
           {{ formatDate(get(item,'created_at')) }}
         </div>
       </template>
-      <template v-slot:[`item.class_list`]="{  }">
-        <div class="blue--text text--lighten-2">
-          View List
-        </div>
+      <template v-slot:[`item.class_list`]="{ item }">
+        <span class="blue--text text--lighten-2 view-list" @click="getAssignedClass(item)">
+          View
+        </span>
+      </template>
+      <template v-slot:[`item.start`]="{  }">
+        <span class="blue--text text--lighten-2 view-list">
+          Set
+        </span>
+      </template>
+      <template v-slot:[`item.assign`]="{ item }">
+        <span class="blue--text text--lighten-2 assign-to" @click="assignTo(item)">
+          Assign to
+        </span>
       </template>
       <template v-slot:[`item.action`]="{ item }">
         <v-hover v-slot="{ hover }">
@@ -109,6 +119,70 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog
+      v-model="assignDialog"
+      width="400"
+    >
+      <v-card class="py-4 px-6">
+        <div class="pb-2">Assign to:</div>
+        <v-select
+          outlined
+          hide-details
+          label="Class"
+          return-object
+          dense
+          color="grey"
+          item-text="class_section"
+          item-disabled="disable"
+          :items="classes"
+          v-model="selectedClass"
+        >
+          <template v-slot:[`item.class_code`]="{ item }">
+            <div>
+              {{item}}
+            </div>
+          </template>
+        </v-select>
+        <div class="d-flex justify-end">
+          <v-btn
+            color="primary"
+            class="black--text mt-2"
+            @click="assign"
+          >Assign</v-btn>
+        </div>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog
+      v-model="listDialog"
+      width="450"
+    >
+      <v-card class="py-4 px-6">
+        <div class="title">Class List</div>
+        <ul v-if="assigned_class.length>0">
+          <li v-for="(_class,index) in assigned_class" :key="index" class="ml-4">
+            <div class="d-flex align-center body-2">
+              <div class="mr-2">{{get(_class, 'class_section')}}</div>
+              <v-tooltip bottom color="warning">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon small v-bind="attrs" v-on="on" color="red lighten-2" class="unassign" @click="unAssign(get(_class,'_id'))">mdi-close</v-icon>
+                </template>
+                <span>Unassign</span>
+              </v-tooltip>
+            </div>
+          </li>
+        </ul>
+        <div v-else class="ml-4 mt-1 grey--text text--darken-1">No available class for this quiz</div>
+        <div class="d-flex justify-end">
+          <v-btn
+            class="black--text mt-4"
+            @click="listDialog = false"
+          >Close</v-btn>
+        </div>
+      </v-card>
+    </v-dialog>
+
   </v-card>
 </template>
 
@@ -129,15 +203,25 @@ export default {
         { text: 'Activity Name', value: 'activityName', sortable: true },
         { text: 'Number of questions', value: 'totalQuestions', sortable: true },
         { text: 'Date Created', value: 'created_at', sortable: true },
-        { text: 'Class', value: 'class_list', sortable: true },
-        { text: 'Action', value: 'action', sortable: true }
+        { text: 'Class List', value: 'class_list', sortable: false },
+        { text: 'Assign', value: 'assign', sortable: false },
+        { text: 'Set time to start', value: 'start', sortable: false },
+        { text: 'Action', value: 'action', sortable: false }
       ],
-      delete_activity: {}
+      delete_activity: {},
+      selectedClass: {},
+      activity_id: null,
+      assignDialog: false,
+      listDialog: false,
+      assigned_class: []
     }
   },
   computed:{
     activities(){
       return this.$store.getters['professorActivity/getActivities']
+    },
+    classes(){
+      return this.$store.getters['professorActivity/getProfClassActivity']
     }
   },
   mounted(){
@@ -170,6 +254,56 @@ export default {
     openDeleteModal(item){
       this.delete_activity = item
       this.deleteDialog = true
+    },
+    getClass(item){
+      this.$store.dispatch('professorActivity/getClassByProfActivity',{activity_id: item._id})
+    },
+    assign(){
+      if(this.selectedClass){
+        this.$store.dispatch('professorActivity/assignActivityToClass', {
+          activity_id: this.activity_id,
+          class_id: this.selectedClass._id
+        }).then(res=>{
+          if(res.response){
+            // clear
+            this.activity_id = null
+            this.selectedClass = null
+            this.assignDialog = false
+          }
+        })
+      }
+    },
+    assignTo(item){
+      this.assignDialog = true
+      this.activity_id = item._id
+      this.getClass(item)
+    },
+    getAssignedClass(item){
+      this.listDialog = true
+      this.activity_id = item._id
+      console.log(this.activity_id)
+      // this.$store.dispatch('professorQuiz/getAllClassAssignedToQuiz',{
+      //   quiz_id: item._id
+      // }).then(res=>{
+      //   if(res.response){
+      //     this.assigned_class = res.data
+      //   }
+      // })
+    },
+    unAssign(class_id){
+      if(class_id && this.activity_id){
+        console.log(class_id)
+        console.log(this.activity_id)
+        // this.$store.dispatch('professorQuiz/unassignQuizToClass', {
+        //   quiz_id: this.quiz_id,
+        //   class_id: class_id
+        // }).then(res=>{
+        //   if(res.response){
+        //     console.log(res)
+        //     this.getAssignedClass({_id: this.quiz_id})
+        //   }
+        // })
+      }
     }
   }
 }
@@ -190,5 +324,12 @@ export default {
   cursor: pointer;
   background: rgb(233, 186, 189);
   border-radius: 10%;
+}
+.view-list:hover, .assign-to:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+.unassign:hover{
+  cursor: pointer;
 }
 </style>

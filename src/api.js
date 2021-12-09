@@ -345,6 +345,27 @@ export function getActivityCount(){
     })
 }
 
+export function assignActivityToClass(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.assignActivityToClass,{
+            class_id: payload.class_id,
+            activity_id: payload.activity_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getClassByProfActivity(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getClassByProfActivity,{
+            activity_id: payload.activity_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
 export function createQuiz(payload){
     return new Promise((resolve, reject) => {
         axios.post(endpoints.createQuiz, {
