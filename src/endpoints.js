@@ -58,6 +58,7 @@ export default {
     deleteQuiz: quiz + 'delete',
     getQuizCount: quiz + 'count',
     assignQuizToClass: quiz + 'assign-quiz',
+    getClassByProfQuiz: quiz + 'class-prof-exam',
     unassignQuizToClass: quiz + 'unassign-quiz',
     getAllClassAssignedToQuiz: quiz + 'assigned-quiz',
     createExam: exam + 'create',
@@ -66,6 +67,9 @@ export default {
     updateExam: exam + 'update',
     deleteExam: exam + 'delete',
     getExamCount: exam + 'count',
-    getClassByProf: _class + 'prof-class',
+    assignExamToClass: exam + 'assign-exam',
+    getClassByProfExam: exam + 'class-prof-exam',
+    getAllClassByExam: exam + 'class-by-exam',
+    unAssignExamToClass: exam + 'unassign-exam-to-class',
     
 }

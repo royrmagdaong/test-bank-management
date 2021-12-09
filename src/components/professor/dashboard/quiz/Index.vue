@@ -214,7 +214,7 @@ export default {
       return this.$store.getters['professorQuiz/getQuizzes']
     },
     classes(){
-      return this.$store.getters['professorClass/getClass']
+      return this.$store.getters['professorQuiz/getProfClassQuiz']
     }
   },
   mounted(){
@@ -231,7 +231,7 @@ export default {
       return '-'
     },
     getClass(item){
-      this.$store.dispatch('professorClass/getClassByProf',{quiz_id: item._id})
+      this.$store.dispatch('professorQuiz/getClassByProfQuiz',{quiz_id: item._id})
     },
     getQuizzes(){
       this.$store.dispatch('professorQuiz/getProfQuizzes')

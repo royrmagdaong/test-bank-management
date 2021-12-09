@@ -7,7 +7,8 @@ import {
     getQuizCount,
     assignQuizToClass,
     unassignQuizToClass,
-    getAllClassAssignedToQuiz
+    getAllClassAssignedToQuiz,
+    getClassByProfQuiz
 } from '../../api'
 
 var store = {
@@ -32,7 +33,8 @@ var store = {
         quiz_questions:[],
         quizzes: [],
         quiz_count: 0,
-        class_assigned: []
+        class_assigned: [],
+        profClassQuiz: []
     },
     getters: {
         getQuestions: state => state.questions,
@@ -40,7 +42,8 @@ var store = {
         getChoices: state => state.choices,
         getQuizzes: state => state.quizzes,
         getQuizCount: state => state.quiz_count,
-        getClassAssigned: state => state.class_assigned
+        getClassAssigned: state => state.class_assigned,
+        getProfClassQuiz: state => state.profClassQuiz
     },
     mutations: {
         SET_QUESTIONS(state, payload){
@@ -60,7 +63,10 @@ var store = {
         },
         SET_CLASS_ASSIGNED(state, payload){
             state.class_assigned = payload
-        }
+        },
+        SET_PROF_CLASS_QUIZ(state, payload){
+            state.profClassQuiz = payload
+        },
     },
     actions:{
         resetQuestions(context){
@@ -161,6 +167,18 @@ var store = {
             return new Promise((resolve, reject) => {
                 assignQuizToClass(payload).then(res => {
                     if(res.response){
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        getClassByProfQuiz(context, payload){
+            return new Promise((resolve, reject) => {
+                getClassByProfQuiz(payload).then(res => {
+                    if(res.response){
+                        context.commit('SET_PROF_CLASS_QUIZ', res.data)
                         resolve(res)
                     }else{
                         resolve(res)

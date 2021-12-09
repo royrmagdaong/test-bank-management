@@ -4,7 +4,11 @@ import {
     getExamById,
     updateExam,
     deleteExam,
-    getExamCount
+    getExamCount,
+    assignExamToClass,
+    getClassByProfExam,
+    getAllClassByExam,
+    unAssignExamToClass
 } from '../../api'
 
 var store = {
@@ -28,7 +32,8 @@ var store = {
         choices:[],
         exam_questions:[],
         exams: [],
-        exam_count: 0
+        exam_count: 0,
+        profClassExam: []
     },
     getters: {
         getQuestions: state => state.questions,
@@ -36,6 +41,7 @@ var store = {
         getChoices: state => state.choices,
         getExams: state => state.exams,
         getExamCount: state => state.exam_count,
+        getProfClassExam: state => state.profClassExam
     },
     mutations: {
         SET_QUESTIONS(state, payload){
@@ -52,6 +58,9 @@ var store = {
         },
         SET_EXAM_COUNT(state, payload){
             state.exam_count = payload
+        },
+        SET_PROF_CLASS_EXAM(state, payload){
+            state.profClassExam = payload
         },
     },
     actions:{
@@ -142,6 +151,51 @@ var store = {
                 getExamCount().then(res => {
                     if(res.response){
                         context.commit('SET_EXAM_COUNT', res.count)
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        assignExamToClass(context, payload){
+            return new Promise((resolve, reject) => {
+                assignExamToClass(payload).then(res => {
+                    if(res.response){
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        getClassByProfExam(context, payload){
+            return new Promise((resolve, reject) => {
+                getClassByProfExam(payload).then(res => {
+                    if(res.response){
+                        context.commit('SET_PROF_CLASS_EXAM', res.data)
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        getAllClassByExam(context, payload){
+            return new Promise((resolve, reject) => {
+                getAllClassByExam(payload).then(res => {
+                    if(res.response){
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        unAssignExamToClass(context, payload){
+            return new Promise((resolve, reject) => {
+                unAssignExamToClass(payload).then(res => {
+                    if(res.response){
                         resolve(res)
                     }else{
                         resolve(res)
