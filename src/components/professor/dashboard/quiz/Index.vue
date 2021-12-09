@@ -159,11 +159,20 @@
     >
       <v-card class="py-4 px-6">
         <div class="title">Class List</div>
-        <ul>
+        <ul v-if="assigned_class.length>0">
           <li v-for="(_class,index) in assigned_class" :key="index">
-            {{get(_class, 'class_section')}}
+            <div class="d-flex align-center">
+              <div class="mr-2">{{get(_class, 'class_section')}}</div>
+              <v-tooltip bottom color="warning">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon small v-bind="attrs" v-on="on" color="red lighten-2" class="unassign" @click="unAssign(get(_class,'_id'))">mdi-close</v-icon>
+                </template>
+                <span>Unassign</span>
+              </v-tooltip>
+            </div>
           </li>
         </ul>
+        <div v-else class="ml-4 mt-1 grey--text text--darken-1">No class assigned for this quiz</div>
       </v-card>
     </v-dialog>
 
@@ -263,6 +272,7 @@ export default {
     },
     getAssignedClass(item){
       this.listDialog = true
+      this.quiz_id = item._id
       this.$store.dispatch('professorQuiz/getAllClassAssignedToQuiz',{
         quiz_id: item._id
       }).then(res=>{
@@ -270,6 +280,21 @@ export default {
           this.assigned_class = res.data
         }
       })
+    },
+    unAssign(class_id){
+      if(class_id && this.quiz_id){
+        console.log(class_id)
+        console.log(this.quiz_id)
+        this.$store.dispatch('professorQuiz/unassignQuizToClass', {
+          quiz_id: this.quiz_id,
+          class_id: class_id
+        }).then(res=>{
+          if(res.response){
+            console.log(res)
+            this.getAssignedClass({_id: this.quiz_id})
+          }
+        })
+      }
     }
   }
 }
@@ -295,5 +320,7 @@ export default {
   text-decoration: underline;
   cursor: pointer;
 }
-
+.unassign:hover{
+  cursor: pointer;
+}
 </style>

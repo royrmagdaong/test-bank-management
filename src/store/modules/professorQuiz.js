@@ -6,6 +6,7 @@ import {
     deleteQuiz,
     getQuizCount,
     assignQuizToClass,
+    unassignQuizToClass,
     getAllClassAssignedToQuiz
 } from '../../api'
 
@@ -172,6 +173,17 @@ var store = {
                 getAllClassAssignedToQuiz(payload).then(res => {
                     if(res.response){
                         context.commit('SET_CLASS_ASSIGNED', res.data)
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        unassignQuizToClass(context,payload){
+            return new Promise((resolve, reject) => {
+                unassignQuizToClass(payload).then(res => {
+                    if(res.response){
                         resolve(res)
                     }else{
                         resolve(res)

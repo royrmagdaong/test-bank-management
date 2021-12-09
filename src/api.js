@@ -411,6 +411,17 @@ export function assignQuizToClass(payload){
     })
 }
 
+export function unassignQuizToClass(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.unassignQuizToClass,{
+            class_id: payload.class_id,
+            quiz_id: payload.quiz_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
 export function getAllClassAssignedToQuiz(payload){
     return new Promise((resolve, reject) => {
         axios.post(endpoints.getAllClassAssignedToQuiz,{
