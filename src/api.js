@@ -366,6 +366,16 @@ export function getClassByProfActivity(payload){
     })
 }
 
+export function getAllClassByActivity(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getAllClassByActivity,{
+            activity_id: payload.activity_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
 export function createQuiz(payload){
     return new Promise((resolve, reject) => {
         axios.post(endpoints.createQuiz, {

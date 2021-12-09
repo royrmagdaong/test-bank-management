@@ -6,7 +6,8 @@ import {
     deleteActivity,
     getActivityCount,
     assignActivityToClass,
-    getClassByProfActivity
+    getClassByProfActivity,
+    getAllClassByActivity
 } from '../../api'
 
 var store = {
@@ -172,6 +173,17 @@ var store = {
                 getClassByProfActivity(payload).then(res => {
                     if(res.response){
                         context.commit('SET_PROF_CLASS_ACTIVITY', res.data)
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        getAllClassByActivity(context, payload){
+            return new Promise((resolve, reject) => {
+                getAllClassByActivity(payload).then(res => {
+                    if(res.response){
                         resolve(res)
                     }else{
                         resolve(res)

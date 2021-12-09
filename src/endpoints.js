@@ -49,6 +49,7 @@ export default {
     getActivityCount: activity + 'count',
     assignActivityToClass: activity + 'assign-activity',
     getClassByProfActivity: activity + 'class-prof-activity',
+    getAllClassByActivity: activity + 'class-by-activity',
     createQuiz: quiz + 'create',
     getProfQuizzes: quiz,
     getQuizById: quiz + 'get',

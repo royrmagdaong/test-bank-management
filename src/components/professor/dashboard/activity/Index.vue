@@ -282,13 +282,13 @@ export default {
       this.listDialog = true
       this.activity_id = item._id
       console.log(this.activity_id)
-      // this.$store.dispatch('professorQuiz/getAllClassAssignedToQuiz',{
-      //   quiz_id: item._id
-      // }).then(res=>{
-      //   if(res.response){
-      //     this.assigned_class = res.data
-      //   }
-      // })
+      this.$store.dispatch('professorActivity/getAllClassByActivity',{
+        activity_id: item._id
+      }).then(res=>{
+        if(res.response){
+          this.assigned_class = res.data
+        }
+      })
     },
     unAssign(class_id){
       if(class_id && this.activity_id){
