@@ -221,9 +221,7 @@ export default {
       return '-'
     },
     getClass(item){
-      this.$store.dispatch('professorClass/getClassByProf',{quiz_id: item._id}).then(res=>{
-        console.log(res.data)
-      })
+      this.$store.dispatch('professorClass/getClassByProf',{quiz_id: item._id})
     },
     getQuizzes(){
       this.$store.dispatch('professorQuiz/getProfQuizzes')

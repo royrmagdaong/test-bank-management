@@ -263,7 +263,6 @@ const router =  new Router({
     },
     {
       path: '/student',
-      name: 'student',
       component: StudentBase,
       meta:{
         requiresAuth: true,
