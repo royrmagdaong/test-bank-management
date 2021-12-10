@@ -9,9 +9,12 @@ const activity = 'activity/'
 const quiz = 'quiz/'
 const exam = 'exam/'
 
+const server_name = 'http://localhost:3000'
+
 export default {
     // general user
     signIn: user + 'signin',
+    server_name,
     
     // admin
     getUsers: user,
@@ -51,6 +54,7 @@ export default {
     getClassByProfActivity: activity + 'class-prof-activity',
     getAllClassByActivity: activity + 'class-by-activity',
     unAssignActivityToClass: activity + 'unassign-activity-to-class',
+    setExamDuration: activity + 'set-exam-duration',
     createQuiz: quiz + 'create',
     getProfQuizzes: quiz,
     getQuizById: quiz + 'get',

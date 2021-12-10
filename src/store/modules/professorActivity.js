@@ -8,7 +8,8 @@ import {
     assignActivityToClass,
     getClassByProfActivity,
     getAllClassByActivity,
-    unAssignActivityToClass
+    unAssignActivityToClass,
+    setExamDuration
 } from '../../api'
 
 var store = {
@@ -195,6 +196,17 @@ var store = {
         unAssignActivityToClass(context, payload){
             return new Promise((resolve, reject) => {
                 unAssignActivityToClass(payload).then(res => {
+                    if(res.response){
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        setExamDuration(context, payload){
+            return new Promise((resolve, reject) => {
+                setExamDuration(payload).then(res => {
                     if(res.response){
                         resolve(res)
                     }else{

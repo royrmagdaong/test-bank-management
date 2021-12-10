@@ -387,6 +387,17 @@ export function unAssignActivityToClass(payload){
     })
 }
 
+export function setExamDuration(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.setExamDuration,{
+            time_duration: payload.time_duration,
+            activity_id: payload.activity_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
 export function createQuiz(payload){
     return new Promise((resolve, reject) => {
         axios.post(endpoints.createQuiz, {

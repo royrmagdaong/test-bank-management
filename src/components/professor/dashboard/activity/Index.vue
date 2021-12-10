@@ -48,26 +48,38 @@
           {{ formatDate(get(item,'created_at')) }}
         </div>
       </template>
+      <template v-slot:[`item.status`]="{ item }">
+        <div v-if="get(item, 'in_progress')" class="success--text text--lighten-1">
+          In progress
+        </div>
+        <div v-else-if="get(item, 'is_done')" class="blue--text text--lighten-1">
+          Done
+        </div>
+        <div v-else>
+          ---
+        </div>
+      </template>
       <template v-slot:[`item.class_list`]="{ item }">
-        <span class="blue--text text--lighten-2 view-list" @click="getAssignedClass(item)">
+        <span class="blue--text text--lighten-2 view-list" @click="getAssignedClass(item)" v-if="(!get(item, 'is_done')) && (!get(item, 'in_progress'))">
           View
         </span>
       </template>
-      <template v-slot:[`item.start`]="{  }">
-        <span class="blue--text text--lighten-2 view-list">
+      <template v-slot:[`item.start`]="{ item }">
+        <span class="blue--text text--lighten-2 view-list" @click="setDuration(item)" v-if="(!get(item, 'is_done')) && (!get(item, 'in_progress'))">
           Set
         </span>
+        <span class="red--text text-lighten-2 title" v-if="get(item, 'in_progress')">{{ exam_countdown }}</span>
       </template>
       <template v-slot:[`item.assign`]="{ item }">
-        <span class="blue--text text--lighten-2 assign-to" @click="assignTo(item)">
+        <span class="blue--text text--lighten-2 assign-to" @click="assignTo(item)" v-if="(!get(item, 'is_done')) && (!get(item, 'in_progress'))">
           Assign to
         </span>
       </template>
       <template v-slot:[`item.action`]="{ item }">
-        <v-hover v-slot="{ hover }">
+        <v-hover v-slot="{ hover }" v-if="(!get(item, 'is_done')) && (!get(item, 'in_progress'))">
           <v-icon small color="blue lighten-2" class="pa-1" :class="{'edit-active':hover}" @click="editActivity(item)">mdi-pencil</v-icon>
         </v-hover>
-        <v-hover v-slot="{ hover }">
+        <v-hover v-slot="{ hover }" v-if="(!get(item, 'is_done')) && (!get(item, 'in_progress'))">
           <v-icon small color="red lighten-1" class="pa-1" :class="{'delete-active':hover}" @click="openDeleteModal(item)">mdi-delete</v-icon>
         </v-hover>
         
@@ -178,16 +190,60 @@
       </v-card>
     </v-dialog>
 
+    <!-- set duration -->
+    <v-dialog
+      v-model="durationDialog"
+      width="400"
+    >
+      <v-card class="py-4 px-6">
+        <div class="mt-3 pb-2">Set Duration</div>
+
+        <v-select
+          :items="durationIn"
+          label="Duration"
+          outlined
+          dense
+          hide-details
+          v-model="duration"
+        ></v-select>
+
+        <v-text-field
+          class="mt-2"
+          type="number"
+          min="0"
+          dense
+          hide-details
+          outlined
+          v-model="hours_minutes"
+        ></v-text-field>
+        
+        <div class="d-flex justify-end mt-4">
+          <v-btn
+            color="primary"
+            class="black--text"
+            @click="startExam"
+          >
+            Start Exam
+          </v-btn>
+        </div>
+      </v-card>
+    </v-dialog>
+
   </v-card>
 </template>
 
 <script>
 import {get} from 'lodash'
 import moment from 'moment'
+import io from 'socket.io-client'
+import endpoints from '../../../../endpoints'
 
 export default {
   data(){
     return {
+      io,
+      endpoints,
+      socket: io(''),
       get,
       page: 1,
       entryValue: 10,
@@ -198,9 +254,10 @@ export default {
         { text: 'Activity Name', value: 'activityName', sortable: true },
         { text: 'Number of questions', value: 'totalQuestions', sortable: true },
         { text: 'Date Created', value: 'created_at', sortable: true },
+        { text: 'Status', value: 'status'},
         { text: 'Class List', value: 'class_list', sortable: false },
         { text: 'Assign', value: 'assign', sortable: false },
-        { text: 'Set time to start', value: 'start', sortable: false },
+        { text: 'Set duration to start', value: 'start', sortable: false },
         { text: 'Action', value: 'action', sortable: false }
       ],
       delete_activity: {},
@@ -208,7 +265,13 @@ export default {
       activity_id: null,
       assignDialog: false,
       listDialog: false,
-      assigned_class: []
+      assigned_class: [],
+      durationDialog: false,
+      durationIn: ['hours','minutes'],
+      duration: 'hours',
+      hours_minutes: 0,
+      exam_countdown: null,
+      token: ''
     }
   },
   computed:{
@@ -221,6 +284,13 @@ export default {
   },
   mounted(){
     this.getActivities()
+    this.socket = this.io(this.endpoints.server_name)
+    this.socket.on('connect', ()=>{
+      console.log('connected to socket')
+    })
+
+    // get token
+    this.token = JSON.parse(localStorage.getItem('user_info')).token
   },
   methods:{
     back(){
@@ -295,7 +365,58 @@ export default {
           }
         })
       }
-    }
+    },
+    setDuration(item){
+      this.durationDialog = true
+      this.activity_id = item._id
+    },
+    startExam(){
+      if(this.hours_minutes && this.duration){
+        this.$store.dispatch('professorActivity/setExamDuration',{
+          activity_id: this.activity_id,
+          time_duration: {
+            duration_in: this.duration,
+            hours_minutes: this.hours_minutes
+          }
+        }).then(res=>{
+          if(res.response){
+            this.durationDialog = false
+            console.log(res)
+
+            // emit start exam
+            this.socket.emit('start-exam', this.activity_id, {token: this.token})
+            // emit join room
+            this.socket.emit('join-exam', { token:this.token, room: this.activity_id })
+            
+            // cannot be called again during refresh and component destroy
+            // timer listener for exam
+            this.socket.on(this.activity_id, countdown =>{
+              this.exam_countdown = countdown
+            })
+
+            // join exam error
+            this.socket.on("join-exam-error", msg =>{
+              console.log(msg)
+            })
+            // error listener for start exam
+            this.socket.on("start-exam-error", msg =>{
+              console.log(msg)
+            })
+            // success listener for start exam
+            this.socket.on("start-exam-success", msg =>{
+              // refresh table
+              this.getActivities()
+              console.log(msg)
+            })
+
+            // refresh table
+            this.getActivities()
+          }
+        })
+      }else{
+        console.log('please fill up all fields!')
+      }
+    },
   }
 }
 </script>
