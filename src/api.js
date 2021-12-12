@@ -269,6 +269,16 @@ export function getStudentInfo(){
     })
 }
 
+// FOR STUDENT
+
+export function getStudentActivities(){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getStudentActivities)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
 
 // Prof
 
