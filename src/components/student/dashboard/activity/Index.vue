@@ -1,6 +1,6 @@
 <template>
   <v-card class="pa-4" tile>
-    <div class="d-flex">
+    <div class="d-flex justify-space-between">
       <v-icon color="" @click="back" class="mr-2">
         mdi-arrow-left
       </v-icon>
@@ -38,9 +38,9 @@
       class="elevation-0"
       hide-default-footer
     >
-      <template v-slot:[`item.totalQuestions`]="{ item }">
+      <template v-slot:[`item.subject`]="{ item }">
         <div>
-          {{ get(item,'questions').length }}
+          {{ get(item,'subj_id.code') }} - {{ get(item,'subj_id.description') }}
         </div>
       </template>
       <template v-slot:[`item.created_at`]="{ item }">
@@ -55,13 +55,15 @@
         <div class="success--text text--lighten-1" v-if="get(item, 'is_done')">
           Done
         </div>
+        <div class="success--text text--lighten-1" v-if="!get(item, 'is_done') && !get(item, 'in_progress')">
+          Pending
+        </div>
       </template>
       <template v-slot:[`item.action`]="{ item }">
         <div class="blue--text text--lighten-1 action-item" v-if="get(item, 'in_progress')" @click="startExam(item)">
           Start
         </div>
-        <div class="blue--text text--lighten-1 action-item" v-if="get(item, 'is_done')" @click="viewExam(item)">
-          View
+        <div class="blue--text text--lighten-1 action-item" v-if="get(item, 'is_done')">
         </div>
       </template>
     </v-data-table>
@@ -80,13 +82,6 @@
         color="grey lighten-1"
       ></v-pagination>
     </div>
-    <div>
-      <v-btn
-        class="grey white--text text-capitalize caption"
-        tile
-        @click="$router.push('activity/create')"
-      >New</v-btn>
-    </div>
   </v-card>
 </template>
 
@@ -103,7 +98,7 @@ export default {
       searchString: '',
       headers: [
         { text: 'Activity Name', value: 'activityName', sortable: true },
-        { text: 'Number of questions', value: 'totalQuestions', sortable: true },
+        { text: 'Subject', value: 'subject', sortable: true },
         { text: 'Date Created', value: 'created_at', sortable: true },
         { text: 'Status', value: 'status'},
         { text: 'Action', value: 'action', sortable: false }
@@ -120,7 +115,7 @@ export default {
   },
   methods:{
     back(){
-      console.log('back')
+      this.$router.push('/student/dashboard')
     },
     formatDate(date){
       if(date){
@@ -130,15 +125,12 @@ export default {
     },
     getActivities(){
       this.$store.dispatch('studentActivity/getActivity').then(res=>{
-        console.log(res.data)
+        console.log(res)
       })
     },
-    startExam(){
-      console.log('start exam')
+    startExam(item){
+      this.$router.push(`activity/${item._id}`)
     },
-    viewExam(){
-      console.log('view exam')
-    }
   }
 }
 </script>

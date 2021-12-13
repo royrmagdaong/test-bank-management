@@ -70,7 +70,9 @@ import ProfessorSubjectsIndex from './components/professor/subjects/Index'
 import StudentBase from './views/student/Base'
 import StudentDashboard from './components/student/dashboard/Dashboard' // DASHBOARD
 import StudentDashboardIndex from './components/student/dashboard/Index'
-import StudentDashboardActivity from './components/student/dashboard/activity/Index'
+import StudentDashboardActivity from './components/student/dashboard/activity/Base' // Activity
+import StudentDashboardActivityIndex from './components/student/dashboard/activity/Index'
+import StudentDashboardActivityItem from './components/student/dashboard/activity/ActivityItem'
 import StudentDashboardExam from './components/student/dashboard/exam/Index'
 import StudentDashboardGrowth from './components/student/dashboard/growth/Index'
 import StudentDashboardModule from './components/student/dashboard/module/Index'
@@ -283,7 +285,17 @@ const router =  new Router({
             },
             {
               path: 'activity',
-              component: StudentDashboardActivity
+              component: StudentDashboardActivity,
+              children: [
+                {
+                  path: '/',
+                  component: StudentDashboardActivityIndex
+                },
+                {
+                  path: ':id',
+                  component: StudentDashboardActivityItem
+                }
+              ]
             },
             {
               path: 'exam',

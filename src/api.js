@@ -279,6 +279,16 @@ export function getStudentActivities(){
     })
 }
 
+export function getStudentActivity(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getStudentActivity,{
+            activity_id: payload.activity_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
 
 // Prof
 
