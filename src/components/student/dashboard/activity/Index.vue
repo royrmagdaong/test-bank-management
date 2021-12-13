@@ -48,14 +48,20 @@
           {{ formatDate(get(item,'created_at')) }}
         </div>
       </template>
-      <template v-slot:[`item.status`]="{  }">
-        <div class="success--text text--lighten-1">
-          Status
+      <template v-slot:[`item.status`]="{ item }">
+        <div class="success--text text--lighten-1" v-if="get(item, 'in_progress')">
+          In Progress
+        </div>
+        <div class="success--text text--lighten-1" v-if="get(item, 'is_done')">
+          Done
         </div>
       </template>
-      <template v-slot:[`item.action`]="{  }">
-        <div class="blue--text text--lighten-1">
+      <template v-slot:[`item.action`]="{ item }">
+        <div class="blue--text text--lighten-1 action-item" v-if="get(item, 'in_progress')" @click="startExam(item)">
           Start
+        </div>
+        <div class="blue--text text--lighten-1 action-item" v-if="get(item, 'is_done')" @click="viewExam(item)">
+          View
         </div>
       </template>
     </v-data-table>
@@ -123,12 +129,23 @@ export default {
       return '-'
     },
     getActivities(){
-      this.$store.dispatch('studentActivity/getActivity')
+      this.$store.dispatch('studentActivity/getActivity').then(res=>{
+        console.log(res.data)
+      })
+    },
+    startExam(){
+      console.log('start exam')
+    },
+    viewExam(){
+      console.log('view exam')
     }
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+.action-item:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
 </style>
