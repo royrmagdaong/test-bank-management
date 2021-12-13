@@ -300,11 +300,20 @@ export function getProfessorSubjects(payload){
     })
 }
 
+export function getProfessorClassAndSubjects(){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getProfessorClassAndSubjects)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
 export function createActivity(payload){
     return new Promise((resolve, reject) => {
         axios.post(endpoints.createActivity, {
             activityName: payload.activityName,
-            questions: payload.questions
+            questions: payload.questions,
+            subj_id: payload.subj_id
         })
         .then(res => { resolve(res.data)})
         .catch(err => { reject(err)} )

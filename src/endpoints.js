@@ -45,6 +45,7 @@ export default {
     // professor
     getProfessorInfo: prof + 'prof-info',
     getProfessorSubjects: _class + 'prof-subjects',
+    getProfessorClassAndSubjects: _class + 'prof-class-subjects',
     createActivity: activity + 'create',
     getProfActivities: activity,
     getActivityById: activity + 'get',

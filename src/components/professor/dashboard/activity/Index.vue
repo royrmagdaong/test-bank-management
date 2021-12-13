@@ -252,7 +252,8 @@ export default {
       deleteDialog: '',
       headers: [
         { text: 'Activity Name', value: 'activityName', sortable: true },
-        { text: 'Number of questions', value: 'totalQuestions', sortable: true },
+        { text: 'Subject Name', value: 'subject_name', sortable: true },
+        { text: 'No. of questions', value: 'totalQuestions', sortable: true },
         { text: 'Date Created', value: 'created_at', sortable: true },
         { text: 'Status', value: 'status'},
         { text: 'Class List', value: 'class_list', sortable: false },
@@ -303,7 +304,9 @@ export default {
       return '-'
     },
     getActivities(){
-      this.$store.dispatch('professorActivity/getProfActivities')
+      this.$store.dispatch('professorActivity/getProfActivities').then(res=>{
+        console.log(res)
+      })
     },
     editActivity(item){
       this.$router.push(`/professor/dashboard/activity/edit/${item._id}`)

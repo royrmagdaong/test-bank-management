@@ -7,15 +7,28 @@
       <span class="headline tbl-title">Create Activity</span>
     </div>
 
-    <v-row>
-      <v-col cols="5" offset="7">
+    <v-row class="mt-4">
+      <v-col cols="4">
+        <v-select
+          outlined
+          hide-details
+          label="Subject"
+          return-object
+          dense
+          color="grey"
+          item-text="class_section"
+          :items="subjects"
+          v-model="subject"
+        >
+        </v-select>
+      </v-col>
+      <v-col cols="4">
         <v-text-field
-          placeholder="Activity Name"
+          label="Activity Name"
           hide-details
           dense
           outlined
           color="#aaa"
-          style="border-radius: 0 !important;"
           v-model="activityName"
         ></v-text-field>
       </v-col>
@@ -104,7 +117,8 @@ export default {
       activity_questions: [],
       choices: [],
       questions: [],
-      activityName: ''
+      activityName: '',
+      subject: null
     }
   },
   computed:{
@@ -116,6 +130,9 @@ export default {
     },
     activity_questions_vx(){
       return this.$store.getters['professorActivity/getActivityQuestions']
+    },
+    subjects(){
+      return this.$store.getters['professorActivity/getSubjects']
     }
   },
   mounted(){
@@ -129,6 +146,10 @@ export default {
         this.choices.push(question.choices)
       })
     }
+
+    // fetch subjects
+    this.getSubjects()
+
   },
   destroyed(){
     this.$store.dispatch('professorActivity/setQuestions', this.questions)
@@ -138,6 +159,11 @@ export default {
   methods:{
     back(){
       this.$router.push('/professor/dashboard/activity')
+    },
+    getSubjects(){
+      this.$store.dispatch('professorActivity/getProfessorClassAndSubjects').then(res=>{
+        console.log(res.data)
+      })
     },
     addChoice(question_number){
       this.choices[question_number].push({answer:'', value:false})
@@ -189,6 +215,7 @@ export default {
       }
     },
     createActivity(){
+      console.log(this.subject)
       let questions = []
       for(let i=0;i<this.activity_questions.length;i++){
         questions.push({
@@ -196,10 +223,11 @@ export default {
           choices: this.choices[i]
         })
       }
-      if(questions.length>0 && this.activityName){
+      if(questions.length>0 && this.activityName && this.subject){
         this.$store.dispatch('professorActivity/createActivity',{
           activityName: this.activityName,
-          questions: questions
+          questions: questions,
+          subj_id: this.subject.subject._id
         }).then(res=>{
           if(res.response){
             this.activityName = ''

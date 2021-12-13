@@ -69,6 +69,7 @@ var store = {
                 getProfessorSubjects(payload).then(res => {
                     if(res.response){
                         context.commit('SET_SUBJECTS', res.data)
+                        console.log(res.data)
                         context.commit('SET_STUDENTS', res.data)
                         resolve(res)
                     }else{

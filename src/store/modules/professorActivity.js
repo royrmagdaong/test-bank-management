@@ -9,7 +9,8 @@ import {
     getClassByProfActivity,
     getAllClassByActivity,
     unAssignActivityToClass,
-    setExamDuration
+    setExamDuration,
+    getProfessorClassAndSubjects
 } from '../../api'
 
 var store = {
@@ -34,7 +35,8 @@ var store = {
         activity_questions:[],
         activities: [],
         activity_count: 0,
-        profClassActivity: []
+        profClassActivity: [],
+        subjects: []
     },
     getters: {
         getQuestions: state => state.questions,
@@ -42,7 +44,8 @@ var store = {
         getChoices: state => state.choices,
         getActivities: state => state.activities,
         getActivityCount: state => state.activity_count,
-        getProfClassActivity: state => state.profClassActivity
+        getProfClassActivity: state => state.profClassActivity,
+        getSubjects: state => state.subjects
     },
     mutations: {
         SET_QUESTIONS(state, payload){
@@ -63,6 +66,9 @@ var store = {
         SET_PROF_CLASS_ACTIVITY(state, payload){
             state.profClassActivity = payload
         },
+        SET_SUBJECTS(state, payload){
+            state.subjects = payload
+        }
     },
     actions:{
         resetQuestions(context){
@@ -208,6 +214,18 @@ var store = {
             return new Promise((resolve, reject) => {
                 setExamDuration(payload).then(res => {
                     if(res.response){
+                        resolve(res)
+                    }else{
+                        resolve(res)
+                    }
+                }).catch(err => { reject(err) })
+            })
+        },
+        getProfessorClassAndSubjects(context){
+            return new Promise((resolve, reject) => {
+                getProfessorClassAndSubjects().then(res => {
+                    if(res.response){
+                        context.commit('SET_SUBJECTS', res.data)
                         resolve(res)
                     }else{
                         resolve(res)
