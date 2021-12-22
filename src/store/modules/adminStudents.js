@@ -25,7 +25,6 @@ var store = {
             return new Promise((resolve, reject) => {
                 getStudents(payload).then(res => {
                     if(res.response){
-                        console.log(res)
                         context.commit('SET_STUDENTS', res)
                         resolve(res)
                     }else{

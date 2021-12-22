@@ -17,7 +17,7 @@ export default {
     },
   },
   mounted(){
-    // this should be call once in student page
+    // this should be call once in professor page
     this.getProfessorSubjects()
 
     // watch for call from other component

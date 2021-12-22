@@ -25,7 +25,6 @@ var store = {
             return new Promise((resolve, reject) => {
                 getGradeLevel(payload).then(res => {
                     if(res.response){
-                        console.log(res)
                         context.commit('SET_GRADE_LEVELS', res)
                         resolve(res)
                     }else{
@@ -38,7 +37,6 @@ var store = {
             return new Promise((resolve, reject) => {
                 createGradeLevel(payload).then(res => {
                     if(res.response){
-                        console.log(res)
                         resolve(res)
                     }else{
                         resolve(res)

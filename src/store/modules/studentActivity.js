@@ -1,31 +1,32 @@
 import {
-    getProf,
-    createProf
+    getStudentActivities,
+    getStudentActivity
 } from '../../api'
 
 var store = {
     namespaced: true,
     state: {
-        professors: {data:[],count:0}
+        activity: [],
+        student_activity: null
     },
     getters: {
-        getProfessor: state => state.professors
+        getActivity: state => state.activity,
+        getStudentActivity: state => state.student_activity
     },
     mutations: {
-        SET_PROFESSORS(state, payload){
-            state.professors = payload
-        }
+        SET_ACTIVITY(state, payload){
+            state.activity = payload
+        },
+        SET_STUDENT_ACTIVITY(state, payload){
+            state.student_activity = payload
+        },
     },
     actions:{
-        // initStore(context){
-        //     let user_info = JSON.parse(localStorage.getItem('user_info'))
-        //     context.commit('SET_USER_INFO', user_info)
-        // },
-        fetchProf(context, payload){
+        getActivity(context, payload){
             return new Promise((resolve, reject) => {
-                getProf(payload).then(res => {
+                getStudentActivities(payload).then(res => {
                     if(res.response){
-                        context.commit('SET_PROFESSORS', res)
+                        context.commit('SET_ACTIVITY', res.data)
                         resolve(res)
                     }else{
                         resolve(res)
@@ -33,10 +34,11 @@ var store = {
                 }).catch(err => { reject(err) })
             })
         },
-        createProf(context, payload){
+        getStudentActivity(context, payload){
             return new Promise((resolve, reject) => {
-                createProf(payload).then(res => {
+                getStudentActivity(payload).then(res => {
                     if(res.response){
+                        context.commit('SET_STUDENT_ACTIVITY', res.data)
                         resolve(res)
                     }else{
                         resolve(res)

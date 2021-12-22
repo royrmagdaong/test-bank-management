@@ -41,6 +41,22 @@ import AdminSubjectCreate from './components/admin/subjects/CreateSubject'
 import ProfessorBase from './views/professor/Base'
 import ProfessorDashboard from './components/professor/dashboard/Dashboard' // DASHBOARD
 import ProfessorDashboardIndex from './components/professor/dashboard/Index'
+import ProfessorDashboardActivity from './components/professor/dashboard/activity/Base'
+import ProfessorDashboardActivityIndex from './components/professor/dashboard/activity/Index'
+import ProfessorDashboardActivityCreate from './components/professor/dashboard/activity/Create'
+import ProfessorDashboardActivityEdit from './components/professor/dashboard/activity/Edit'
+import ProfessorDashboardExam from './components/professor/dashboard/exam/Base'
+import ProfessorDashboardExamIndex from './components/professor/dashboard/exam/Index'
+import ProfessorDashboardExamCreate from './components/professor/dashboard/exam/Create'
+import ProfessorDashboardExamEdit from './components/professor/dashboard/exam/Edit'
+import ProfessorDashboardGrowth from './components/professor/dashboard/growth/Index'
+import ProfessorDashboardModule from './components/professor/dashboard/module/Index'
+import ProfessorDashboardNotes from './components/professor/dashboard/notes/Index'
+import ProfessorDashboardQuiz from './components/professor/dashboard/quiz/Base'
+import ProfessorDashboardQuizIndex from './components/professor/dashboard/quiz/Index'
+import ProfessorDashboardQuizCreate from './components/professor/dashboard/quiz/Create'
+import ProfessorDashboardQuizEdit from './components/professor/dashboard/quiz/Edit'
+import ProfessorDashboardRetake from './components/professor/dashboard/retake/Index'
 import ProfessorHelp from './components/professor/help/Help' // HELP
 import ProfessorHelpIndex from './components/professor/help/Index'
 import ProfessorProfile from './components/professor/profile/Profile' // PROFILE
@@ -54,6 +70,14 @@ import ProfessorSubjectsIndex from './components/professor/subjects/Index'
 import StudentBase from './views/student/Base'
 import StudentDashboard from './components/student/dashboard/Dashboard' // DASHBOARD
 import StudentDashboardIndex from './components/student/dashboard/Index'
+import StudentDashboardActivity from './components/student/dashboard/activity/Base' // Activity
+import StudentDashboardActivityIndex from './components/student/dashboard/activity/Index'
+import StudentDashboardActivityItem from './components/student/dashboard/activity/ActivityItem'
+import StudentDashboardExam from './components/student/dashboard/exam/Index'
+import StudentDashboardGrowth from './components/student/dashboard/growth/Index'
+import StudentDashboardModule from './components/student/dashboard/module/Index'
+import StudentDashboardNotes from './components/student/dashboard/notes/Index'
+import StudentDashboardQuiz from './components/student/dashboard/quiz/Index'
 import StudentHelp from './components/student/help/Help' // HELP
 import StudentHelpIndex from './components/student/help/Index'
 import StudentProfessors from './components/student/professors/Professors' // PROFESSORS
@@ -241,13 +265,16 @@ const router =  new Router({
     },
     {
       path: '/student',
-      name: 'student',
       component: StudentBase,
       meta:{
         requiresAuth: true,
         isStudentOnly: true
       },
       children: [
+        {
+          path: '/',
+          redirect: 'dashboard'
+        },
         { 
           path: "dashboard",
           component: StudentDashboard,
@@ -255,6 +282,40 @@ const router =  new Router({
             {
               path: '/',
               component: StudentDashboardIndex
+            },
+            {
+              path: 'activity',
+              component: StudentDashboardActivity,
+              children: [
+                {
+                  path: '/',
+                  component: StudentDashboardActivityIndex
+                },
+                {
+                  path: ':id',
+                  component: StudentDashboardActivityItem
+                }
+              ]
+            },
+            {
+              path: 'exam',
+              component: StudentDashboardExam
+            },
+            {
+              path: 'growth-development',
+              component: StudentDashboardGrowth
+            },
+            {
+              path: 'module',
+              component: StudentDashboardModule
+            },
+            {
+              path: 'notes',
+              component: StudentDashboardNotes
+            },
+            {
+              path: 'quiz',
+              component: StudentDashboardQuiz
             }
           ]
         },
@@ -310,6 +371,76 @@ const router =  new Router({
               {
                 path: '/',
                 component: ProfessorDashboardIndex
+              },
+              {
+                path: 'activity',
+                component: ProfessorDashboardActivity,
+                children:[
+                  {
+                    path: '/',
+                    component: ProfessorDashboardActivityIndex
+                  },
+                  {
+                    path: 'create',
+                    component: ProfessorDashboardActivityCreate
+                  },
+                  {
+                    path: 'edit/:id',
+                    component: ProfessorDashboardActivityEdit
+                  }
+                ]
+              },
+              {
+                path: 'exam',
+                component: ProfessorDashboardExam,
+                children:[
+                  {
+                    path: '/',
+                    component: ProfessorDashboardExamIndex
+                  },
+                  {
+                    path: 'create',
+                    component: ProfessorDashboardExamCreate
+                  },
+                  {
+                    path: 'edit/:id',
+                    component: ProfessorDashboardExamEdit
+                  }
+                ]
+              },
+              {
+                path: 'growth-development',
+                component: ProfessorDashboardGrowth
+              },
+              {
+                path: 'module',
+                component: ProfessorDashboardModule
+              },
+              {
+                path: 'notes',
+                component: ProfessorDashboardNotes
+              },
+              {
+                path: 'quiz',
+                component: ProfessorDashboardQuiz,
+                children:[
+                  {
+                    path: '/',
+                    component: ProfessorDashboardQuizIndex
+                  },
+                  {
+                    path: 'create',
+                    component: ProfessorDashboardQuizCreate
+                  },
+                  {
+                    path: 'edit/:id',
+                    component: ProfessorDashboardQuizEdit
+                  }
+                ]
+              },
+              {
+                path: 'retake',
+                component: ProfessorDashboardRetake
               }
             ]
           },

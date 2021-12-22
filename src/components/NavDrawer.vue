@@ -75,7 +75,6 @@ export default {
         }
     },
     mounted(){
-        console.log(this.$route.path)
         if(get(this.userInfo, 'role') === 'admin'){
             this.navItems = this.adminItems
         }else if(get(this.userInfo, 'role') === 'professor'){

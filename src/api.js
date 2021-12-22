@@ -269,6 +269,29 @@ export function getStudentInfo(){
     })
 }
 
+// FOR STUDENT
+
+export function getStudentActivities(){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getStudentActivities)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getStudentActivity(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getStudentActivity,{
+            activity_id: payload.activity_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+
+// Prof
+
 export function getProfessorInfo(){
     return new Promise((resolve, reject) => {
         axios.post(endpoints.getProfessorInfo, {})
@@ -281,6 +304,317 @@ export function getProfessorSubjects(payload){
     return new Promise((resolve, reject) => {
         axios.post(endpoints.getProfessorSubjects, {
             prof_id: payload.prof_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getProfessorClassAndSubjects(){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getProfessorClassAndSubjects)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function createActivity(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.createActivity, {
+            activityName: payload.activityName,
+            questions: payload.questions,
+            subj_id: payload.subj_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getProfActivities(){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getProfActivities)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getActivityById(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(`${endpoints.getActivityById}/${payload.id}`)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function updateActivity(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.updateActivity,{
+            activityName: payload.activityName,
+            activityId: payload.activityId,
+            questions: payload.questions
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function deleteActivity(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(`${endpoints.deleteActivity}/${payload.id}`)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getActivityCount(){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getActivityCount)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function assignActivityToClass(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.assignActivityToClass,{
+            class_id: payload.class_id,
+            activity_id: payload.activity_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getClassByProfActivity(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getClassByProfActivity,{
+            activity_id: payload.activity_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getAllClassByActivity(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getAllClassByActivity,{
+            activity_id: payload.activity_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function unAssignActivityToClass(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.unAssignActivityToClass,{
+            class_id: payload.class_id,
+            activity_id: payload.activity_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function setExamDuration(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.setExamDuration,{
+            time_duration: payload.time_duration,
+            activity_id: payload.activity_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function createQuiz(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.createQuiz, {
+            quizName: payload.quizName,
+            questions: payload.questions
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getProfQuizzes(){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getProfQuizzes)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getQuizById(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(`${endpoints.getQuizById}/${payload.id}`)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function updateQuiz(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.updateQuiz,{
+            quizName: payload.quizName,
+            quizId: payload.quizId,
+            questions: payload.questions
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function deleteQuiz(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(`${endpoints.deleteQuiz}/${payload.id}`)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getQuizCount(){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getQuizCount)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function assignQuizToClass(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.assignQuizToClass,{
+            class_id: payload.class_id,
+            quiz_id: payload.quiz_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getClassByProfQuiz(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getClassByProfQuiz,{
+            quiz_id: payload.quiz_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function unassignQuizToClass(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.unassignQuizToClass,{
+            class_id: payload.class_id,
+            quiz_id: payload.quiz_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getAllClassAssignedToQuiz(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getAllClassAssignedToQuiz,{
+            quiz_id: payload.quiz_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function createExam(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.createExam, {
+            examName: payload.examName,
+            questions: payload.questions
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getProfExams(){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getProfExams)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getExamById(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(`${endpoints.getExamById}/${payload.id}`)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function updateExam(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.updateExam,{
+            examName: payload.examName,
+            examId: payload.examId,
+            questions: payload.questions
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function deleteExam(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(`${endpoints.deleteExam}/${payload.id}`)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getExamCount(){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getExamCount)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function assignExamToClass(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.assignExamToClass,{
+            class_id: payload.class_id,
+            exam_id: payload.exam_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getClassByProfExam(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getClassByProfExam,{
+            exam_id: payload.exam_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getAllClassByExam(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.getAllClassByExam,{
+            exam_id: payload.exam_id
+        })
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function unAssignExamToClass(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.unAssignExamToClass,{
+            class_id: payload.class_id,
+            exam_id: payload.exam_id
         })
         .then(res => { resolve(res.data)})
         .catch(err => { reject(err)} )
