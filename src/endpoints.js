@@ -9,7 +9,7 @@ const activity = 'activity/'
 const quiz = 'quiz/'
 const exam = 'exam/'
 
-const server_name = 'http://localhost:3000'
+const server_name = 'https://roymagdaong.tech'
 
 export default {
     // general user
