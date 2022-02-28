@@ -620,3 +620,27 @@ export function unAssignExamToClass(payload){
         .catch(err => { reject(err)} )
     })
 }
+
+export function uploadModule(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.uploadModule,payload.formData)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getProfModules(){
+    return new Promise((resolve, reject) => {
+        axios.get(endpoints.getProfModules)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getProfModulesCount(){
+    return new Promise((resolve, reject) => {
+        axios.get(endpoints.getProfModulesCount)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}

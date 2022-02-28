@@ -33,10 +33,11 @@
     </v-col>
     <v-col cols="12" md="3">
       <v-card tile class="pa-4 dashboard-item" @click="routeTo('dashboard/module')" height="200">
-        <div class="title text-center">MODULE</div>
+        <div class="title text-center">MODULES</div>
+        <div class="display-2 text-center mt-8">{{ moduleCount }}</div>
       </v-card>
     </v-col>
-    <v-col cols="12" md="4">
+    <!-- <v-col cols="12" md="4">
       <v-card tile class="pa-4 dashboard-item" @click="routeTo('dashboard/growth-development')" height="200">
         <div class="title text-center">GROWTH DEVELOPMENT</div>
       </v-card>
@@ -50,7 +51,7 @@
       <v-card tile class="pa-4 dashboard-item" @click="routeTo('dashboard/retake')" height="200">
         <div class="title text-center">RETAKE</div>
       </v-card>
-    </v-col>
+    </v-col> -->
   </v-row>
 </template>
 
@@ -91,12 +92,16 @@ export default {
     },
     examCount(){
       return this.$store.getters['professorExam/getExamCount']
+    },
+    moduleCount(){
+      return this.$store.getters['professorModule/getModuleCount']
     }
   },
   mounted(){
     this.getActivityCount()
     this.getQuizCount()
     this.getExamCount()
+    this.getModuleCount()
   },
   methods:{
     routeTo(route){
@@ -112,6 +117,9 @@ export default {
     },
     getExamCount(){
       this.$store.dispatch('professorExam/getExamCount')
+    },
+    getModuleCount(){
+      this.$store.dispatch('professorModule/getProfModulesCount')
     }
   }
 }

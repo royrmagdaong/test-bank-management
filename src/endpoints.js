@@ -8,6 +8,7 @@ const _class = 'class/'
 const activity = 'activity/'
 const quiz = 'quiz/'
 const exam = 'exam/'
+const module_ = 'module/'
 
 const server_name = 'https://roymagdaong.tech'
 
@@ -78,5 +79,8 @@ export default {
     getClassByProfExam: exam + 'class-prof-exam',
     getAllClassByExam: exam + 'class-by-exam',
     unAssignExamToClass: exam + 'unassign-exam-to-class',
+    uploadModule: module_ + 'upload',
+    getProfModules: module_,
+    getProfModulesCount: module_ + 'count',
     
 }
